@@ -30,6 +30,7 @@ export const site = {
   tautan: {
     bantuan: "/bantuan",
     laporanKerja: "/laporan-kerja",
+    tera: "/tera",
     ngobrol: "#ngobrol",
   },
 } as const;

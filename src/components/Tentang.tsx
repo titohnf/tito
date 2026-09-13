@@ -1,6 +1,7 @@
 import { tentang } from "@/content/profil";
 import { site } from "@/config/site";
 import { Tombol } from "./Tombol";
+import { MembangunTera } from "./MembangunTera";
 import styles from "./Tentang.module.css";
 
 export function Tentang() {
@@ -15,9 +16,12 @@ export function Tentang() {
           {tentang.map((bab, i) => (
             <li key={bab.id} id={bab.id} className={styles.bab}>
               <div className={styles.kepalaBab}>
-                <span className={styles.nomor} aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <p className={styles.labelBab}>
+                  <span>{bab.label}</span>
+                  <span className={styles.nomor} aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </p>
                 <h3 className={styles.judul}>{bab.judul}</h3>
               </div>
 
@@ -28,8 +32,15 @@ export function Tentang() {
 
                 {bab.funFact && (
                   <aside className={styles.funFact}>
-                    <span className={styles.funFactLabel}>Fun fact</span>
-                    <p>{bab.funFact}</p>
+                    <p>
+                      <span className={styles.funFactTag}>
+                        <svg viewBox="0 0 12 12" aria-hidden="true">
+                          <path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" />
+                        </svg>
+                        Fun fact
+                      </span>{" "}
+                      {bab.funFact}
+                    </p>
                   </aside>
                 )}
 
@@ -44,6 +55,8 @@ export function Tentang() {
             </li>
           ))}
         </ol>
+
+        <MembangunTera />
       </div>
     </section>
   );
