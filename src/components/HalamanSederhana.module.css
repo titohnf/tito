@@ -1,0 +1,46 @@
+.halaman {
+  min-height: 70vh;
+  padding-top: 2rem;
+  padding-bottom: clamp(4rem, 10vw, 7rem);
+}
+
+.kembali {
+  display: inline-block;
+  margin-bottom: clamp(2.5rem, 7vw, 4.5rem);
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--tinta-3);
+  transition: color 0.2s;
+}
+
+.kembali:hover {
+  color: var(--tinta);
+}
+
+.judul {
+  max-width: 46rem;
+  margin-top: 0.75rem;
+  font-weight: 500;
+  font-size: clamp(2.25rem, 8vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.isi {
+  max-width: 36rem;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--tinta-2);
+}
+
+.isi > p + p {
+  margin-top: 1.25rem;
+}
+
+.isi > :global(.aksi) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}

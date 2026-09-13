@@ -1,0 +1,84 @@
+.tentang {
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+.daftar {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bab {
+  display: grid;
+  gap: 1rem;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--garis);
+  scroll-margin-top: 4.5rem;
+}
+
+.kepalaBab {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+}
+
+.nomor {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8rem;
+  color: var(--tinta-3);
+}
+
+.judul {
+  font-weight: 500;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.isi {
+  max-width: 36rem;
+  color: var(--tinta-2);
+}
+
+.isi > p + p {
+  margin-top: 1rem;
+}
+
+.funFact {
+  margin-top: 1.5rem;
+  padding: 0.1rem 0 0.1rem 1rem;
+  border-left: 2px solid var(--tinta);
+  font-size: 0.975rem;
+}
+
+.funFactLabel {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.funFact p {
+  color: var(--tinta);
+}
+
+.tautan {
+  margin-top: 1.5rem;
+  color: var(--tinta);
+  font-weight: 500;
+}
+
+@media (min-width: 900px) {
+  .bab {
+    grid-template-columns: 1fr 36rem;
+    gap: 3rem;
+  }
+  .kepalaBab {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+}

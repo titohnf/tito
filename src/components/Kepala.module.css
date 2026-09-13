@@ -1,0 +1,87 @@
+.kepala {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--latar) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.isi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.identitas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nama {
+  font-weight: 600;
+  font-size: 0.975rem;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.status {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--tinta-2);
+}
+
+.titik {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--hijau);
+}
+
+.titik::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--hijau);
+  opacity: 0.25;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.tautan {
+  display: none;
+  text-decoration: none;
+  color: var(--tinta-2);
+  transition: color 0.2s;
+}
+
+.tautan:hover {
+  color: var(--tinta);
+}
+
+.ngobrol {
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  background: var(--tinta);
+  color: var(--latar);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+@media (min-width: 720px) {
+  .status,
+  .tautan {
+    display: inline-flex;
+  }
+}

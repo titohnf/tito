@@ -1,0 +1,205 @@
+.kartu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.6rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tinta-2);
+}
+
+.info {
+  color: var(--tinta-3);
+}
+
+.info::before {
+  content: "·";
+  margin-right: 0.6rem;
+}
+
+.contoh {
+  margin-left: auto;
+  padding: 0.05rem 0.4rem;
+  border: 1px dashed var(--tinta-3);
+  border-radius: 4px;
+  font-size: 0.65rem;
+  color: var(--tinta-3);
+}
+
+.kaki {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--tinta-3);
+}
+
+/* Tulisan */
+.tulisan {
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--putih);
+  border: 1px solid var(--garis);
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+}
+
+.tulisan:hover {
+  border-color: var(--tinta-3);
+}
+
+.tulisanIsi {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.tulisanTeks {
+  flex: 1;
+  min-width: 0;
+}
+
+.judulTulisan {
+  font-weight: 500;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.pengantar {
+  margin-top: 0.6rem;
+  color: var(--tinta-2);
+  font-size: 0.975rem;
+}
+
+.gambarKecil {
+  flex-shrink: 0;
+  width: 4.5rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.gambarKecil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panah {
+  color: var(--tinta);
+  font-weight: 500;
+  transition: transform 0.2s;
+}
+
+.tulisan:hover .panah {
+  transform: translateX(3px);
+}
+
+/* Pemikiran */
+.pemikiran {
+  padding: clamp(1.25rem, 3vw, 1.5rem);
+  background: var(--panel);
+  border-radius: var(--radius);
+}
+
+.teksPemikiran {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+}
+
+/* Video */
+.video {
+  gap: 0.6rem;
+}
+
+.thumbnail {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.video:hover .thumbnail img {
+  transform: scale(1.03);
+}
+
+.play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--putih);
+  box-shadow: 0 4px 16px -6px rgb(0 0 0 / 0.25);
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s;
+}
+
+.play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  border-style: solid;
+  border-width: 0.4rem 0 0.4rem 0.65rem;
+  border-color: transparent transparent transparent var(--tinta);
+  transform: translate(-50%, -50%);
+}
+
+.video:hover .play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.durasi {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  padding: 0.05rem 0.4rem;
+  background: rgb(18 18 17 / 0.8);
+  color: var(--putih);
+  border-radius: 4px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+}
+
+.judulVideo {
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.video:hover .judulVideo {
+  text-decoration: underline;
+  text-decoration-color: var(--tinta-3);
+  text-underline-offset: 0.25em;
+}
+
+@media (min-width: 640px) {
+  .gambarKecil {
+    width: 6rem;
+  }
+}

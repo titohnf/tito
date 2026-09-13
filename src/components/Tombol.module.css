@@ -1,0 +1,53 @@
+.tombol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 3rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 0.975rem;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.tombol span[aria-hidden] {
+  transition: transform 0.2s;
+}
+
+.tombol:hover span[aria-hidden] {
+  transform: translateX(3px);
+}
+
+.utama {
+  background: var(--tinta);
+  color: var(--latar);
+}
+.utama:hover {
+  background: #33332f;
+}
+
+.garis {
+  border: 1px solid var(--garis);
+  background: var(--putih);
+  color: var(--tinta);
+}
+.garis:hover {
+  border-color: var(--tinta);
+}
+
+.teks {
+  min-height: auto;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--tinta-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+.teks:hover {
+  text-decoration-color: var(--tinta);
+}
