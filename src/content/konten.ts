@@ -43,20 +43,23 @@ export type Konten = Tulisan | Pemikiran | Video;
 export type TipeKonten = Konten["tipe"];
 
 export const konten: Konten[] = [
-  // ——— CONTOH (hapus/ganti saat konten asli sudah ada) ———
   {
     tipe: "tulisan",
-    contoh: true,
-    slug: "contoh-tulisan-panjang",
-    judul: "Judul tulisan panjang akan muncul di sini",
-    pengantar: "Satu kalimat pengantar yang bikin orang penasaran untuk lanjut baca.",
-    menitBaca: 6,
-    tanggal: "2026-09-10",
+    slug: "kurang-nasionalisme-apa-coba",
+    judul: "Kurang nasionalisme apa coba, saya sempat bikin dua usaha kampus",
+    pengantar:
+      "Sebelum masuk ke pemerintahan, saya sempat coba dua usaha bertema nasionalisme waktu kuliah. Ini ceritanya.",
+    menitBaca: 1, // sesuaikan setelah cerita dilanjutkan
+    tanggal: "2026-09-14",
     isi: [
-      "Ini paragraf contoh. Tulisan asli nanti ditaruh di file src/content/konten.ts, satu string untuk satu paragraf.",
-      "Halaman ini dibuat otomatis dari slug tulisan, jadi tidak perlu membuat file halaman baru setiap kali menulis.",
+      'Membaca buku "Indonesia di tanganmu" —oleh-oleh yang saya terima setelah mengikuti pelatihan penerima beasiswa— sepertinya menjadi pemicu jiwa nasionalisme dalam diri saya muncul. Ketika kuliah saya dan teman-teman mendirikan "Garuda Creative" (digital agency untuk UMKM) dan "Indonesia Positif" (portal berita baik tentang Indonesia). Kurang nasionalisme apa coba? Haha.',
+      "Garuda Creative sempat jadi salah satu usaha mahasiswa yang memenangkan kompetisi dan mendapatkan permodalan dari kampus.",
+      // TODO: lanjutkan cerita di sini — bagaimana akhirnya Garuda Creative dan
+      // Indonesia Positif berjalan. Tambahkan satu string per paragraf.
     ],
   },
+
+  // ——— CONTOH (hapus/ganti saat konten asli sudah ada) ———
   {
     tipe: "pemikiran",
     contoh: true,

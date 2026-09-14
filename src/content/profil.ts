@@ -3,12 +3,28 @@
  */
 export const hero = {
   sapaan: "Hi, saya Tito",
-  julukan: "Desainer Perwakilan Rakyat",
-  paragraf: [
-    "9+ tahun dipercaya mendesain layanan digital di pemerintahan.",
+  // Julukan + baris fakta pertama berganti saat di-tap. Varian pertama = default
+  // (juga yang dipakai untuk judul share/og:title di src/config/site.ts).
+  varian: [
+    {
+      julukan: "Desainer Perwakilan Rakyat",
+      fakta: "9+ tahun dipercaya mendesain layanan digital di pemerintahan.",
+    },
+    {
+      julukan: "Desainer Pelayan Rakyat",
+      fakta: "Mendirikan yayasan sendiri untuk pendidikan.",
+    },
+    {
+      julukan: "Desainer Pendamping Rakyat",
+      fakta: "Sekarang, membuka diri mendampingi usaha kecil dan ide-ide baru.",
+    },
+  ],
+  // Baris fakta kedua & ketiga (tidak ikut berganti)
+  faktaStatis: [
     "Lalu mendirikan yayasan sendiri untuk pendidikan.",
     "Sekarang, terbuka untuk mendiskusikan produk, atau ide yang ingin kamu kembangkan.",
   ],
+  petunjukGanti: "Ketuk untuk ganti",
   tombolUtama: "Lihat apa yang bisa saya bantu",
   tombolKedua: "Diskusikan ide kamu",
   catatanTombol: "Ngobrol dulu gratis, nggak ada komitmen.",
@@ -21,7 +37,7 @@ export const hero = {
 
 export type BabTentang = {
   id: string;
-  label: string; // label kecil, mis. "Dari Rakyat"
+  label: string; // label kecil, mis. "Oleh Rakyat"
   judul: string; // headline besar
   paragraf: string[];
   funFact?: string;
@@ -29,16 +45,6 @@ export type BabTentang = {
 };
 
 export const tentang: BabTentang[] = [
-  {
-    id: "dari-rakyat",
-    label: "Dari Rakyat",
-    judul: "Mulai dari usaha kampus bertema nasionalisme",
-    paragraf: [
-      'Membaca buku "Indonesia di tanganmu" —oleh-oleh yang saya terima setelah mengikuti pelatihan penerima beasiswa— sepertinya menjadi pemicu jiwa nasionalisme dalam diri saya muncul. Ketika kuliah saya dan teman-teman mendirikan "Garuda Creative" (digital agency untuk UMKM) dan "Indonesia Positif" (portal berita baik tentang Indonesia). Kurang nasionalisme apa coba? Haha.',
-    ],
-    funFact:
-      "Garuda Creative menjadi salah satu usaha mahasiswa yang memenangkan kompetisi dan mendapatkan permodalan dari kampus.",
-  },
   {
     id: "oleh-rakyat",
     label: "Oleh Rakyat",
