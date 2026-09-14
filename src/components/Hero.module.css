@@ -147,11 +147,6 @@
   color: var(--tinta-2);
 }
 
-.paragraf p:last-child {
-  margin-top: 1rem;
-  color: var(--tinta);
-}
-
 .aksi {
   display: flex;
   flex-direction: column;

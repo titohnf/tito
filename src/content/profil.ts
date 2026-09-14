@@ -3,7 +3,7 @@
  */
 export const hero = {
   sapaan: "Hi, saya Tito",
-  // Julukan + baris fakta pertama berganti saat di-tap. Varian pertama = default
+  // Julukan + baris fakta di bawahnya berganti saat di-tap. Varian pertama = default
   // (juga yang dipakai untuk judul share/og:title di src/config/site.ts).
   varian: [
     {
@@ -18,11 +18,6 @@ export const hero = {
       julukan: "Desainer Pendamping Rakyat",
       fakta: "Sekarang, membuka diri mendampingi usaha kecil dan ide-ide baru.",
     },
-  ],
-  // Baris fakta kedua & ketiga (tidak ikut berganti)
-  faktaStatis: [
-    "Lalu mendirikan yayasan sendiri untuk pendidikan.",
-    "Sekarang, terbuka untuk mendiskusikan produk, atau ide yang ingin kamu kembangkan.",
   ],
   petunjukGanti: "Ketuk untuk ganti",
   tombolUtama: "Lihat apa yang bisa saya bantu",

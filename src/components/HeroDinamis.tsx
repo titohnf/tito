@@ -71,9 +71,6 @@ export function HeroDinamis({ foto, aksi }: { foto: React.ReactNode; aksi: React
               </span>
             ))}
           </p>
-          {hero.faktaStatis.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
         </div>
         {aksi}
       </div>
