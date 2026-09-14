@@ -21,7 +21,7 @@ export default function HalamanTera() {
       <main className="wadah">
         {/* Hero kecil */}
         <header className={styles.hero}>
-          <Link href="/#membangun-tera" className={styles.kembali}>
+          <Link href="/pelayan#membangun-tera" className={styles.kembali}>
             <span aria-hidden="true">←</span> Kembali
           </Link>
           <p className="label">{tera.label}</p>

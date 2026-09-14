@@ -2,7 +2,7 @@ import Link from "next/link";
 import { site } from "@/config/site";
 import styles from "./Kepala.module.css";
 
-export function Kepala() {
+export function Kepala({ dasar = "/" }: { dasar?: string }) {
   return (
     <header className={styles.kepala}>
       <div className={`wadah ${styles.isi}`}>
@@ -16,13 +16,13 @@ export function Kepala() {
           </span>
         </div>
         <nav className={styles.nav} aria-label="Navigasi utama">
-          <Link href="/#tentang" className={styles.tautan}>
+          <Link href={`${dasar}#tentang`} className={styles.tautan}>
             Tentang
           </Link>
-          <Link href="/#pikiran" className={styles.tautan}>
+          <Link href={`${dasar}#pikiran`} className={styles.tautan}>
             Pikiran
           </Link>
-          <Link href="/#ngobrol" className={styles.ngobrol}>
+          <Link href={`${dasar}#ngobrol`} className={styles.ngobrol}>
             Ngobrol
           </Link>
         </nav>

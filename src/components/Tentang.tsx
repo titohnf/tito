@@ -1,10 +1,9 @@
-import { tentang } from "@/content/profil";
+import type { BabTentang } from "@/content/profil";
 import { site } from "@/config/site";
 import { Tombol } from "./Tombol";
-import { MembangunTera } from "./MembangunTera";
 import styles from "./Tentang.module.css";
 
-export function Tentang() {
+export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
   return (
     <section id="tentang" className={styles.tentang} aria-labelledby="tentang-judul">
       <div className="wadah">
@@ -13,14 +12,16 @@ export function Tentang() {
         </h2>
 
         <ol className={styles.daftar}>
-          {tentang.map((bab, i) => (
+          {daftarBab.map((bab, i) => (
             <li key={bab.id} id={bab.id} className={styles.bab}>
               <div className={styles.kepalaBab}>
                 <p className={styles.labelBab}>
                   <span>{bab.label}</span>
-                  <span className={styles.nomor} aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  {daftarBab.length > 1 && (
+                    <span className={styles.nomor} aria-hidden="true">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  )}
                 </p>
                 <h3 className={styles.judul}>{bab.judul}</h3>
               </div>
@@ -55,8 +56,6 @@ export function Tentang() {
             </li>
           ))}
         </ol>
-
-        <MembangunTera />
       </div>
     </section>
   );
