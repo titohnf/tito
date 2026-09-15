@@ -1,12 +1,13 @@
 :root {
-  --latar: #fafaf8;
-  --panel: #f1f0ec;
+  --latar: #fafafa;
+  --panel: #f0f0f0;
   --putih: #ffffff;
   --tinta: #121211;
   --tinta-2: #62615c;
   --tinta-3: #9c9b95;
-  --garis: #e6e5e0;
+  --garis: #e5e5e5;
   --hijau: #2f9e5b;
+  --merah: #ce1126;
 
   --lebar: 70rem;
   --tepi: clamp(1.25rem, 5vw, 2.5rem);
@@ -26,7 +27,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--latar);
+  /* Gradien dari putih di area hero */
+  background: linear-gradient(var(--putih), var(--latar)) top / 100% 44rem no-repeat, var(--latar);
   color: var(--tinta);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 1.0625rem;

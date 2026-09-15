@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: color-mix(in srgb, var(--latar) 85%, transparent);
+  background: color-mix(in srgb, var(--putih) 80%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -23,14 +23,78 @@
   text-decoration: none;
 }
 
+/* Tombol hamburger: dua garis yang berubah jadi silang saat terbuka */
+.hamburger {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: -0.6rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--tinta);
+  cursor: pointer;
+}
+
+.hamburger span,
+.hamburger span::before,
+.hamburger span::after {
+  display: block;
+  width: 1.25rem;
+  height: 1.5px;
+  border-radius: 1px;
+}
+
+.hamburger span {
+  position: relative;
+}
+
+.hamburger span::before,
+.hamburger span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  background: currentColor;
+  transition: transform 0.25s ease;
+}
+
+.hamburger span::before {
+  transform: translateY(-3.5px);
+}
+
+.hamburger span::after {
+  transform: translateY(3.5px);
+}
+
+.hamburger[aria-expanded="true"] span::before {
+  transform: rotate(45deg);
+}
+
+.hamburger[aria-expanded="true"] span::after {
+  transform: rotate(-45deg);
+}
+
+/* Layar sempit: menu turun sebagai panel di bawah header */
 .nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.875rem;
+  flex-direction: column;
+  padding: 0.5rem var(--tepi) 1.25rem;
+  background: var(--putih);
+  border-bottom: 1px solid var(--garis);
+  font-size: 1.05rem;
+}
+
+.nav[data-terbuka="false"] {
+  display: none;
 }
 
 .tautan {
+  padding-block: 0.75rem;
   text-decoration: none;
   white-space: nowrap;
   color: var(--tinta-2);
@@ -46,9 +110,26 @@
   font-weight: 500;
 }
 
-@media (min-width: 720px) {
-  .nav {
+/* Layar lebar: menu sebaris, tanpa hamburger */
+@media (min-width: 640px) {
+  .hamburger {
+    display: none;
+  }
+
+  .nav,
+  .nav[data-terbuka="false"] {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 1.5rem;
+    padding: 0;
+    background: none;
+    border: 0;
     font-size: 0.9rem;
+  }
+
+  .tautan {
+    padding-block: 0;
   }
 }

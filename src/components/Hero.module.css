@@ -27,19 +27,25 @@
 }
 
 .foto {
-  width: clamp(4.5rem, 14vw, 6rem);
+  position: relative;
+  width: clamp(5.5rem, 18vw, 7rem);
   aspect-ratio: 1;
   max-width: 100%;
   margin: 0 auto clamp(1.25rem, 3vw, 1.75rem);
   overflow: hidden;
   border-radius: 50%;
-  background: var(--panel);
+  background: var(--putih);
+  box-shadow: 0 0 0 1px var(--garis);
 }
 
 .foto img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Foto sumbernya 80×80 px: diperbesar tanpa dihaluskan → efek pixelate */
+  image-rendering: pixelated;
+  /* Geser ke bawah tanpa mengubah skala: ruang putih di atas kepala, bagian bawah kaos terpotong lingkaran */
+  transform: translateY(10%);
 }
 
 .bawah {

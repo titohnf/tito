@@ -13,11 +13,11 @@ export function Hero() {
         <Image
           src={site.foto}
           alt="Foto Tito Hanafi"
-          width={240}
-          height={240}
+          width={320}
+          height={320}
           priority
-          unoptimized={site.foto.endsWith(".svg")}
-          sizes="120px"
+          unoptimized
+          sizes="160px"
         />
       </div>
       <h1 id="hero-judul" className={styles.judul}>

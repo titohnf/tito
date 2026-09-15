@@ -20,8 +20,10 @@ export const site = {
   // TODO: ganti dengan email asli
   email: "halo@titohanafi.com",
 
-  // TODO: ganti dengan foto asli (taruh di /public/images/)
-  foto: "/images/foto-tito-placeholder.svg",
+  // Ganti nama file setiap kali foto diganti, supaya cache gambar ikut diperbarui
+  // Versi 80×80 px, ditampilkan pixelated. Buat ulang dari foto asli:
+  // sips -s format png -z 80 80 public/images/foto-tito-4.jpg --out public/images/foto-tito-4-piksel.png
+  foto: "/images/foto-tito-4-piksel.png",
 
   // Tampilkan kartu "Contoh" di segmen Apa yang Saya Pikirkan.
   // Set ke false sebelum rilis — kalau belum ada konten asli, empty state yang tampil.
