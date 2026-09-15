@@ -1,0 +1,51 @@
+.testimoni {
+  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  border-top: 1px solid var(--garis);
+}
+
+.grid {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kartu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  margin: 0;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.kutipan {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+}
+
+.orang {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  font-size: 0.85rem;
+}
+
+.nama {
+  font-weight: 500;
+}
+
+.peran {
+  color: var(--tinta-2);
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+}

@@ -1,10 +1,12 @@
 import { gambarOg, ukuranOg } from "@/lib/og";
-import { personaDefault } from "@/content/persona";
+import { hero } from "@/content/profil";
+import { site } from "@/config/site";
 
-export const alt = `Tito Hanafi — ${personaDefault.julukan}`;
+export const alt = site.judulSeo;
 export const size = ukuranOg;
 export const contentType = "image/png";
 
 export default function OgImage() {
-  return gambarOg(personaDefault.julukan, personaDefault.fakta);
+  const { awal, kata, akhir } = hero.julukan;
+  return gambarOg(`${awal} ${kata[0]} ${akhir}`, hero.catatanTombol);
 }

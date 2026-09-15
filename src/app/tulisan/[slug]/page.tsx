@@ -43,7 +43,7 @@ export default async function HalamanTulisan({ params }: Props) {
         <p key={p}>{p}</p>
       ))}
       <div className="aksi">
-        <Tombol href="/#pikiran" varian="garis">
+        <Tombol href="/pembelajaran" varian="garis">
           Baca yang lain
         </Tombol>
         <Tombol href={`/${site.tautan.ngobrol}`}>Ayo ngobrol</Tombol>

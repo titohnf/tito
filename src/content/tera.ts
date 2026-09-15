@@ -29,7 +29,7 @@ export const tera = {
 
   // TODO: judul bab di bawah masih usulan — silakan ganti sesuai cerita asli
   cerita: [
-    { judul: "Kenapa desain aja nggak cukup", isi: [] },
+    { judul: "Kenapa desain saja tidak cukup", isi: [] },
     { judul: "Sistem internal untuk operasional bimbel", isi: [] },
     { judul: "Membangun website Tera", isi: [] },
   ] as BabCerita[],

@@ -33,9 +33,9 @@ export function CtaInteraktif() {
         </h2>
 
         <form className={styles.kalimat} onSubmit={(e) => e.preventDefault()}>
-          <span>Kamu seorang </span>
+          <span>Kamu </span>
           <label htmlFor={idPeran} className="sr-only">
-            Kamu seorang
+            Kamu
           </label>
           <span className={styles.menempel}>
             <span className={styles.pilihWadah}>
@@ -58,11 +58,11 @@ export function CtaInteraktif() {
                   </option>
                 ))}
               </select>
-            </span>,
+            </span>
           </span>
-          <span> dan saat ini kamu.. </span>
+          <span> dan </span>
           <label htmlFor={idKebutuhan} className="sr-only">
-            dan saat ini kamu
+            dan
           </label>
           <span className={styles.pilihWadah}>
             <span className={styles.cermin} aria-hidden="true">
@@ -99,14 +99,14 @@ export function CtaInteraktif() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ayo Ngobrol <span aria-hidden="true">→</span>
+                  Kirim lewat WhatsApp <span aria-hidden="true">↗</span>
                 </a>
                 <p className={styles.catatan}>{catatanCta}</p>
               </div>
             </>
           ) : (
             <p className={styles.petunjuk}>
-              Pilih dua-duanya, nanti saya siapkan pesan pembukanya.
+              Pilih keduanya, pesan pembukanya langsung jadi.
             </p>
           )}
         </div>

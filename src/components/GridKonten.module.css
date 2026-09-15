@@ -104,3 +104,28 @@
   font-size: 0.85rem;
   color: var(--tinta-3);
 }
+
+/* Hanya satu jenis konten: grid kartu biasa, tanpa filter & tanpa masonry */
+.gridSederhana {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gridSederhana > li > * {
+  height: 100%;
+}
+
+@media (min-width: 640px) {
+  .gridSederhana {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .gridSederhana {
+    gap: 1.25rem;
+  }
+}

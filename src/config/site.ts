@@ -13,7 +13,7 @@ export const site = {
   // Untuk preview link (WhatsApp, Instagram, dsb.)
   judulSeo: "Tito Hanafi — Desainer Perwakilan Rakyat",
   deskripsiSeo:
-    "9+ tahun mendesain layanan digital di pemerintahan, lalu mendirikan yayasan pendidikan. Sekarang terbuka untuk diskusi produk atau ide yang ingin kamu kembangkan.",
+    "9 tahun merancang layanan publik untuk jutaan orang. Sekarang, pengalaman itu saya pakai untuk bantu kamu membangun produk.",
 
   // TODO: ganti dengan nomor WhatsApp asli (format internasional, tanpa + dan spasi)
   whatsapp: "6281234567890",
@@ -27,9 +27,14 @@ export const site = {
   // Set ke false sebelum rilis — kalau belum ada konten asli, empty state yang tampil.
   tampilkanContoh: true,
 
+  // Jenis konten yang tampil di "Apa yang saya pikirkan".
+  // Tambahkan "pemikiran" / "video" lagi kalau sudah siap — datanya tetap tersimpan di src/content/konten.ts.
+  tipeKontenAktif: ["tulisan"] as ("tulisan" | "pemikiran" | "video")[],
+
   tautan: {
     bantuan: "/bantuan",
-    laporanKerja: "/laporan-kerja",
+    rekamJejak: "/rekam-jejak",
+    pembelajaran: "/pembelajaran",
     tera: "/tera",
     ngobrol: "#ngobrol",
   },

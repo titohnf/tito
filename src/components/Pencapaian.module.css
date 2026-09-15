@@ -1,0 +1,80 @@
+.pencapaian {
+  padding-block: clamp(0.5rem, 2vw, 1.5rem) clamp(3rem, 8vw, 5rem);
+}
+
+/*
+ * Satu kotak bergaris di dalam container. Garis pemisah antar sel dibuat
+ * dari celah 1px yang memperlihatkan warna garis di belakangnya.
+ * HP: usia penuh + 2 × 2 · tablet: usia penuh + 4 kolom · desktop: 5 kolom sebaris
+ */
+.daftar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--garis);
+  border-radius: var(--radius);
+  background: var(--garis);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1rem, 2.5vw, 1.35rem) clamp(1rem, 2.5vw, 1.5rem);
+  background: var(--putih);
+}
+
+.usia {
+  grid-column: 1 / -1;
+}
+
+.kelompok {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.angka {
+  margin-top: 0.75rem;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.2vw, 2rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: var(--tinta);
+}
+
+.plus {
+  margin-left: 0.04em;
+  font-weight: 400;
+  color: var(--tinta-3);
+}
+
+.keterangan {
+  margin-top: 0.45rem;
+  font-size: 0.825rem;
+  line-height: 1.4;
+  color: var(--tinta-2);
+}
+
+@media (min-width: 640px) {
+  .daftar {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .daftar {
+    grid-template-columns: minmax(0, 2fr) repeat(4, minmax(0, 1fr));
+  }
+
+  .usia {
+    grid-column: auto;
+  }
+}

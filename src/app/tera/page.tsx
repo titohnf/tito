@@ -21,7 +21,7 @@ export default function HalamanTera() {
       <main className="wadah">
         {/* Hero kecil */}
         <header className={styles.hero}>
-          <Link href="/pelayan#membangun-tera" className={styles.kembali}>
+          <Link href="/#pelayan" className={styles.kembali}>
             <span aria-hidden="true">←</span> Kembali
           </Link>
           <p className="label">{tera.label}</p>
@@ -45,7 +45,7 @@ export default function HalamanTera() {
                   {bab.isi.length > 0 ? (
                     bab.isi.map((p) => <p key={p}>{p}</p>)
                   ) : (
-                    <p className={styles.menyusul}>Bagian ini sedang ditulis.</p>
+                    <p className={styles.menyusul}>Sedang ditulis.</p>
                   )}
                 </div>
               </li>
@@ -93,7 +93,7 @@ export default function HalamanTera() {
               : [1, 2].map((n) => (
                   <article key={n} className={`${styles.kartuGagal} ${styles.kosong}`}>
                     <span className="label">Eksperimen #{n}</span>
-                    <p>Ceritanya menyusul.</p>
+                    <p>Sedang ditulis.</p>
                   </article>
                 ))}
           </div>
@@ -101,7 +101,7 @@ export default function HalamanTera() {
 
         <div className={styles.penutup}>
           <Tombol href={`/${site.tautan.ngobrol}`}>
-            Diskusikan ide kamu <span aria-hidden="true">→</span>
+            Ayo ngobrol <span aria-hidden="true">→</span>
           </Tombol>
           <Tombol href="/" varian="garis">
             Kembali ke beranda

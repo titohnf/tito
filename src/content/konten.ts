@@ -108,6 +108,7 @@ export const konten: Konten[] = [
 export function kontenTampil(): Konten[] {
   return konten
     .filter((k) => site.tampilkanContoh || !k.contoh)
+    .filter((k) => site.tipeKontenAktif.includes(k.tipe))
     .sort((a, b) => b.tanggal.localeCompare(a.tanggal));
 }
 

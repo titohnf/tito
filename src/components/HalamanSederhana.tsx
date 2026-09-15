@@ -7,10 +7,12 @@ import styles from "./HalamanSederhana.module.css";
 export function HalamanSederhana({
   label,
   judul,
+  lebar = false,
   children,
 }: {
-  label: string;
+  label?: string;
   judul: string;
+  lebar?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -20,9 +22,9 @@ export function HalamanSederhana({
         <Link href="/" className={styles.kembali}>
           <span aria-hidden="true">←</span> Kembali ke beranda
         </Link>
-        <p className="label">{label}</p>
+        {label && <p className="label">{label}</p>}
         <h1 className={styles.judul}>{judul}</h1>
-        <div className={styles.isi}>{children}</div>
+        <div className={`${styles.isi} ${lebar ? styles.isiLebar : ""}`}>{children}</div>
       </main>
       <Kaki />
     </>

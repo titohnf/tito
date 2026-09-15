@@ -1,4 +1,5 @@
 .hero {
+  text-align: center;
   padding-top: clamp(3rem, 10vw, 7.5rem);
   padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
 }
@@ -17,22 +18,6 @@
 
 .julukan {
   color: var(--tinta-3);
-}
-
-/* Julukan & fakta masuk pelan saat persona berganti */
-.masuk {
-  animation: masuk 0.5s ease both;
-}
-
-@keyframes masuk {
-  from {
-    opacity: 0;
-    transform: translateY(0.2em);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .foto {
@@ -58,64 +43,16 @@
   object-fit: cover;
 }
 
-/* Pilihan persona */
-.persona {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem 1rem;
-  margin-top: 1.5rem;
-}
-
-.personaLabel {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--tinta-2);
-}
-
-.pilihan {
-  display: inline-flex;
-  gap: 2px;
-  margin: 0;
-  padding: 4px;
-  list-style: none;
-  border-radius: 999px;
-  background: var(--panel);
-}
-
-.opsi {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.4rem;
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-  font-size: 0.925rem;
-  font-weight: 500;
-  color: var(--tinta-2);
-  text-decoration: none;
-  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-}
-
-.opsi:hover {
-  color: var(--tinta);
-  background: rgb(255 255 255 / 0.55);
-}
-
-.opsi[aria-current="page"] {
-  background: var(--tinta);
-  color: var(--latar);
-}
-
 .bawah {
   display: grid;
-  gap: 2rem;
+  justify-items: center;
+  gap: 1.75rem;
   margin-top: clamp(1.75rem, 4vw, 2.75rem);
 }
 
 .paragraf {
   max-width: 33rem;
+  margin-inline: auto;
   font-size: clamp(1.05rem, 2.2vw, 1.175rem);
   line-height: 1.6;
   color: var(--tinta-2);
@@ -124,91 +61,37 @@
 .aksi {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-}
-
-.aksi > a,
-.aksiKedua > a {
+  align-items: center;
+  gap: 0.85rem;
   width: 100%;
 }
 
-.aksiKedua {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
+.aksi > a {
+  width: 100%;
 }
 
 .catatan {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
   color: var(--tinta-3);
   text-align: center;
 }
 
-.dipercaya {
-  display: grid;
-  gap: 0.75rem;
-  margin-top: clamp(3.5rem, 8vw, 5.5rem);
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--garis);
+.catatan a {
+  color: var(--tinta);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--tinta-3);
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color 0.2s;
 }
 
-.dipercaya ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 1.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.975rem;
-  font-weight: 500;
-  color: var(--tinta-2);
+.catatan a:hover {
+  text-decoration-color: var(--tinta);
 }
 
 @media (min-width: 560px) {
-  .aksi {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-  }
-  .aksi > a,
-  .aksiKedua > a {
+  .aksi > a {
     width: auto;
-  }
-  .catatan {
-    text-align: left;
-    padding-left: 0.25rem;
-  }
-}
-
-@media (min-width: 900px) {
-  .bawah {
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 4rem;
-  }
-  .aksi {
-    justify-content: flex-end;
-  }
-  .dipercaya {
-    grid-template-columns: 14rem 1fr;
-    align-items: baseline;
-  }
-}
-
-/* Layar sempit: tiga pilihan persona dibagi rata supaya selalu muat */
-@media (max-width: 479px) {
-  .persona {
-    display: grid;
-    gap: 0.6rem;
-  }
-  .pilihan {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    width: 100%;
-  }
-  .opsi {
-    justify-content: center;
-    padding-inline: 0.4rem;
-    font-size: 0.875rem;
   }
 }

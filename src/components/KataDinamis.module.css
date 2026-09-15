@@ -1,0 +1,55 @@
+/* Layar sempit: kata dinamis selalu di barisnya sendiri → tinggi judul tetap */
+.slot {
+  display: block;
+}
+
+.tumpuk {
+  position: relative;
+  display: block;
+}
+
+/* Tak terlihat — hanya memberi ukuran & baseline */
+.pengisi {
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.kata {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  white-space: nowrap;
+  color: var(--tinta);
+  transform: translate(-50%, 0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Kata yang belum tampil: disembunyikan tanpa animasi, siap masuk dari bawah */
+.kata[data-state="diam"] {
+  opacity: 0;
+  transform: translate(-50%, 0.35em);
+  visibility: hidden;
+  transition: none;
+}
+
+/* Kata yang baru saja diganti: keluar ke atas */
+.kata[data-state="keluar"] {
+  opacity: 0;
+  transform: translate(-50%, -0.35em);
+}
+
+/* Layar lebar: judul muat satu baris, lebar slot bertransisi mengikuti kata aktif */
+@media (min-width: 1000px) {
+  .slot {
+    display: inline-block;
+    width: var(--lebar-kata, auto);
+    transition: width 0.5s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kata,
+  .slot {
+    transition: none;
+  }
+}

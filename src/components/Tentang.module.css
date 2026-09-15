@@ -1,25 +1,32 @@
 .tentang {
   padding-block: clamp(2.5rem, 7vw, 5rem);
+  /* Garis penuh di atas, seimbang dengan garis di atas Testimoni */
+  border-top: 1px solid var(--garis);
 }
 
 .daftar {
-  margin: 1.25rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .bab {
   display: grid;
-  gap: 0.9rem;
+  gap: 1.75rem;
   padding-block: clamp(1.5rem, 4.5vw, 3rem);
   border-top: 1px solid var(--garis);
   scroll-margin-top: 4.5rem;
 }
 
-/* Label kecil + nomor di pojok */
+/* Tanpa garis pembatas di atas blok pertama */
+.daftar > .bab:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* Label kecil di atas headline */
 .labelBab {
   display: flex;
-  justify-content: space-between;
   align-items: baseline;
   gap: 0.75rem;
   font-family: var(--font-mono), ui-monospace, monospace;
@@ -27,11 +34,6 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--tinta-2);
-}
-
-.nomor {
-  font-size: 0.66rem;
-  color: var(--tinta-3);
 }
 
 .judul {
@@ -46,6 +48,7 @@
 
 .isi {
   max-width: 36rem;
+  margin-top: 1rem;
   font-size: 1rem;
   color: var(--tinta-2);
 }
@@ -94,20 +97,76 @@
   font-weight: 500;
 }
 
+/* Kolom kanan: 3 kartu sorotan */
+.sorotan {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kartu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.75rem 0.75rem 1rem;
+  border: 1px solid var(--garis);
+  border-radius: var(--radius);
+  background: var(--putih);
+}
+
+.gambar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--panel);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.gambar img {
+  object-fit: cover;
+}
+
+.teksKartu {
+  flex: 1;
+  display: flex;
+  padding-inline: 0.25rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+
+.judulKartu {
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  color: var(--tinta);
+}
+
+.tombolKartu {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
 @media (min-width: 900px) {
   .bab {
-    grid-template-columns: minmax(0, 1fr) 34rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 3.5rem;
   }
-  .kepalaBab {
+  .kiri {
     position: sticky;
     top: 6rem;
     align-self: start;
-  }
-  .labelBab {
-    justify-content: flex-start;
-  }
-  .isi {
-    padding-top: 1.6rem;
   }
 }

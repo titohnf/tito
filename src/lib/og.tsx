@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { hero } from "@/content/profil";
 
 export const ukuranOg = { width: 1200, height: 630 };
 
@@ -13,10 +14,10 @@ async function muatFont(family: string, teks: string) {
   return (await fetch(url)).arrayBuffer();
 }
 
-/** Gambar preview link (WhatsApp, Instagram, dsb.) untuk satu persona. */
+/** Gambar preview link (WhatsApp, Instagram, dsb.). */
 export async function gambarOg(julukan: string, bawah: string) {
   const atas = "TITO HANAFI";
-  const sapaan = "Hi, saya Tito";
+  const sapaan = hero.sapaan;
 
   let fonts: { name: string; data: ArrayBuffer; weight: 400 | 500 }[] = [];
   try {
