@@ -7,28 +7,21 @@ import { KataDinamis } from "./KataDinamis";
 import styles from "./Hero.module.css";
 
 export function Hero() {
-  // Foto diselipkan sebelum kata terakhir sapaan: "Halo, saya [foto] Tito"
-  const kata = hero.sapaan.split(" ");
-  const nama = kata.pop();
-
   return (
     <section className={`wadah ${styles.hero}`} aria-labelledby="hero-judul">
+      <div className={styles.foto}>
+        <Image
+          src={site.foto}
+          alt="Foto Tito Hanafi"
+          width={240}
+          height={240}
+          priority
+          unoptimized={site.foto.endsWith(".svg")}
+          sizes="120px"
+        />
+      </div>
       <h1 id="hero-judul" className={styles.judul}>
-        <span className={styles.sapaan}>
-          {kata.join(" ")}{" "}
-          <span className={styles.foto}>
-            <Image
-              src={site.foto}
-              alt="Foto Tito Hanafi"
-              width={240}
-              height={240}
-              priority
-              unoptimized={site.foto.endsWith(".svg")}
-              sizes="120px"
-            />
-          </span>{" "}
-          {nama}
-        </span>
+        <span className={styles.sapaan}>{hero.sapaan}</span>
         <span className={styles.julukan}>
           {hero.julukan.awal}{" "}
           <KataDinamis kata={hero.julukan.kata} intervalMs={hero.intervalGantiMs} />{" "}

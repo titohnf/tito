@@ -11,7 +11,7 @@ export const hero = {
   },
   intervalGantiMs: 3000,
   paragraf:
-    "9 tahun merancang layanan publik untuk jutaan orang. Sekarang, pengalaman itu saya pakai untuk bantu kamu membangun produk.",
+    "Dari mendesain layanan publik hingga mendirikan yayasan, sekarang terbuka untuk mendiskusikan produk yang kamu kembangkan.",
   tombolUtama: "Lihat apa yang bisa saya bantu",
   // Tautan teks kecil di bawah tombol utama, langsung ke WhatsApp
   tautanWhatsApp: "chat langsung di WhatsApp",
@@ -23,14 +23,11 @@ export const hero = {
  * Data pencapaian yang berjalan di bawah hero. Urutan di sini = urutan tampil.
  * Diambil dari cerita di segmen Tentang — pastikan tetap sinkron kalau ceritanya berubah.
  */
-// Untuk angka usia yang terus berjalan (format YYYY-MM-DD)
-export const tanggalLahir = "1993-10-07";
-
 export const pencapaian: { kelompok: string; angka: string; keterangan: string }[] = [
-  { kelompok: "Pemerintahan", angka: "9+", keterangan: "tahun jadi tenaga ahli" },
-  { kelompok: "Pemerintahan", angka: "4", keterangan: "instansi" },
-  { kelompok: "Yayasan Tera", angka: "50+", keterangan: "anak binaan" },
-  { kelompok: "Yayasan Tera", angka: "5", keterangan: "program berjalan" },
+  { kelompok: "Mengabdi", angka: "9+", keterangan: "tahun jadi tenaga ahli" },
+  { kelompok: "Membina", angka: "50+", keterangan: "anak binaan yayasan" },
+  { kelompok: "Menginisiasi", angka: "5", keterangan: "program berdampak" },
+  { kelompok: "Mendampingi", angka: "3", keterangan: "sesi konsultasi" },
 ];
 
 export type BabTentang = {

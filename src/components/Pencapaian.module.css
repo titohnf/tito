@@ -5,7 +5,7 @@
 /*
  * Satu kotak bergaris di dalam container. Garis pemisah antar sel dibuat
  * dari celah 1px yang memperlihatkan warna garis di belakangnya.
- * HP: usia penuh + 2 × 2 · tablet: usia penuh + 4 kolom · desktop: 5 kolom sebaris
+ * HP: 2 kolom (kartu terakhir penuh kalau jumlahnya ganjil) · desktop: semua sebaris
  */
 .daftar {
   display: grid;
@@ -27,7 +27,8 @@
   background: var(--putih);
 }
 
-.usia {
+/* Jumlah kartu ganjil: kartu terakhir mengisi baris penuh di layout 2 kolom */
+.item:last-child:nth-child(odd) {
   grid-column: 1 / -1;
 }
 
@@ -63,18 +64,12 @@
   color: var(--tinta-2);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 800px) {
   .daftar {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-}
 
-@media (min-width: 1000px) {
-  .daftar {
-    grid-template-columns: minmax(0, 2fr) repeat(4, minmax(0, 1fr));
-  }
-
-  .usia {
+  .item:last-child:nth-child(odd) {
     grid-column: auto;
   }
 }

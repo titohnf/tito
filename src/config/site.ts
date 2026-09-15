@@ -13,7 +13,7 @@ export const site = {
   // Untuk preview link (WhatsApp, Instagram, dsb.)
   judulSeo: "Tito Hanafi — Desainer Perwakilan Rakyat",
   deskripsiSeo:
-    "9 tahun merancang layanan publik untuk jutaan orang. Sekarang, pengalaman itu saya pakai untuk bantu kamu membangun produk.",
+    "Dari mendesain layanan publik hingga mendirikan yayasan, sekarang terbuka untuk mendiskusikan produk yang kamu kembangkan.",
 
   // TODO: ganti dengan nomor WhatsApp asli (format internasional, tanpa + dan spasi)
   whatsapp: "6281234567890",
