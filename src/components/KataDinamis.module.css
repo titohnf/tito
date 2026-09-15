@@ -24,6 +24,11 @@
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+/* Kata terkunci (mis. "Pilihan" setelah foto dicoblos) tampil hijau */
+.kata[data-akhir] {
+  color: var(--hijau);
+}
+
 /* Kata yang belum tampil: disembunyikan tanpa animasi, siap masuk dari bawah */
 .kata[data-state="diam"] {
   opacity: 0;

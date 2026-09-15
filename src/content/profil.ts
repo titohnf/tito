@@ -8,6 +8,8 @@ export const hero = {
     awal: "Desainer",
     kata: ["Perwakilan", "Pelayan", "Pendamping"],
     akhir: "Rakyat",
+    // Kata terkunci setelah foto hero "dicoblos"
+    kataPilihan: "Pilihan",
   },
   intervalGantiMs: 3000,
   paragraf:

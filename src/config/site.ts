@@ -24,6 +24,8 @@ export const site = {
   // Versi 80×80 px, ditampilkan pixelated. Buat ulang dari foto asli:
   // sips -s format png -z 80 80 public/images/foto-tito-4.jpg --out public/images/foto-tito-4-piksel.png
   foto: "/images/foto-tito-4-piksel.png",
+  // Versi jelas, tampil setelah foto "dicoblos" di hero
+  fotoAsli: "/images/foto-tito-4.jpg",
 
   // Tampilkan kartu "Contoh" di segmen Apa yang Saya Pikirkan.
   // Set ke false sebelum rilis — kalau belum ada konten asli, empty state yang tampil.
