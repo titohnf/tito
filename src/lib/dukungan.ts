@@ -9,12 +9,17 @@ import { useEffect, useSyncExternalStore } from "react";
 const TANDA = "tito:sudah-dukung";
 
 let jumlah: number | null = null;
+let didukung = false;
 let sudahDimuat = false;
 const pendengar = new Set<() => void>();
 
+function kabari() {
+  pendengar.forEach((f) => f());
+}
+
 function setJumlah(baru: number) {
   jumlah = baru;
-  pendengar.forEach((f) => f());
+  kabari();
 }
 
 function langganan(f: () => void) {
@@ -44,6 +49,9 @@ async function kirim(init?: RequestInit) {
 function muat() {
   if (sudahDimuat) return;
   sudahDimuat = true;
+  // Ditunda ke klien agar hasil render pertama sama dengan server
+  didukung = sudahDukung();
+  kabari();
   kirim();
 }
 
@@ -54,6 +62,8 @@ function ubahDukungan(aksi: "dukung" | "cabut") {
   } catch {
     // localStorage tidak tersedia (mis. mode privat tertentu): tetap kirim
   }
+  didukung = aksi === "dukung";
+  kabari();
   // Tampilkan perubahan langsung, lalu samakan dengan angka dari server
   if (jumlah !== null) setJumlah(Math.max(0, jumlah + (aksi === "dukung" ? 1 : -1)));
   kirim({
@@ -80,5 +90,15 @@ export function useJumlahDukungan() {
     langganan,
     () => jumlah,
     () => null,
+  );
+}
+
+/** true kalau browser ini tercatat sudah mendukung; selalu false saat render server. */
+export function useSudahDukung() {
+  useEffect(muat, []);
+  return useSyncExternalStore(
+    langganan,
+    () => didukung,
+    () => false,
   );
 }

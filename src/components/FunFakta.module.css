@@ -1,0 +1,131 @@
+.wadah {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/*
+ * Tinggi daftar dikunci 3 baris: jendela geser bergerak di balik jendela ini,
+ * jadi blok tidak pernah memanjang saat tombol "more" ditekan.
+ */
+.jendela {
+  --baris: 2.5rem;
+  height: calc(var(--baris) * var(--jumlah, 3));
+  overflow: hidden;
+}
+
+.daftar {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Satu fakta = satu baris dengan tinggi tetap, bullet bintang di kiri */
+.item {
+  display: grid;
+  grid-template-columns: 0.85rem 1fr;
+  align-items: center;
+  gap: 0.55rem;
+  height: var(--baris);
+  border-top: 1px solid var(--garis);
+  color: var(--tinta-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item:first-child {
+  border-top: 0;
+}
+
+/* Baris lama: naik satu baris dengan pantulan tipis */
+.item {
+  animation: geser 0.6s both;
+}
+
+/* Baris yang baru masuk: naik mulus tanpa pantulan supaya mendaratnya bersih */
+.item[data-baru="true"] {
+  animation: masuk 0.6s both;
+}
+
+.teks {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tanda {
+  width: 0.6rem;
+  height: 0.6rem;
+  fill: var(--tinta-3);
+}
+
+/*
+ * Baris lama melewati posisi akhirnya sedikit lalu menetap. Nilainya sengaja kecil:
+ * cukup untuk terasa memantul, tidak sampai terlihat melompat.
+ */
+@keyframes geser {
+  0% {
+    transform: translateY(var(--baris));
+    opacity: 0.45;
+    animation-timing-function: cubic-bezier(0.3, 0.8, 0.4, 1);
+  }
+  58% {
+    transform: translateY(-0.09rem);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.45, 0, 0.35, 1);
+  }
+  82% {
+    transform: translateY(0.025rem);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.35, 1);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/*
+ * Baris baru: naik seiring baris lain (memakai kurva dan titik tiba yang sama, 58%),
+ * lalu diam di posisinya — tidak ikut memantul.
+ */
+@keyframes masuk {
+  0% {
+    transform: translateY(var(--baris));
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.3, 0.8, 0.4, 1);
+  }
+  58% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Tombol "more" bergaya halus, mengikuti pola daftar berhitung di paulstamatiou.com */
+.lagi {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-top: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--garis);
+  border-radius: 999px;
+  background: var(--putih);
+  color: var(--tinta-2);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.lagi:hover {
+  border-color: var(--tinta);
+  color: var(--tinta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .item[data-baru="true"] {
+    animation: none;
+  }
+}

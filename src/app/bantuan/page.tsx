@@ -16,7 +16,7 @@ const kapital = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export default function Bantuan() {
   return (
     <HalamanSederhana label={pendamping?.label ?? "Bantuan"} judul="Apa yang bisa saya bantu" lebar>
-      {pendamping?.paragraf.map((p) => (
+      {pendamping?.paragraf?.map((p) => (
         <p key={p}>{p}</p>
       ))}
 

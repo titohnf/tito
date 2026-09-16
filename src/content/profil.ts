@@ -36,8 +36,9 @@ export type BabTentang = {
   id: string;
   label: string; // label kecil, mis. "Sebagai Desainer Perwakilan Rakyat"
   judul: string; // headline besar
-  paragraf: string[];
-  funFact?: string;
+  paragraf?: string[];
+  // Daftar fun fact pengganti paragraf: 3 pertama langsung tampil, sisanya di balik tombol "more"
+  funFakta?: string[];
   tautan?: { label: string; href: "bantuan" | "rekamJejak" | "tera" };
   // Kartu di kolom kanan (gambar + teks + tombol). Kosong = 3 placeholder.
   // gambar: path di /public, mis. "/images/kominfo.jpg"
@@ -48,30 +49,31 @@ export const tentang: BabTentang[] = [
   {
     id: "perwakilan",
     label: "Sebagai Desainer Perwakilan Rakyat",
-    judul: "9 tahun ikut mendesain sistem yang dipakai jutaan orang",
-    paragraf: [
-      "Sejak awal karier, saya jadi tenaga ahli di pemerintahan: Kominfo (sekarang Komdigi), Pemprov DKI Jakarta (JSC), Peruri (INA Digital), dan terakhir Kemendikdasmen (INA Digital Edu).",
+    judul: "Saya menerjemahkan visi besar ke dalam rancangan sederhana untuk semua warga.",
+    funFakta: [
+      "Menginisiasi UI/UX mini course di JSC",
+      "Memimpin 7 desainer produk di JSC",
+      'Fitur vaksin viral karena "Eren Yeager"',
+      "2 aplikasi meraih penghargaan global",
+      'Mendesain 3 "super app" di 4 instansi',
     ],
-    funFact:
-      'Saya mendesain "super app" untuk 3 dari 4 instansi itu, dan 2 di antaranya meraih penghargaan global.',
-    tautan: { label: "Lihat rekam jejak saya", href: "rekamJejak" },
   },
   {
     id: "pelayan",
     label: "Sebagai Desainer Pelayan Rakyat",
-    judul: "Mendirikan yayasan pendidikan sendiri",
-    paragraf: [
-      "Masih dengan semangat yang sama, berkontribusi untuk Indonesia yang lebih baik, saya mendirikan Yayasan Tera Inspirasi Bangsa untuk menjawab masalah pendidikan di sekitar saya.",
+    judul: "Saya mengambil peran walaupun jauh dari kesempurnaan.",
+    funFakta: [
+      "Mendirikan yayasan sebelum umur 30",
+      "Aktif di beberapa organisasi non profit",
+      "Menginisiasi kelas siap kerja anak",
+      "Wakil gubernur BEM Fakultas",
+      "Juri karya tulis inovasi & leadership",
     ],
-    tautan: { label: "Lihat cerita membangun Tera", href: "tera" },
   },
   {
     id: "pendamping",
     label: "Sebagai Desainer Pendamping Rakyat",
-    judul: "Jadi teman diskusi untuk ide dan usaha kamu",
-    paragraf: [
-      "Pengalaman merancang sistem besar dan menjalankan yayasan sendiri kini saya bagikan ke pemilik usaha, calon founder, dan organisasi yang butuh sudut pandang lain.",
-    ],
+    judul: "Saya memberi nilai tambah untuk ide dan usaha yang kamu kembangkan.",
     tautan: { label: "Lihat apa yang bisa saya bantu", href: "bantuan" },
   },
 ];

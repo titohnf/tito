@@ -18,7 +18,7 @@
 .nama {
   flex-shrink: 0;
   font-weight: 600;
-  font-size: 0.975rem;
+  font-size: 1rem;
   letter-spacing: -0.02em;
   text-decoration: none;
 }
@@ -126,7 +126,7 @@
     padding: 0;
     background: none;
     border: 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .tautan {

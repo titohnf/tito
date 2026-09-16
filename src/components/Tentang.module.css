@@ -43,7 +43,7 @@
   font-size: clamp(1.5rem, 5.4vw, 2.25rem);
   line-height: 1.15;
   letter-spacing: -0.035em;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 .isi {
@@ -57,38 +57,9 @@
   margin-top: 0.85rem;
 }
 
-/* Fun fact: ringkas, satu blok tipis dengan aksen kiri */
-.funFact {
-  margin-top: 1rem;
-  padding: 0.5rem 0.8rem;
-  border-left: 2px solid var(--tinta);
-  border-radius: 0 8px 8px 0;
-  background: var(--panel);
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.funFactTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-right: 0.35rem;
-  vertical-align: 0.08em;
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--tinta-2);
-}
-
-.funFactTag svg {
-  width: 0.6rem;
-  height: 0.6rem;
-  fill: currentColor;
-}
-
-.funFact p {
-  color: var(--tinta);
+/* Tanpa paragraf, blok pertama (fun fact/tautan) tidak perlu jarak ganda */
+.isi > :first-child {
+  margin-top: 0;
 }
 
 .tautan {
@@ -142,7 +113,7 @@
   padding-inline: 0.25rem;
   flex-direction: column;
   gap: 0.25rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--tinta-2);
 }

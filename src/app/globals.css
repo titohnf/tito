@@ -8,6 +8,10 @@
   --garis: #e5e5e5;
   --hijau: #2f9e5b;
   --merah: #ce1126;
+  /* Kuning hangat untuk penanda dukungan */
+  --kuning-latar: #fdf6e3;
+  --kuning-garis: #efdcab;
+  --kuning-tinta: #7a5a12;
 
   --lebar: 70rem;
   --tepi: clamp(1.25rem, 5vw, 2.5rem);

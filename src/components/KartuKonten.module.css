@@ -42,7 +42,7 @@
   gap: 1rem;
   margin-top: auto;
   padding-top: 0.25rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--tinta-3);
 }
 
@@ -80,7 +80,7 @@
 .pengantar {
   margin-top: 0.6rem;
   color: var(--tinta-2);
-  font-size: 0.975rem;
+  font-size: 1rem;
 }
 
 .gambarKecil {

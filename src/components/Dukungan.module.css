@@ -1,32 +1,52 @@
+/* Pil penghitung, menggantung di tengah tepi bawah lingkaran foto */
 .dukungan {
-  margin: 1rem 0 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  text-align: center;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  margin: 0;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid var(--garis);
+  border-radius: 999px;
+  background: var(--panel);
   color: var(--tinta-2);
+  font-size: 0.8rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+/* Setelah mendukung: nuansa kuning, ikut menyala saat angka bertambah */
+.dukungan[data-didukung="true"] {
+  border-color: var(--kuning-garis);
+  background: var(--kuning-latar);
+  color: var(--kuning-tinta);
+  animation: pilMasuk 0.3s ease backwards;
+}
+
+.jempol {
+  font-size: 1.05em;
+  line-height: 1;
 }
 
 .jumlah {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--tinta);
+  color: inherit;
 }
 
-/* HP: petunjuk di baris sendiri · layar lebar: sebaris, dipisah titik tengah */
-.petunjuk {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--tinta-3);
-}
-
-@media (min-width: 560px) {
-  .petunjuk {
-    display: inline;
-    font-size: inherit;
+@keyframes pilMasuk {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
   }
+}
 
-  .petunjuk::before {
-    content: "·";
-    margin-inline: 0.5em;
+@media (prefers-reduced-motion: reduce) {
+  .dukungan[data-didukung="true"] {
+    animation: none;
   }
 }

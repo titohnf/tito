@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { BabTentang } from "@/content/profil";
 import { site } from "@/config/site";
+import { FunFakta } from "./FunFakta";
 import { Tombol } from "./Tombol";
 import styles from "./Tentang.module.css";
 
@@ -32,23 +33,11 @@ export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
                 <h3 className={styles.judul}>{bab.judul}</h3>
 
                 <div className={styles.isi}>
-                  {bab.paragraf.map((p) => (
+                  {bab.paragraf?.map((p) => (
                     <p key={p}>{p}</p>
                   ))}
 
-                  {bab.funFact && (
-                    <aside className={styles.funFact}>
-                      <p>
-                        <span className={styles.funFactTag}>
-                          <svg viewBox="0 0 12 12" aria-hidden="true">
-                            <path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" />
-                          </svg>
-                          Fun fact
-                        </span>{" "}
-                        {bab.funFact}
-                      </p>
-                    </aside>
-                  )}
+                  {bab.funFakta && <FunFakta fakta={bab.funFakta} />}
 
                   {bab.tautan && (
                     <div className={styles.tautan}>

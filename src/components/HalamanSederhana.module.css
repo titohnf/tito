@@ -7,7 +7,7 @@
 .kembali {
   display: inline-block;
   margin-bottom: clamp(2.5rem, 7vw, 4.5rem);
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none;
   color: var(--tinta-3);
   transition: color 0.2s;

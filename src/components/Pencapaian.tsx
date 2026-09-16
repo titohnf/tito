@@ -1,5 +1,4 @@
 import { pencapaian } from "@/content/profil";
-import { Dukungan } from "./Dukungan";
 import styles from "./Pencapaian.module.css";
 
 /** Deretan data pencapaian di bawah hero. */
@@ -22,7 +21,6 @@ export function Pencapaian() {
           );
         })}
       </ul>
-      <Dukungan />
     </section>
   );
 }
