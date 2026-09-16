@@ -1,19 +1,21 @@
 import Image from "next/image";
 import type { BabTentang } from "@/content/profil";
 import { site } from "@/config/site";
-import { FunFakta } from "./FunFakta";
 import { Tombol } from "./Tombol";
 import styles from "./Tentang.module.css";
 
 type Sorotan = NonNullable<BabTentang["sorotan"]>[number];
 
-// TODO: isi `sorotan` di src/content/profil.ts — selama kosong, 3 kartu ini yang tampil
-const placeholder: Sorotan[] = [1, 2, 3].map((n) => ({
-  judul: `Judul sorotan ${n}`,
-  teks: "Teks singkat 1–2 kalimat yang menjelaskan sorotan ini.",
-  tombol: "Selengkapnya",
-  href: "#",
-}));
+// TODO: isi `sorotan` di src/content/profil.ts — selama kosong, kartu ini yang tampil.
+// Satu sorotan per persona; tambahkan entri di profil.ts kalau memang butuh lebih.
+const placeholder: Sorotan[] = [
+  {
+    judul: "Judul sorotan",
+    teks: "Teks singkat 1–2 kalimat yang menjelaskan sorotan ini.",
+    tombol: "Selengkapnya",
+    href: "#",
+  },
+];
 
 export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
   return (
@@ -37,8 +39,6 @@ export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
                     <p key={p}>{p}</p>
                   ))}
 
-                  {bab.funFakta && <FunFakta fakta={bab.funFakta} />}
-
                   {bab.tautan && (
                     <div className={styles.tautan}>
                       <Tombol href={site.tautan[bab.tautan.href]} varian="teks">
@@ -60,8 +60,9 @@ export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
                       )}
                     </div>
                     <div className={styles.teksKartu}>
+                      {s.label && <p className={styles.labelKartu}>{s.label}</p>}
                       <h4 className={styles.judulKartu}>{s.judul}</h4>
-                      <p>{s.teks}</p>
+                      {s.teks && <p>{s.teks}</p>}
                       <div className={styles.tombolKartu}>
                         <Tombol href={s.href} varian="garis">
                           {s.tombol}

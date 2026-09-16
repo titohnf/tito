@@ -118,6 +118,15 @@
   color: var(--tinta-2);
 }
 
+/* Label kecil di dalam kartu sorotan, seirama dengan label bab */
+.labelKartu {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
 .judulKartu {
   font-weight: 500;
   font-size: 1rem;

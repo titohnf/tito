@@ -37,13 +37,29 @@ export type BabTentang = {
   label: string; // label kecil, mis. "Sebagai Desainer Perwakilan Rakyat"
   judul: string; // headline besar
   paragraf?: string[];
-  // Daftar fun fact pengganti paragraf: 3 pertama langsung tampil, sisanya di balik tombol "more"
+  // Daftar fun fact bab ini. Tidak tampil di beranda — dipakai di halaman detail sorotan.
   funFakta?: string[];
   tautan?: { label: string; href: "bantuan" | "rekamJejak" | "tera" };
-  // Kartu di kolom kanan (gambar + teks + tombol). Kosong = 3 placeholder.
+  // Kartu di kolom kanan (gambar + label + judul + tombol). Kosong = 3 placeholder.
   // gambar: path di /public, mis. "/images/kominfo.jpg"
-  sorotan?: { judul: string; teks: string; tombol: string; href: string; gambar?: string }[];
+  sorotan?: {
+    label?: string;
+    judul: string;
+    teks?: string;
+    tombol: string;
+    href: string;
+    gambar?: string;
+  }[];
 };
+
+/** Fun fact bab Pelayan; dipakai ulang di halaman detail /tera. */
+export const faktaPelayan = [
+  "Mendirikan yayasan sebelum umur 30",
+  "Aktif di beberapa organisasi non profit",
+  "Menginisiasi kelas siap kerja anak",
+  "Wakil gubernur BEM Fakultas",
+  "Juri karya tulis inovasi & leadership",
+];
 
 export const tentang: BabTentang[] = [
   {
@@ -62,12 +78,15 @@ export const tentang: BabTentang[] = [
     id: "pelayan",
     label: "Sebagai Desainer Pelayan Rakyat",
     judul: "Saya mengambil peran walaupun jauh dari kesempurnaan.",
-    funFakta: [
-      "Mendirikan yayasan sebelum umur 30",
-      "Aktif di beberapa organisasi non profit",
-      "Menginisiasi kelas siap kerja anak",
-      "Wakil gubernur BEM Fakultas",
-      "Juri karya tulis inovasi & leadership",
+    funFakta: faktaPelayan,
+    sorotan: [
+      {
+        label: "Tera Foundation",
+        judul:
+          "Saya mendirikan yayasan untuk anak-anak marjinal mendapatkan akses kualitas pendidikan yang setara",
+        tombol: "Selengkapnya",
+        href: "/tera",
+      },
     ],
   },
   {

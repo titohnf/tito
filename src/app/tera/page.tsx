@@ -3,8 +3,10 @@ import Link from "next/link";
 import { Kepala } from "@/components/Kepala";
 import { Kaki } from "@/components/Kaki";
 import { Tombol } from "@/components/Tombol";
+import { FunFakta } from "@/components/FunFakta";
 import { KerangkaLayar } from "@/components/KerangkaLayar";
 import { tera } from "@/content/tera";
+import { faktaPelayan } from "@/content/profil";
 import { site } from "@/config/site";
 import styles from "./tera.module.css";
 
@@ -28,6 +30,14 @@ export default function HalamanTera() {
           <h1 className={styles.judul}>{tera.judul}</h1>
           <p className={styles.intro}>{tera.intro}</p>
         </header>
+
+        {/* Fun fact: dipindah dari segmen Tentang di beranda ke halaman detail ini */}
+        <section className={styles.bagian} aria-labelledby="fakta">
+          <h2 id="fakta" className={styles.judulBagian}>
+            Fun fact
+          </h2>
+          <FunFakta fakta={faktaPelayan} />
+        </section>
 
         {/* Cerita lengkap proses build */}
         <section className={styles.bagian} aria-labelledby="cerita">
