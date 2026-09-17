@@ -1,6 +1,8 @@
 /**
  * Copy untuk Hero & Tentang Saya. Edit teks di sini tanpa menyentuh komponen.
  */
+import type { Segmen } from "./segmen";
+
 export const hero = {
   sapaan: "Halo, saya Tito",
   // "Desainer [kata] Rakyat" — kata di tengah berganti otomatis
@@ -33,26 +35,32 @@ export const pencapaian: { kelompok: string; angka: string; keterangan: string }
 ];
 
 export type BabTentang = {
-  id: string;
+  id: Segmen; // sekaligus anchor di beranda & nilai ?peran= di /rekam-jejak dan /pembelajaran
   label: string; // label kecil, mis. "Sebagai Desainer Perwakilan Rakyat"
   judul: string; // headline besar
   paragraf?: string[];
-  // Daftar fun fact bab ini. Tidak tampil di beranda — dipakai di halaman detail sorotan.
+  // Daftar fun fact bab ini. Jadi kartu penutup deretan sorotan (menggantikan
+  // kartu "Lihat seluruh rekam jejak") dan dipakai lagi di halaman detail sorotan.
   funFakta?: string[];
   tautan?: { label: string; href: "bantuan" | "rekamJejak" | "tera" };
-  // Kartu di kolom kanan (gambar + label + judul + tombol). Kosong = 3 placeholder.
+  /** Ganti deretan sorotan bab ini dengan kartu kebutuhan dari halaman /bantuan. */
+  kartuBantuan?: boolean;
+  /** Sembunyikan kartu penutup "Lihat seluruh rekam jejak" di deretan sorotan bab ini. */
+  tanpaTautanUmum?: boolean;
+  // Kartu di kolom kanan (gambar + label + judul). Kosong = 3 placeholder.
   // gambar: path di /public, mis. "/images/kominfo.jpg"
   sorotan?: {
     label?: string;
     judul: string;
     teks?: string;
-    tombol: string;
     href: string;
     gambar?: string;
+    /** 2 = kartu dilebarkan jadi dua kolom di trek sorotan (mulai layar tablet). */
+    lebar?: 2;
   }[];
 };
 
-/** Fun fact bab Pelayan; dipakai ulang di halaman detail /tera. */
+/** Fun fact bab Pelayan; dipakai ulang di halaman detail /rekam-jejak/tera. */
 export const faktaPelayan = [
   "Mendirikan yayasan sebelum umur 30",
   "Aktif di beberapa organisasi non profit",
@@ -65,7 +73,7 @@ export const tentang: BabTentang[] = [
   {
     id: "perwakilan",
     label: "Sebagai Desainer Perwakilan Rakyat",
-    judul: "Saya menerjemahkan visi besar ke dalam rancangan sederhana untuk semua warga.",
+    judul: "Menerjemahkan visi besar ke dalam rancangan sederhana untuk semua warga.",
     funFakta: [
       "Menginisiasi UI/UX mini course di JSC",
       "Memimpin 7 desainer produk di JSC",
@@ -77,27 +85,27 @@ export const tentang: BabTentang[] = [
   {
     id: "pelayan",
     label: "Sebagai Desainer Pelayan Rakyat",
-    judul: "Saya mengambil peran walaupun jauh dari kesempurnaan.",
+    judul: "Mengambil peran walaupun jauh dari kesempurnaan.",
     funFakta: faktaPelayan,
     sorotan: [
       {
-        label: "Tera Foundation",
-        judul:
-          "Saya mendirikan yayasan untuk anak-anak marjinal mendapatkan akses kualitas pendidikan yang setara",
-        tombol: "Selengkapnya",
-        href: "/tera",
+        label: "Mendirikan Tera Foundation",
+        judul: "Bebaskan anak marjinal untuk bermimpi",
+        href: "/rekam-jejak/tera",
+        lebar: 2,
       },
     ],
   },
   {
     id: "pendamping",
     label: "Sebagai Desainer Pendamping Rakyat",
-    judul: "Saya memberi nilai tambah untuk ide dan usaha yang kamu kembangkan.",
-    tautan: { label: "Lihat apa yang bisa saya bantu", href: "bantuan" },
+    judul: "Memberi nilai tambah untuk ide dan usaha yang kamu kembangkan.",
+    kartuBantuan: true,
+    tanpaTautanUmum: true,
   },
 ];
 
-/** Isi pembuka halaman /tera ("Membangun Tera"). */
+/** Pembuka cerita Tera; jadi bagian "Konteks" di /rekam-jejak/tera. */
 export const membangunTera = {
   label: "Membangun Tera",
   judul: "Dari desainer, jadi ikut coding sistemnya sendiri",

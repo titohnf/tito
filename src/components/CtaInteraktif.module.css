@@ -1,5 +1,6 @@
 .cta {
-  padding-block: clamp(1rem, 4vw, 3rem) clamp(3rem, 8vw, 5rem);
+  /* Atas disamakan dengan jarak di sisi lain garis pembatas segmen Tentang */
+  padding-block: clamp(3rem, 8vw, 5rem);
   scroll-margin-top: 4rem;
 }
 

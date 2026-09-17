@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Konten, Tulisan, Pemikiran, Video } from "@/content/konten";
 import { formatTanggal } from "@/content/konten";
+import { TagSegmen } from "./TagSegmen";
 import styles from "./KartuKonten.module.css";
 
 function Meta({ tipe, contoh, info }: { tipe: string; contoh?: boolean; info?: string }) {
@@ -26,6 +27,7 @@ function KartuTulisan({ item }: { item: Tulisan }) {
           {item.gambar && <img src={item.gambar} alt="" loading="lazy" />}
         </div>
       </div>
+      <TagSegmen segmen={item.segmen} />
       <p className={styles.kaki}>
         <time dateTime={item.tanggal}>{formatTanggal(item.tanggal)}</time>
         <span className={styles.panah} aria-hidden="true">
@@ -41,6 +43,7 @@ function KartuPemikiran({ item }: { item: Pemikiran }) {
     <article className={`${styles.kartu} ${styles.pemikiran}`}>
       <Meta tipe="Pemikiran" contoh={item.contoh} />
       <p className={styles.teksPemikiran}>{item.teks}</p>
+      <TagSegmen segmen={item.segmen} />
       <p className={styles.kaki}>
         <time dateTime={item.tanggal}>{formatTanggal(item.tanggal)}</time>
       </p>
@@ -50,7 +53,7 @@ function KartuPemikiran({ item }: { item: Pemikiran }) {
 
 function KartuVideo({ item }: { item: Video }) {
   const adaVideo = Boolean(item.youtubeId);
-  const href = adaVideo ? `https://www.youtube.com/watch?v=${item.youtubeId}` : "#pikiran";
+  const href = adaVideo ? `https://www.youtube.com/watch?v=${item.youtubeId}` : "/pembelajaran";
 
   return (
     <a
@@ -74,6 +77,7 @@ function KartuVideo({ item }: { item: Video }) {
         {item.judul}
         {adaVideo && <span className="sr-only"> (buka YouTube di tab baru)</span>}
       </h3>
+      <TagSegmen segmen={item.segmen} />
       <p className={styles.kaki}>
         <time dateTime={item.tanggal}>{formatTanggal(item.tanggal)}</time>
       </p>

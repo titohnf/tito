@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function Pembelajaran() {
   return (
-    <HalamanSederhana judul="Pembelajaran" lebar>
+    <HalamanSederhana judul="Pembelajaran" lebar kembali={false}>
       <p>Hal-hal yang saya pelajari selama merancang layanan publik dan membangun Tera.</p>
       <div style={{ marginTop: "2rem" }}>
-        <GridKonten items={kontenTampil()} />
+        <GridKonten items={kontenTampil()} tabSegmen />
       </div>
     </HalamanSederhana>
   );

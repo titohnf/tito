@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
       { source: "/pelayan", destination: "/#pelayan", permanent: false },
       { source: "/pendamping", destination: "/#pendamping", permanent: false },
       { source: "/laporan-kerja", destination: "/rekam-jejak", permanent: false },
+      // Cerita Tera pindah jadi satu entri rekam jejak (kategori Pelayan Rakyat)
+      { source: "/tera", destination: "/rekam-jejak/tera", permanent: false },
     ];
   },
 };

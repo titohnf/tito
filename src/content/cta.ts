@@ -61,6 +61,100 @@ export const alurKerja = [
   "Saya kasih tahu bisa bantu apa dan perkiraan waktunya",
 ];
 
+/**
+ * Kartu layanan di bab Pendamping (segmen Tentang) dan halaman /bantuan.
+ * Terpisah dari `kebutuhan` di atas: yang itu jadi pilihan di CTA interaktif,
+ * yang ini kartu dengan copy sendiri.
+ */
+export type BagianLayanan = { judul: string; paragraf?: string; langkah?: string[] };
+
+export type Layanan = {
+  id: string;
+  /** Judul pendek di kartu */
+  judul: string;
+  /** Satu kalimat penjelas di kartu */
+  teks: string;
+  /** Judul panjang di dalam pop up */
+  judulDetail: string;
+  /** Isi pop up: beberapa bagian, masing-masing paragraf atau daftar langkah */
+  detail: BagianLayanan[];
+  /** Pesan pembuka WhatsApp dari layanan ini */
+  pesan: string;
+};
+
+export const layanan: Layanan[] = [
+  {
+    id: "website",
+    judul: "Desain dan Pengembangan Web",
+    teks: "Dari ide sampai jadi, saya yang pegang penuh prosesnya.",
+    judulDetail: "Buat website untuk produk atau personal branding kamu",
+    detail: [
+      {
+        judul: "Apa yang kamu dapat",
+        paragraf:
+          "Website sederhana yang bisa langsung dipakai — buat pajang produk, terima pesanan, atau sekadar biar keliatan lebih dipercaya orang yang baru kenal usaha kamu.",
+      },
+      {
+        judul: "Bagaimana prosesnya",
+        langkah: [
+          "Ngobrol dulu soal usaha kamu dan apa yang kamu butuhin",
+          "Saya bikin draf awal buat dilihat dan direvisi bareng",
+          "Setelah oke, saya siapkan sampai bisa langsung dipakai",
+        ],
+      },
+      {
+        judul: "Yang perlu kamu siapin",
+        paragraf:
+          "Logo (kalau ada), foto produk, dan info dasar usaha kamu. Belum punya semua itu? Nggak apa-apa, kita bisa mulai dari yang ada dulu.",
+      },
+    ],
+    pesan:
+      "Halo Tito, saya mau buat website untuk produk atau personal branding. Boleh ngobrol dulu?",
+  },
+  {
+    id: "audit",
+    judul: "Audit dan Optimalisasi Web",
+    teks: "Saya bantu cari titik yang bikin orang bingung atau kurang tertarik, lalu kasih masukan konkret.",
+    judulDetail: "Bantu lihat ulang website atau usaha yang sudah jalan",
+    detail: [
+      {
+        judul: "Apa yang kamu dapat",
+        paragraf:
+          "Bukan langsung redesign total — saya lihat dulu apa yang bikin orang bingung atau nggak jadi order, terus kasih rekomendasi konkret. Mau lanjut dieksekusi bareng saya atau nggak, itu terserah kamu.",
+      },
+      {
+        judul: "Bagaimana prosesnya",
+        langkah: [
+          "Kamu kirim link website/media sosial usaha kamu",
+          "Saya lihat dan catat titik-titik yang perlu diperbaiki",
+          "Kita ngobrol bareng soal temuan itu dan langkah selanjutnya",
+        ],
+      },
+    ],
+    pesan:
+      "Halo Tito, saya mau minta bantuan lihat ulang website atau usaha yang sudah jalan. Boleh ngobrol dulu?",
+  },
+  {
+    id: "ngobrol",
+    judul: "Diskusi Ide atau Projek",
+    teks: "Belum harus jelas arahnya — mulai dari ngobrol dulu juga nggak apa-apa.",
+    judulDetail: "Ngobrol dulu soal ide atau usaha yang sedang kamu pikirkan",
+    detail: [
+      {
+        judul: "Ini buat siapa",
+        paragraf:
+          'Kamu yang masih di tahap "kayaknya ini ide bagus, tapi belum tau harus mulai dari mana" — belum butuh website, belum butuh apa-apa yang konkret, cuma butuh teman diskusi.',
+      },
+      {
+        judul: "Yang terjadi kalau ngobrol",
+        paragraf:
+          "Nggak ada agenda tertentu. Kita ngobrol soal idenya, saya kasih pandangan dari sudut desain/produk, dan dari situ baru kelihatan apakah perlu lanjut ke langkah konkret atau cukup sampai situ dulu.",
+      },
+    ],
+    pesan: "Halo Tito, saya mau ngobrol soal ide atau usaha yang sedang saya pikirkan. Boleh?",
+  },
+];
+
 /** Pesan WhatsApp langsung dari kartu layanan di /bantuan. */
 export function pesanKebutuhan(k: Kebutuhan) {
   return `Halo Tito, saya ${k.kalimat}. Boleh ngobrol dulu?`;

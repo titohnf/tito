@@ -1,7 +1,10 @@
 .tentang {
-  padding-block: clamp(2.5rem, 7vw, 5rem);
-  /* Garis penuh di atas, seimbang dengan garis di atas Testimoni */
+  /* Jarak ke garis dibuat sama dengan jarak konten tetangganya:
+     nilai yang sama dipakai Pencapaian (di atas) dan CtaInteraktif (di bawah). */
+  padding-block: clamp(3rem, 8vw, 5rem);
+  /* Garis penuh selebar layar, mengapit segmen ini di atas dan di bawah */
   border-top: 1px solid var(--garis);
+  border-bottom: 1px solid var(--garis);
 }
 
 .daftar {
@@ -24,6 +27,12 @@
   padding-top: 0;
 }
 
+/* Blok terakhir tidak perlu padding bawah: jaraknya ke garis penutup sudah
+   diatur padding segmen, kalau ditumpuk jadi dua kali lipat jarak di atas. */
+.daftar > .bab:last-child {
+  padding-bottom: 0;
+}
+
 /* Label kecil di atas headline */
 .labelBab {
   display: flex;
@@ -38,12 +47,14 @@
 
 .judul {
   margin-top: 0.45rem;
-  max-width: 24ch;
+  /* Semua headline dipatok selebar ini supaya jatuh dua baris dengan tepi
+     kanan yang senada. Tanpa text-wrap: pretty, baris pertama diisi penuh
+     dulu — kalau diseimbangkan, tiap judul berhenti di lebar yang beda-beda. */
+  max-width: 30ch;
   font-weight: 500;
   font-size: clamp(1.5rem, 5.4vw, 2.25rem);
   line-height: 1.15;
   letter-spacing: -0.035em;
-  text-wrap: pretty;
 }
 
 .isi {
@@ -64,89 +75,25 @@
 
 .tautan {
   margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
   color: var(--tinta);
   font-weight: 500;
-}
-
-/* Kolom kanan: 3 kartu sorotan */
-.sorotan {
-  display: grid;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.kartu {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0.75rem 0.75rem 1rem;
-  border: 1px solid var(--garis);
-  border-radius: var(--radius);
-  background: var(--putih);
-}
-
-.gambar {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 16 / 9;
-  max-width: 100%;
-  overflow: hidden;
-  border-radius: 8px;
-  background: var(--panel);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--tinta-3);
-}
-
-.gambar img {
-  object-fit: cover;
-}
-
-.teksKartu {
-  flex: 1;
-  display: flex;
-  padding-inline: 0.25rem;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--tinta-2);
-}
-
-/* Label kecil di dalam kartu sorotan, seirama dengan label bab */
-.labelKartu {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--tinta-3);
-}
-
-.judulKartu {
-  font-weight: 500;
-  font-size: 1rem;
-  letter-spacing: -0.02em;
-  color: var(--tinta);
-}
-
-.tombolKartu {
-  margin-top: auto;
-  padding-top: 0.5rem;
 }
 
 @media (min-width: 900px) {
   .bab {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 3.5rem;
+    gap: 2.25rem;
   }
-  .kiri {
-    position: sticky;
-    top: 6rem;
-    align-self: start;
+
+  /* Batas keras dua baris; di layar sempit teks dibiarkan mengalir penuh
+     supaya tidak ada kalimat yang terpotong. */
+  .judul {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
   }
 }

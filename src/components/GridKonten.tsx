@@ -1,8 +1,9 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Konten, TipeKonten } from "@/content/konten";
 import { KartuKonten } from "./KartuKonten";
+import { TabSegmen, hitungSegmen, saringSegmen, useTabSegmen } from "./TabSegmen";
 import styles from "./GridKonten.module.css";
 
 type Filter = "semua" | TipeKonten;
@@ -14,8 +15,13 @@ const filters: { id: Filter; label: string; kosong: string }[] = [
   { id: "video", label: "Video", kosong: "Belum ada video. Balik lagi nanti, ya." },
 ];
 
-export function GridKonten({ items }: { items: Konten[] }) {
+export function GridKonten({ items: semua, tabSegmen }: { items: Konten[]; tabSegmen?: boolean }) {
   const [aktif, setAktif] = useState<Filter>("semua");
+  const jumlahSegmen = useMemo(() => hitungSegmen(semua), [semua]);
+  const [segmen, setSegmen] = useTabSegmen();
+
+  // Tab peran (opsional) menyaring dulu, filter jenis konten bekerja di atas hasilnya
+  const items = tabSegmen ? saringSegmen(semua, segmen) : semua;
 
   // Kalau hanya ada satu jenis konten, filter & grid campur tidak diperlukan
   const tipeAda = Array.from(new Set(items.map((k) => k.tipe)));
@@ -24,12 +30,19 @@ export function GridKonten({ items }: { items: Konten[] }) {
     (f) => f.id === "semua" || tipeAda.includes(f.id as TipeKonten)
   );
 
-  const tampil = aktif === "semua" ? items : items.filter((k) => k.tipe === aktif);
-  const filterAktif = filters.find((f) => f.id === aktif)!;
-  const gridRef = useMasonry(!satuTipe, tampil.length, aktif);
+  // Kalau tab peran menghabiskan jenis yang sedang dipilih, jatuh kembali ke "Semua"
+  const jenis = aktif !== "semua" && !tipeAda.includes(aktif) ? "semua" : aktif;
+
+  const tampil = jenis === "semua" ? items : items.filter((k) => k.tipe === jenis);
+  const filterAktif = filters.find((f) => f.id === jenis)!;
+  const gridRef = useMasonry(!satuTipe, tampil.length, `${jenis}-${segmen}`);
 
   return (
     <>
+      {tabSegmen && (
+        <TabSegmen aktif={segmen} onPilih={setSegmen} jumlah={jumlahSegmen} />
+      )}
+
       {!satuTipe && (
         <div className={styles.filter} role="group" aria-label="Saring konten">
           {daftarFilter.map((f) => {
@@ -39,7 +52,7 @@ export function GridKonten({ items }: { items: Konten[] }) {
                 key={f.id}
                 type="button"
                 className={styles.chip}
-                aria-pressed={aktif === f.id}
+                aria-pressed={jenis === f.id}
                 onClick={() => setAktif(f.id)}
               >
                 {f.label}

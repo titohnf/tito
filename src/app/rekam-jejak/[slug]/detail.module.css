@@ -1,0 +1,119 @@
+.bagian {
+  max-width: 40rem;
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.judulBagian {
+  margin-bottom: 1rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.menyusul {
+  color: var(--tinta-3);
+  font-style: italic;
+}
+
+/* Info Proyek: label kecil di kiri, isi di kanan */
+.info {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  border-top: 1px solid var(--garis);
+  padding-top: 0.75rem;
+}
+
+.barisInfo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.15rem;
+}
+
+.barisInfo dt {
+  font-size: 0.95rem;
+  color: var(--tinta-3);
+}
+
+.barisInfo dd {
+  margin: 0;
+  color: var(--tinta);
+}
+
+@media (min-width: 640px) {
+  .barisInfo {
+    grid-template-columns: 10rem 1fr;
+    gap: 1rem;
+  }
+}
+
+.tim {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.peranTim {
+  color: var(--tinta-2);
+}
+
+/* Proses: satu sub-bagian per tahap */
+.tahap + .tahap {
+  margin-top: 2rem;
+}
+
+.judulTahap {
+  margin-bottom: 0.5rem;
+  color: var(--tinta);
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.gambar {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 1.25rem 0 0;
+  border: 1px solid var(--garis);
+  border-radius: var(--radius);
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.gambar img {
+  object-fit: cover;
+}
+
+.gambar figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 0.5rem 0.75rem;
+  background: color-mix(in srgb, var(--putih) 85%, transparent);
+  font-size: 0.9rem;
+  color: var(--tinta-2);
+}
+
+/* Hasil: daftar fakta terukur */
+.hasil {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hasil li {
+  display: flex;
+  gap: 0.6rem;
+  color: var(--tinta);
+}
+
+.hasil li::before {
+  content: "—";
+  color: var(--tinta-3);
+}

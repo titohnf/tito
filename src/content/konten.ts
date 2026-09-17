@@ -9,10 +9,13 @@
  * Item dengan `contoh: true` hanya tampil kalau `site.tampilkanContoh` = true.
  */
 import { site } from "@/config/site";
+import type { Segmen } from "./segmen";
 
 type Dasar = {
   tanggal: string; // format YYYY-MM-DD
   contoh?: boolean;
+  // Tag peran (Perwakilan / Pelayan / Pendamping) yang tampil di kartu.
+  segmen?: Segmen[];
 };
 
 export type Tulisan = Dasar & {
@@ -51,6 +54,7 @@ export const konten: Konten[] = [
       "Sebelum masuk ke pemerintahan, saya sempat coba dua usaha bertema nasionalisme waktu kuliah. Ini ceritanya.",
     menitBaca: 1, // sesuaikan setelah cerita dilanjutkan
     tanggal: "2026-09-14",
+    segmen: ["pendamping"],
     isi: [
       'Membaca buku "Indonesia di tanganmu" —oleh-oleh yang saya terima setelah mengikuti pelatihan penerima beasiswa— sepertinya menjadi pemicu jiwa nasionalisme dalam diri saya muncul. Ketika kuliah saya dan teman-teman mendirikan "Garuda Creative" (digital agency untuk UMKM) dan "Indonesia Positif" (portal berita baik tentang Indonesia). Kurang nasionalisme apa coba? Haha.',
       "Garuda Creative sempat jadi salah satu usaha mahasiswa yang memenangkan kompetisi dan mendapatkan permodalan dari kampus.",
@@ -66,6 +70,7 @@ export const konten: Konten[] = [
     id: "contoh-pemikiran-1",
     teks: "Contoh catatan pendek. Satu-dua kalimat yang terlintas, langsung terbaca tanpa perlu diklik.",
     tanggal: "2026-09-08",
+    segmen: ["perwakilan"],
   },
   {
     tipe: "video",
@@ -75,6 +80,7 @@ export const konten: Konten[] = [
     youtubeId: "",
     durasi: "12:34",
     tanggal: "2026-09-05",
+    segmen: ["pelayan"],
   },
   {
     tipe: "pemikiran",
@@ -91,6 +97,7 @@ export const konten: Konten[] = [
     pengantar: "Pengantar singkat untuk tulisan kedua.",
     menitBaca: 4,
     tanggal: "2026-08-28",
+    segmen: ["perwakilan", "pelayan"],
     isi: ["Paragraf contoh untuk tulisan kedua."],
   },
   {

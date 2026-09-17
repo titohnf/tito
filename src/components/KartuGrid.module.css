@@ -20,6 +20,7 @@
 }
 
 .kartu {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
@@ -133,4 +134,75 @@
   font-size: 1rem;
   line-height: 1.55;
   color: var(--tinta-2);
+}
+
+/* Tautan "Lihat selengkapnya" di kartu rekam jejak.
+   ::after melebar ke seluruh kartu, jadi seluruh kartu bisa diklik tanpa
+   perlu menyarangkan markup di dalam <a> (judul & tag tetap di luar tautan). */
+.tautanKartu {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.tautanKartu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+/* Cincin fokus dipindah ke kartu, karena area kliknya pun seluas kartu. */
+.kartu:has(.tautanKartu:focus-visible) {
+  outline: 2px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+.tautanKartu:focus-visible {
+  outline: none;
+}
+
+.tautanKartu:hover {
+  color: var(--tinta);
+  text-decoration: underline;
+}
+
+/* Gambar 16:9 di atas isi kartu rekam jejak */
+.gambarKartu {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  background: var(--panel);
+  overflow: hidden;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.gambarKartu img {
+  object-fit: cover;
+}
+
+/* Empty state kategori yang belum ada isinya */
+.kosong {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 4rem 1.5rem;
+  border-radius: var(--radius);
+  background: var(--panel);
+  text-align: center;
+  color: var(--tinta-2);
+}
+
+.kosongIkon {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.85rem;
+  color: var(--tinta-3);
 }

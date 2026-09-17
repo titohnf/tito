@@ -1,21 +1,31 @@
-import Image from "next/image";
 import type { BabTentang } from "@/content/profil";
 import { site } from "@/config/site";
+import { sorotanSegmen } from "@/content/laporan-kerja";
+import { KartuBantuan } from "./KartuBantuan";
+import { Sorotan as DeretSorotan } from "./Sorotan";
 import { Tombol } from "./Tombol";
 import styles from "./Tentang.module.css";
 
 type Sorotan = NonNullable<BabTentang["sorotan"]>[number];
 
 // TODO: isi `sorotan` di src/content/profil.ts — selama kosong, kartu ini yang tampil.
-// Satu sorotan per persona; tambahkan entri di profil.ts kalau memang butuh lebih.
-const placeholder: Sorotan[] = [
-  {
-    judul: "Judul sorotan",
-    teks: "Teks singkat 1–2 kalimat yang menjelaskan sorotan ini.",
-    tombol: "Selengkapnya",
-    href: "#",
-  },
-];
+// Lima kartu contoh supaya deretan yang bisa digeser kelihatan bentuknya.
+const placeholder: Sorotan[] = Array.from({ length: 5 }, (_, i) => ({
+  judul: `Judul sorotan ${i + 1}`,
+  teks: "Teks singkat 1–2 kalimat yang menjelaskan sorotan ini.",
+  href: "#",
+}));
+
+/**
+ * Kartu bab: yang ditulis manual di profil.ts dipakai lebih dulu; kalau kosong,
+ * diambil dari rekam jejak dengan segmen yang sama supaya kartunya menuju
+ * halaman detail yang sudah ada. Placeholder hanya kalau dua-duanya kosong.
+ */
+function kartuSorotan(bab: BabTentang) {
+  if (bab.sorotan?.length) return bab.sorotan;
+  const dariRekamJejak = sorotanSegmen(bab.id);
+  return dariRekamJejak.length ? dariRekamJejak : placeholder;
+}
 
 export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
   return (
@@ -49,29 +59,24 @@ export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
                 </div>
               </div>
 
-              <ul className={styles.sorotan}>
-                {(bab.sorotan?.length ? bab.sorotan : placeholder).map((s) => (
-                  <li key={s.judul} className={styles.kartu}>
-                    <div className={styles.gambar}>
-                      {s.gambar ? (
-                        <Image src={s.gambar} alt="" fill sizes="(min-width: 900px) 34rem, 100vw" />
-                      ) : (
-                        <span aria-hidden="true">Gambar</span>
-                      )}
-                    </div>
-                    <div className={styles.teksKartu}>
-                      {s.label && <p className={styles.labelKartu}>{s.label}</p>}
-                      <h4 className={styles.judulKartu}>{s.judul}</h4>
-                      {s.teks && <p>{s.teks}</p>}
-                      <div className={styles.tombolKartu}>
-                        <Tombol href={s.href} varian="garis">
-                          {s.tombol}
-                        </Tombol>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              {/* Bab Pendamping tidak punya sorotan: yang tampil kartu
+                  "biasanya saya bantu kalau kamu…" seperti di halaman /bantuan. */}
+              {bab.kartuBantuan ? (
+                <KartuBantuan />
+              ) : (
+                /* Bab yang sorotannya sudah terisi ditutup fun fact; yang masih
+                   placeholder ditutup tautan ke seluruh rekam jejak. */
+                <DeretSorotan
+                  kartu={kartuSorotan(bab)}
+                  label={bab.label}
+                  funFakta={bab.sorotan?.length ? bab.funFakta : undefined}
+                  hrefSemua={
+                    bab.tanpaTautanUmum
+                      ? undefined
+                      : `${site.tautan.rekamJejak}?peran=${bab.id}`
+                  }
+                />
+              )}
             </li>
           ))}
         </ol>

@@ -1,0 +1,38 @@
+.daftar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--garis);
+  border-radius: 999px;
+  background: var(--panel);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tinta-2);
+}
+
+.perwakilan {
+  border-color: var(--kuning-garis);
+  background: var(--kuning-latar);
+  color: var(--kuning-tinta);
+}
+
+.pelayan {
+  border-color: color-mix(in srgb, var(--hijau) 35%, var(--garis));
+  background: color-mix(in srgb, var(--hijau) 8%, var(--putih));
+  color: color-mix(in srgb, var(--hijau) 80%, var(--tinta));
+}
+
+.pendamping {
+  border-color: color-mix(in srgb, var(--merah) 30%, var(--garis));
+  background: color-mix(in srgb, var(--merah) 6%, var(--putih));
+  color: color-mix(in srgb, var(--merah) 75%, var(--tinta));
+}

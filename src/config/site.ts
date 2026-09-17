@@ -39,7 +39,7 @@ export const site = {
     bantuan: "/bantuan",
     rekamJejak: "/rekam-jejak",
     pembelajaran: "/pembelajaran",
-    tera: "/tera",
+    tera: "/rekam-jejak/tera",
     ngobrol: "#ngobrol",
   },
 } as const;

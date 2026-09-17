@@ -1,5 +1,6 @@
 .wadah {
-  font-size: 1rem;
+  /* ikut ukuran teks pemanggilnya (kartu sorotan memakai ukuran lebih kecil) */
+  font-size: inherit;
   line-height: 1.55;
 }
 
@@ -8,7 +9,7 @@
  * jadi blok tidak pernah memanjang saat tombol "more" ditekan.
  */
 .jendela {
-  --baris: 2.5rem;
+  --baris: 2.3rem;
   height: calc(var(--baris) * var(--jumlah, 3));
   overflow: hidden;
 }
@@ -19,7 +20,13 @@
   list-style: none;
 }
 
-/* Satu fakta = satu baris dengan tinggi tetap, bullet bintang di kiri */
+/* Daftar dinaikkan satu baris supaya baris "keluar" duduk di atas jendela */
+.daftar[data-geser="true"] {
+  margin-top: calc(var(--baris) * -1);
+}
+
+/* Satu fakta = satu baris dengan tinggi tetap, bullet bintang di kiri,
+   dipisah garis tipis */
 .item {
   display: grid;
   grid-template-columns: 0.85rem 1fr;
@@ -27,24 +34,37 @@
   gap: 0.55rem;
   height: var(--baris);
   border-top: 1px solid var(--garis);
+  font-weight: 500;
   color: var(--tinta-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.item:first-child {
+/* Baris teratas di dalam jendela tidak perlu garis — baik saat ada baris
+   "keluar" di atasnya maupun saat daftarnya pendek (tanpa geseran). */
+.item:first-child,
+.item[data-keluar="true"] + .item {
   border-top: 0;
 }
 
 /* Baris lama: naik satu baris dengan pantulan tipis */
 .item {
-  animation: geser 0.6s both;
+  animation: geser 0.75s both;
 }
 
-/* Baris yang baru masuk: naik mulus tanpa pantulan supaya mendaratnya bersih */
+/* Baris yang baru masuk: naik mulus tanpa pantulan, membesar dari kecil */
 .item[data-baru="true"] {
-  animation: masuk 0.6s both;
+  animation: masuk 0.75s both;
+}
+
+/* Baris yang keluar: ikut naik sambil mengecil dan memudar */
+.item[data-keluar="true"] {
+  animation: keluar 0.75s both;
+}
+
+.item {
+  transform-origin: left center;
 }
 
 .teks {
@@ -88,16 +108,33 @@
  */
 @keyframes masuk {
   0% {
-    transform: translateY(var(--baris));
+    transform: translateY(var(--baris)) scale(0.82);
     opacity: 0;
     animation-timing-function: cubic-bezier(0.3, 0.8, 0.4, 1);
   }
   58% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Kebalikan dari "masuk": baris teratas naik keluar jendela sambil mengecil */
+@keyframes keluar {
+  0% {
+    transform: translateY(var(--baris)) scale(1);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.3, 0.8, 0.4, 1);
+  }
+  58% {
+    transform: translateY(0) scale(0.82);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(0.82);
+    opacity: 0;
   }
 }
 
@@ -107,13 +144,13 @@
   align-items: center;
   gap: 0.35em;
   margin-top: 0.75rem;
-  padding: 0.3rem 0.7rem;
+  padding: 0.2rem 0.6rem;
   border: 1px solid var(--garis);
   border-radius: 999px;
   background: var(--putih);
   color: var(--tinta-2);
   font: inherit;
-  font-size: 1rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
 }
@@ -125,7 +162,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .item,
-  .item[data-baru="true"] {
+  .item[data-baru="true"],
+  .item[data-keluar="true"] {
     animation: none;
   }
 }
