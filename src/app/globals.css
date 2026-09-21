@@ -8,22 +8,18 @@
   --garis: #e5e5e5;
   --hijau: #2f9e5b;
   --merah: #ce1126;
-  /* Biru & ungu hanya dipakai sebagai semburat di latar hero, segmen Ayo
-     Ngobrol, dan kaki halaman — cuma dua warna ini, supaya latarnya tidak
-     ramai. Birunya diambil
-     dari gradien jendela peramban pada ikon 3D layanan web; ungunya disetel
-     dengan kepekatan yang setara, supaya ketiga semburat sama bobotnya. */
+  /* Biru & ungu hanya dipakai sebagai semburat di latar: hero, segmen "Apa yang
+     bisa saya bantu?", segmen Ayo Ngobrol, dan kaki halaman — cuma dua warna
+     ini, supaya latarnya tidak ramai. Birunya diambil dari gradien jendela
+     peramban pada ikon 3D layanan web; ungunya disetel dengan kepekatan yang
+     setara, supaya ketiga noda sama bobotnya. */
   --biru: #2f62ab;
   --ungu: #6a4fa3;
-  /* Semburat merah untuk ujung bawah gradien hero dan pita segmen "Apa yang
-     bisa saya bantu?". Sangat tipis — selisih kanal merah terhadap biru cuma
-     5 poin, jadi bukan --merah yang diencerkan melainkan kertas yang
-     dihangatkan sedikit. */
-  --merah-tipis: #fdf9f8;
-  /* Pasangan dingin dari --merah-tipis, dengan kepekatan yang setara: latar
-     segmen Tentang. Selisih kanal birunya terhadap merah cuma 5 poin, jadi yang
-     terbaca bukan "bidang biru" melainkan kertas yang sedikit didinginkan —
-     cukup untuk memisahkan segmen ini dari putih tetangganya. */
+  /* Latar segmen Tentang (memudar ke putih di kedua tepinya) dan segmen "Apa
+     yang bisa saya bantu?" (rata satu bidang). Selisih kanal biru
+     terhadap merah cuma 5 poin, jadi yang terbaca bukan "bidang biru"
+     melainkan kertas yang sedikit didinginkan — cukup untuk memisahkan segmen
+     itu dari putih tetangganya. */
   --biru-tipis: #f8fafd;
   /* Latar bidang gelap yang menutup halaman: segmen Ayo Ngobrol dan kaki
      halaman. Hitam yang dilunakkan, bukan hitam pekat — sedikit lebih hangat

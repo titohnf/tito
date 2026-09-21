@@ -10,8 +10,8 @@
      latarnya ikut putih. */
   background: linear-gradient(
     var(--putih) 0%,
-    var(--biru-tipis) 30%,
-    var(--biru-tipis) 70%,
+    var(--biru-tipis) 40%,
+    var(--biru-tipis) 60%,
     var(--putih) 100%
   );
 }
