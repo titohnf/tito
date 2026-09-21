@@ -64,59 +64,6 @@ export function IkonNgobrol({ className }: { className?: string }) {
   );
 }
 
-/** Bohlam — kartu fun fact. */
-export function IkonFakta({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 64 64" aria-hidden="true">
-      <defs>
-        <linearGradient id="kaca" x1="0.3" y1="0" x2="0.7" y2="1">
-          <stop offset="0" stopColor="#ffe9a3" />
-          <stop offset="0.5" stopColor="#f6c445" />
-          <stop offset="1" stopColor="#d99b16" />
-        </linearGradient>
-        <linearGradient id="fitting" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#d6d5cf" />
-          <stop offset="1" stopColor="#97968f" />
-        </linearGradient>
-        <radialGradient id="kilauKaca" cx="0.32" cy="0.28" r="0.5">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.75" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
-        </radialGradient>
-        <filter id="bayangFakta" x="-25%" y="-25%" width="150%" height="160%">
-          <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" floodColor="#121211" floodOpacity="0.22" />
-        </filter>
-      </defs>
-
-      <ellipse cx="32" cy="57" rx="13" ry="2.8" fill="#121211" opacity="0.12" />
-
-      <g filter="url(#bayangFakta)">
-        {/* kaca bohlam */}
-        <path
-          d="M32 7c9.4 0 17 7.4 17 16.5 0 6.2-3.2 10.2-5.9 13.4-1.9 2.3-3.1 4-3.1 6.1v1H24v-1c0-2.1-1.2-3.8-3.1-6.1C18.2 33.7 15 29.7 15 23.5 15 14.4 22.6 7 32 7Z"
-          fill="url(#kaca)"
-        />
-        <path
-          d="M32 7c9.4 0 17 7.4 17 16.5 0 6.2-3.2 10.2-5.9 13.4-1.9 2.3-3.1 4-3.1 6.1v1H24v-1c0-2.1-1.2-3.8-3.1-6.1C18.2 33.7 15 29.7 15 23.5 15 14.4 22.6 7 32 7Z"
-          fill="url(#kilauKaca)"
-        />
-        {/* fitting */}
-        <rect x="24" y="45" width="16" height="4.4" rx="2.2" fill="url(#fitting)" />
-        <rect x="25.5" y="50.6" width="13" height="4" rx="2" fill="url(#fitting)" />
-      </g>
-
-      {/* filamen */}
-      <path
-        d="M27.5 24.5c1.6-3.2 3-4.6 4.5-4.6s2.9 1.4 4.5 4.6"
-        fill="none"
-        stroke="#ffffff"
-        strokeOpacity="0.85"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 /** Jendela peramban — layanan desain & pengembangan web. */
 export function IkonWeb({ className }: { className?: string }) {
   return (
@@ -233,3 +180,4 @@ export function IkonAudit({ className }: { className?: string }) {
     </svg>
   );
 }
+

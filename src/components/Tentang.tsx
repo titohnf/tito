@@ -64,6 +64,7 @@ export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
                 kartu={kartuSorotan(bab)}
                 label={bab.label}
                 funFakta={bab.sorotan?.length ? bab.funFakta : undefined}
+                kartuFakta={bab.kartuFakta}
                 hrefSemua={
                   bab.tanpaTautanUmum ? undefined : `${site.tautan.rekamJejak}?peran=${bab.id}`
                 }

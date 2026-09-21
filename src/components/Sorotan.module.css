@@ -88,50 +88,56 @@
 /* Kartu penutup berisi fun fact bab ini — daftarnya memakai komponen
    FunFakta yang sama dengan halaman detail rekam jejak. */
 .kartuFakta {
-  gap: 0.6rem;
+  gap: 0;
   /* sedikit lebih kecil dari halaman detail: kartunya hanya selebar satu kolom */
   font-size: 0.95rem;
 }
 
-/* Daftar fakta mengisi sisa tinggi kartu, sehingga tombol "Berikutnya" di
-   dalamnya bisa didorong ke dasar kartu — bukan menempel di bawah daftar. */
+/* Daftar fakta mengisi sisa tinggi kartu, sehingga tombol "Berikutnya" bisa
+   ditambatkan ke dasar kartu. `gap` di sini jadi jarak minimumnya ke daftar,
+   supaya keduanya tidak menempel saat kartunya pas setinggi isinya. */
 .kartuFakta > div:not(.kepalaFakta) {
   display: flex;
   flex: 1;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
 }
 
 .kartuFakta button {
+  /* ditambatkan ke dasar kartu; margin bawaan FunFakta (disetel untuk halaman
+     detail) tidak dipakai di sini */
   margin-top: auto;
-  /* di dalam kolom flex, tombol pil ini akan melar selebar kartu kalau tidak
-     dikunci ke lebar isinya sendiri */
-  align-self: flex-start;
 }
 
 /* Baris kepala kartu fun fact: ikon di kiri, labelnya menempel di sampingnya. */
 .kepalaFakta {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 0.15rem;
+  gap: 0.45rem;
+  margin-bottom: 0.45rem;
 }
 
-/* label di baris ini sudah punya jarak dari .kepalaFakta */
+/* label di baris ini sudah punya jarak dari .kepalaFakta; hurufnya dibesarkan
+   sedikit dari label kartu lain supaya seimbang dengan ikon di sebelahnya. */
 .kepalaFakta > span {
   margin-bottom: 0;
+  font-size: 0.82rem;
 }
 
-/* Ikon 3D di kartu fun fact — sekeluarga dengan ikon di blok CTA. */
+/* Ikon datar (lucide) di kartu fun fact/dampak: sedikit lebih besar dari label
+   di sebelahnya, sewarna tanda percikan di daftar faktanya. */
 .ikonFakta {
   flex: none;
-  width: 2.5rem;
-  height: 2.5rem;
-  overflow: visible;
+  width: 1.35rem;
+  height: 1.35rem;
+  stroke-width: 1.75;
+  color: var(--tinta-3);
   transition: transform 0.25s ease-out;
 }
 
 .kartuFakta:hover .ikonFakta {
-  transform: translateY(-4px) rotate(-4deg);
+  transform: translateY(-2px);
 }
 
 @media (prefers-reduced-motion: reduce) {

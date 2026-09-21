@@ -42,6 +42,11 @@ export type BabTentang = {
   // Daftar fun fact bab ini. Jadi kartu penutup deretan sorotan (menggantikan
   // kartu "Lihat seluruh rekam jejak") dan dipakai lagi di halaman detail sorotan.
   funFakta?: string[];
+  /**
+   * Ganti judul kartu penutup fun fact di deretan sorotan bab ini.
+   * Bawaan: "Fakta menarik" dengan ikon percikan; "dampak" memakai ikon garis naik.
+   */
+  kartuFakta?: { judul: string; ikon?: "dampak" };
   tautan?: { label: string; href: "bantuan" | "rekamJejak" | "tera" };
   /** Sembunyikan kartu penutup "Lihat seluruh rekam jejak" di deretan sorotan bab ini. */
   tanpaTautanUmum?: boolean;
@@ -110,6 +115,8 @@ export const tentang: BabTentang[] = [
     label: "Sebagai Desainer Pendamping Rakyat",
     judul: "Memberi nilai tambah untuk ide dan usaha yang kamu kembangkan.",
     tanpaTautanUmum: true,
+    // Di bab ini daftarnya bicara soal hasil pendampingan, bukan fakta ringan.
+    kartuFakta: { judul: "Dampak", ikon: "dampak" },
     // TODO: cek ulang & rapikan — draf ini disusun dari materi yang sudah ada di
     // repo (dua usaha kampus di /tulisan, cerita membangun sistem Tera, dan
     // angka "Mendampingi 3 sesi konsultasi" di daftar pencapaian).
@@ -120,18 +127,15 @@ export const tentang: BabTentang[] = [
       "Sudah 3 sesi konsultasi pendampingan",
       "Ngobrol pertama gratis, tanpa komitmen",
     ],
-    // Satu kartu lebar bergaya kartu Tera, lalu ditutup kartu fun fact di slot terakhir.
-    // TODO: ganti copy & tambahkan `gambar` kalau fotonya sudah ada.
+    // Satu kartu lebar bergaya kartu Tera (teks di atas gambar), lalu ditutup
+    // kartu fun fact di slot terakhir.
+    // TODO: tambahkan `gambar` kalau fotonya sudah ada.
     sorotan: [
       {
-        label: "Mendampingi Pelaku Usaha",
-        judul: "Menemani dari ide di kepala sampai jadi yang bisa dipakai",
-        teks:
-          "Merapikan ide, menyusun alur, sampai rancangan yang siap dipakai. " +
-          "Menemani pemilik usaha yang belum punya tim desain sendiri.",
+        label: "Membangun Sistem Bimbel",
+        judul: "Dari pencatatan manual jadi serba digital",
         href: "/rekam-jejak/bimbel-tera",
         lebar: 2,
-        tata: "samping",
       },
     ],
   },

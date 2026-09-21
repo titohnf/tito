@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Lightbulb, TrendingUp } from "lucide-react";
 import type { BabTentang } from "@/content/profil";
 import { linkWhatsApp } from "@/config/site";
 import { pesanUmum } from "@/content/cta";
 import { FunFakta } from "./FunFakta";
-import { IkonFakta, IkonNgobrol } from "./Ikon3D";
+import { IkonNgobrol } from "./Ikon3D";
 import { Tombol } from "./Tombol";
 import kartuStyles from "./KartuGrid.module.css";
 import styles from "./Sorotan.module.css";
@@ -51,6 +52,7 @@ export function Sorotan({
   label,
   hrefSemua,
   funFakta,
+  kartuFakta,
   cta,
 }: {
   kartu: Kartu[];
@@ -59,6 +61,8 @@ export function Sorotan({
   hrefSemua?: string;
   /** Kalau diisi, kartu penutupnya berisi fun fact bab ini, bukan tautan rekam jejak. */
   funFakta?: string[];
+  /** Judul & ikon kartu penutup fun fact. Bawaan: "Fakta menarik" + ikon percikan. */
+  kartuFakta?: NonNullable<BabTentang["kartuFakta"]>;
   /** Kalau diisi, slot terakhir trek jadi blok ajakan ngobrol, bukan kartu sorotan. */
   cta?: NonNullable<BabTentang["cta"]>;
 }) {
@@ -211,8 +215,12 @@ export function Sorotan({
                   kartu yang lain. Sebaris begini, tinggi kartunya tetap sama
                   dengan kartu foto di sebelahnya walau daftarnya 4 baris. */}
               <div className={styles.kepalaFakta}>
-                <IkonFakta className={styles.ikonFakta} />
-                <span className={kartuStyles.nomor}>Fakta menarik</span>
+                {kartuFakta?.ikon === "dampak" ? (
+                  <TrendingUp className={styles.ikonFakta} aria-hidden="true" />
+                ) : (
+                  <Lightbulb className={styles.ikonFakta} aria-hidden="true" />
+                )}
+                <span className={kartuStyles.nomor}>{kartuFakta?.judul ?? "Fakta menarik"}</span>
               </div>
               <FunFakta fakta={funFakta} baris={4} />
             </div>
