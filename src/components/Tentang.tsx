@@ -1,7 +1,6 @@
 import type { BabTentang } from "@/content/profil";
 import { site } from "@/config/site";
 import { sorotanSegmen } from "@/content/laporan-kerja";
-import { KartuBantuan } from "./KartuBantuan";
 import { Sorotan as DeretSorotan } from "./Sorotan";
 import { Tombol } from "./Tombol";
 import styles from "./Tentang.module.css";
@@ -59,24 +58,17 @@ export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
                 </div>
               </div>
 
-              {/* Bab Pendamping tidak punya sorotan: yang tampil kartu
-                  "biasanya saya bantu kalau kamu…" seperti di halaman /bantuan. */}
-              {bab.kartuBantuan ? (
-                <KartuBantuan />
-              ) : (
-                /* Bab yang sorotannya sudah terisi ditutup fun fact; yang masih
-                   placeholder ditutup tautan ke seluruh rekam jejak. */
-                <DeretSorotan
-                  kartu={kartuSorotan(bab)}
-                  label={bab.label}
-                  funFakta={bab.sorotan?.length ? bab.funFakta : undefined}
-                  hrefSemua={
-                    bab.tanpaTautanUmum
-                      ? undefined
-                      : `${site.tautan.rekamJejak}?peran=${bab.id}`
-                  }
-                />
-              )}
+              {/* Bab yang sorotannya sudah terisi ditutup fun fact; yang masih
+                  placeholder ditutup tautan ke seluruh rekam jejak. */}
+              <DeretSorotan
+                kartu={kartuSorotan(bab)}
+                label={bab.label}
+                funFakta={bab.sorotan?.length ? bab.funFakta : undefined}
+                hrefSemua={
+                  bab.tanpaTautanUmum ? undefined : `${site.tautan.rekamJejak}?peran=${bab.id}`
+                }
+                cta={bab.cta}
+              />
             </li>
           ))}
         </ol>

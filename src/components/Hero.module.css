@@ -6,7 +6,10 @@
 
 .judul {
   font-weight: 500;
-  font-size: clamp(2.6rem, 10.5vw, 4.5rem);
+  /* Di HP judul sengaja besar: batas bawahnya 3rem dan kemiringannya 12.5vw,
+     jadi "Desainer [kata] Rakyat" mengisi lebar layar dan jadi elemen paling
+     dominan di hero. Batas atas tetap 4.5rem untuk desktop. */
+  font-size: clamp(3rem, 12.5vw, 4.5rem);
   line-height: 1.02;
   letter-spacing: -0.05em;
 }

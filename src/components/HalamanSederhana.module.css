@@ -45,6 +45,20 @@
   margin-top: 2.5rem;
 }
 
+/* Tombol love penutup halaman detail: dipisahkan garis tipis dari isi tulisan,
+   lalu tombol aksi menyusul di bawahnya. */
+.isi > :global(.love) {
+  display: flex;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--garis);
+}
+
+/* Tanpa jarak ganda: garis di atas love sudah jadi pemisahnya */
+.isi > :global(.love) + :global(.aksi) {
+  margin-top: 1.5rem;
+}
+
 .isiLebar {
   max-width: none;
 }

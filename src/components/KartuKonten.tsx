@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Konten, Tulisan, Pemikiran, Video } from "@/content/konten";
-import { formatTanggal } from "@/content/konten";
+import { formatTanggal, idKonten } from "@/content/konten";
 import { TagSegmen } from "./TagSegmen";
+import { TombolLove } from "./TombolLove";
 import styles from "./KartuKonten.module.css";
 
 function Meta({ tipe, contoh, info }: { tipe: string; contoh?: boolean; info?: string }) {
@@ -14,6 +15,7 @@ function Meta({ tipe, contoh, info }: { tipe: string; contoh?: boolean; info?: s
   );
 }
 
+/** Tulisan punya halaman detail — love-nya di sana, bukan di kartu ini. */
 function KartuTulisan({ item }: { item: Tulisan }) {
   return (
     <Link href={`/tulisan/${item.slug}`} className={`${styles.kartu} ${styles.tulisan}`}>
@@ -38,6 +40,10 @@ function KartuTulisan({ item }: { item: Tulisan }) {
   );
 }
 
+/**
+ * Pemikiran tidak punya halaman detail — kartunya sendiri yang jadi isinya,
+ * jadi love-nya di sini. Kartunya bukan tautan, jadi tombol aman dipasang.
+ */
 function KartuPemikiran({ item }: { item: Pemikiran }) {
   return (
     <article className={`${styles.kartu} ${styles.pemikiran}`}>
@@ -46,11 +52,13 @@ function KartuPemikiran({ item }: { item: Pemikiran }) {
       <TagSegmen segmen={item.segmen} />
       <p className={styles.kaki}>
         <time dateTime={item.tanggal}>{formatTanggal(item.tanggal)}</time>
+        <TombolLove id={idKonten(item)} label={item.teks} />
       </p>
     </article>
   );
 }
 
+/** Video tanpa love: isinya ada di YouTube, bukan di situs ini. */
 function KartuVideo({ item }: { item: Video }) {
   const adaVideo = Boolean(item.youtubeId);
   const href = adaVideo ? `https://www.youtube.com/watch?v=${item.youtubeId}` : "/pembelajaran";

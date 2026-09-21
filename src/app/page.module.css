@@ -1,0 +1,113 @@
+/*
+ * Area hero (hero + deretan pencapaian): gradien dari putih ke semburat merah.
+ *
+ * Gradiennya dipasang di pembungkus ini, bukan di <body> seperti dulu. Di body,
+ * gradien harus diberi tinggi tetap (44rem) dan ujungnya wajib sewarna dengan
+ * latar halaman — kalau tidak, ada garis batas kasat mata di titik gradien
+ * habis. Sebagai pembungkus, ujung gradien jatuh tepat di batas segmen Tentang,
+ * dan batas itu sudah punya garisnya sendiri (border-top), jadi peralihan
+ * warnanya terbaca sebagai batas segmen, bukan seperti gradien yang terpotong.
+ */
+.atas {
+  position: relative;
+  /* Semburat di bawah duduk di z-index -1: isolate supaya "di bawah" berhenti
+     di pembungkus ini, bukan tembus ke latar halaman di belakangnya. */
+  isolation: isolate;
+  /* Putih polos. Dulu ujung bawahnya diberi semburat sebagai isyarat peralihan
+     ke segmen berikutnya; sekarang segmen Tentang yang memudar sendiri dari
+     putih di tepi atasnya, jadi isyarat itu sudah ada di sana — kalau di sini
+     dipertahankan, dua semburat malah bertemu di garis pembatas. Warna di hero
+     tinggal tiga noda cahaya di bawah ini. */
+  background: var(--putih);
+}
+
+/*
+ * Semburat warna di latar hero: tiga noda cahaya lebar — dua ungu dan satu
+ * biru, jadi palet latarnya cuma dua warna — masing-masing di sudut yang
+ * berbeda dan cukup lebar sampai warnanya saling bertemu di tengah. Kadarnya
+ * tetap satu digit persen: yang dicari kesan kertas yang tidak rata warnanya,
+ * bukan bidang berwarna. Tapi jangan diturunkan lagi — di bawah ~5% semburatnya
+ * hilang sama sekali dan hero-nya jadi kertas putih polos. Semuanya lewat satu
+ * pseudo-element, jadi tidak ada markup tambahan dan tidak ada yang bisa
+ * menghalangi foto coblos di atasnya.
+ */
+.atas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      40rem 24rem at calc(12% + var(--hanyut-x)) calc(22% + var(--hanyut-y)),
+      color-mix(in srgb, var(--ungu) 9%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36rem 22rem at calc(88% - var(--hanyut-x)) calc(8% + var(--hanyut-y)),
+      color-mix(in srgb, var(--biru) 8%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38rem 24rem at calc(64% + var(--hanyut-x)) calc(92% - var(--hanyut-y)),
+      color-mix(in srgb, var(--ungu) 7%, transparent),
+      transparent 72%
+    );
+  /* Hanyut pelan-pelan, 24 detik sekali jalan: warnanya "bermain" tanpa pernah
+     jadi gerakan yang menarik perhatian. Keyframes-nya dideklarasikan di bawah
+     — lihat catatannya di sana. */
+  animation: hanyut 24s ease-in-out infinite alternate;
+}
+
+/*
+ * HP: ukuran noda dipatok dalam rem, jadi di layar sempit ketiganya membesar
+ * relatif terhadap layar dan bertemu tepat di area judul — warnanya berubah
+ * dari semburat jadi bidang. Di sini nodanya dikecilkan, dikurangi kadarnya,
+ * dan seluruhnya digeser ke paruh bawah area: foto coblos dan judul duduk di
+ * atas putih bersih, warnanya baru muncul di sekitar deretan pencapaian.
+ */
+@media (max-width: 640px) {
+  .atas::before {
+    background:
+      radial-gradient(
+        22rem 13rem at calc(-8% + var(--hanyut-x)) calc(72% + var(--hanyut-y)),
+        color-mix(in srgb, var(--ungu) 7%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        20rem 12rem at calc(106% - var(--hanyut-x)) calc(58% + var(--hanyut-y)),
+        color-mix(in srgb, var(--biru) 6%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        24rem 14rem at calc(52% + var(--hanyut-x)) calc(104% - var(--hanyut-y)),
+        color-mix(in srgb, var(--ungu) 6%, transparent),
+        transparent 72%
+      );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atas::before {
+    animation: none;
+  }
+}
+
+/*
+ * Kembar dengan deklarasi di berkas satunya, dan itu disengaja: nama keyframes
+ * di dalam CSS Module selalu di-hash per berkas — rujukan `animation: hanyut`
+ * pun ikut di-hash walau keyframes-nya dideklarasikan global, sehingga jadi
+ * menunjuk nama yang tidak ada dan animasinya diam-diam mati. Yang digeser
+ * adalah titik pusat gradien (lihat @property di globals.css), bukan kotaknya,
+ * supaya semburatnya tidak pernah keluar batas segmen.
+ */
+@keyframes hanyut {
+  from {
+    --hanyut-x: -2%;
+    --hanyut-y: -1.5%;
+  }
+  to {
+    --hanyut-x: 2%;
+    --hanyut-y: 1.5%;
+  }
+}

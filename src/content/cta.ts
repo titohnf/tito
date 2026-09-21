@@ -54,15 +54,8 @@ export function susunPesan(p: Peran, k: Kebutuhan) {
 export const catatanCta =
   "Ngobrol pertama gratis. Setelah paham kebutuhan kamu, saya kasih tahu bisa bantu apa dan berapa lama.";
 
-/** Alur singkat di halaman /bantuan. */
-export const alurKerja = [
-  "Ceritakan kebutuhan kamu lewat WhatsApp",
-  "Kita ngobrol dulu, gratis dan tanpa komitmen",
-  "Saya kasih tahu bisa bantu apa dan perkiraan waktunya",
-];
-
 /**
- * Kartu layanan di bab Pendamping (segmen Tentang) dan halaman /bantuan.
+ * Kartu layanan di segmen "Apa yang bisa saya bantu?" di beranda.
  * Terpisah dari `kebutuhan` di atas: yang itu jadi pilihan di CTA interaktif,
  * yang ini kartu dengan copy sendiri.
  */
@@ -80,6 +73,14 @@ export type Layanan = {
   detail: BagianLayanan[];
   /** Pesan pembuka WhatsApp dari layanan ini */
   pesan: string;
+};
+
+/**
+ * Kepala segmen "Apa yang bisa saya bantu?" di beranda.
+ * Kartunya sendiri diambil dari `layanan` di bawah.
+ */
+export const kepalaBantuan = {
+  judul: "Apa yang bisa saya bantu?",
 };
 
 export const layanan: Layanan[] = [
@@ -155,7 +156,7 @@ export const layanan: Layanan[] = [
   },
 ];
 
-/** Pesan WhatsApp langsung dari kartu layanan di /bantuan. */
+/** Pesan WhatsApp langsung dari kartu layanan. */
 export function pesanKebutuhan(k: Kebutuhan) {
   return `Halo Tito, saya ${k.kalimat}. Boleh ngobrol dulu?`;
 }

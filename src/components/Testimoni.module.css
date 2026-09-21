@@ -1,38 +1,168 @@
+/* Latar putih penuh selebar layar; isinya tetap ikut lebar .wadah di dalamnya.
+   Jarak atas-bawahnya sama dengan segmen Tentang — nilai yang dipakai berulang
+   sebagai jarak baku antar segmen di beranda. */
 .testimoni {
-  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  padding-block: clamp(3rem, 8vw, 5rem);
+  background: var(--putih);
 }
 
-.grid {
+/*
+ * Judul segmen, bukan judul bab: satu tingkat di atas judul bab di segmen
+ * Tentang (2.25rem) supaya beranda punya tiga tingkat — hero, kepala segmen,
+ * lalu judul bab. Bedanya cukup terasa tanpa harus jadi judul raksasa.
+ * Label mono kecil di atasnya dihapus; judul sebesar ini tidak perlu
+ * diperkenalkan lagi.
+ */
+.judul {
+  max-width: 26ch;
+  font-weight: 500;
+  font-size: clamp(1.75rem, 5.6vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.038em;
+}
+
+/* Tombol panah duduk di bawah trek, sama persis gayanya dengan deretan sorotan */
+.panah {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.tombolPanah {
   display: grid;
-  gap: 0.75rem;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--garis);
+  border-radius: 50%;
+  background: var(--latar);
+  color: var(--tinta);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    opacity 0.2s;
 }
 
-.kartu {
+.tombolPanah:hover:not(:disabled) {
+  border-color: var(--tinta-3);
+}
+
+.tombolPanah:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/*
+ * Trek nota yang digeser, pola sama dengan Sorotan.
+ * --tampil = jumlah nota yang muat utuh dalam satu layar trek.
+ */
+.trek {
+  --tampil: 1;
+  --jarak: 1rem;
+  display: flex;
+  /* tinggi nota ikut isinya masing-masing (tepi atas rata, bawah tidak) —
+     seperti papan tempel sungguhan, bukan kartu yang dipaksa sama tinggi */
+  align-items: flex-start;
+  gap: var(--jarak);
+  /* ruang atas-bawah untuk nota yang dimiringkan + bayangannya */
+  margin: 1.75rem 0 0;
+  padding: 0.5rem 0.25rem 1rem;
+  scroll-padding-left: 0.25rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.trek::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  /* (lebar trek - total jarak antar nota) / jumlah nota yang tampil */
+  flex: 0 0 calc((100% - (var(--tampil) - 1) * var(--jarak)) / var(--tampil));
+  display: flex;
+  scroll-snap-align: start;
+}
+
+.item > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.nota {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  height: 100%;
+  gap: 0.9rem;
   margin: 0;
-  padding: 1.25rem;
-  border-radius: var(--radius);
-  background: var(--panel);
+  padding: 1.1rem 1.15rem 1rem;
+  background: var(--kertas, var(--nota-1));
+  color: var(--nota-tinta);
+  /* Bayangan tipis di bawah: kesan kertas yang sedikit terangkat dari papan */
+  box-shadow: 0 5px 7px -4px rgb(0 0 0 / 0.28);
+  rotate: -0.6deg;
+  transition:
+    rotate 0.25s ease,
+    translate 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/*
+ * Warna & kemiringan diputar per nota lewat data-nota (0-4) yang diisi komponen,
+ * supaya papan terasa ditempel tangan, bukan hasil generate yang seragam.
+ */
+.nota[data-nota="0"] {
+  --kertas: var(--nota-1);
+  rotate: -0.6deg;
+}
+
+.nota[data-nota="1"] {
+  --kertas: var(--nota-2);
+  rotate: 0.9deg;
+}
+
+.nota[data-nota="2"] {
+  --kertas: var(--nota-3);
+  rotate: -1.4deg;
+}
+
+.nota[data-nota="3"] {
+  --kertas: var(--nota-4);
+  rotate: 1.2deg;
+}
+
+.nota[data-nota="4"] {
+  --kertas: var(--nota-5);
+  rotate: -0.9deg;
+}
+
+/* `.item` ikut disebut supaya kekhususannya menyamai aturan data-nota di atas;
+   tanpa itu kemiringan per nota tetap menang dan nota tidak pernah lurus. */
+.item .nota:hover,
+.item .nota:focus-within {
+  rotate: 0deg;
+  translate: 0 -3px;
+  box-shadow: 0 10px 14px -6px rgb(0 0 0 / 0.3);
 }
 
 .kutipan {
   margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.55;
-  letter-spacing: -0.015em;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 .orang {
   display: flex;
   flex-direction: column;
   margin-top: auto;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
 
 .nama {
@@ -40,11 +170,171 @@
 }
 
 .peran {
-  color: var(--tinta-2);
+  color: var(--nota-tinta-2);
 }
 
-@media (min-width: 720px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+/* Tombol love di nota: sejajar tepi bawah, warnanya ikut tinta nota */
+.aksiNota {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.15rem;
+  color: var(--nota-tinta-2);
+}
+
+/* --- Nota kosong: pengunjung menulis sendiri --- */
+
+.notaKosong {
+  gap: 0.7rem;
+  --kertas: var(--nota-kosong);
+  /* garis putus-putus: jelas ini nota yang masih boleh diisi */
+  outline: 1px dashed var(--nota-tinta-2);
+  outline-offset: -5px;
+}
+
+.ajakan {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--nota-tinta-2);
+}
+
+.isian {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  resize: none;
+}
+
+.isian::placeholder {
+  color: var(--nota-tinta-2);
+}
+
+/* Cincin fokus bawaan tidak dipakai: notanya sendiri sudah terangkat
+   dan lurus saat diisi (lihat .nota:focus-within) */
+.isian:focus-visible,
+.isianNama:focus-visible {
+  outline: 0;
+}
+
+.kakiNota {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px dashed color-mix(in srgb, var(--nota-tinta-2) 50%, transparent);
+}
+
+.isianNama {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.isianNama::placeholder {
+  font-weight: 400;
+  color: var(--nota-tinta-2);
+}
+
+.tombolTempel {
+  flex-shrink: 0;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--nota-tinta-2);
+  border-radius: 999px;
+  background: none;
+  color: var(--nota-tinta);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
+}
+
+.tombolTempel:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--nota-tinta) 10%, transparent);
+}
+
+.tombolTempel:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* --- Nota yang sudah ditempel pengunjung --- */
+
+/* Tombol copot di pojok nota; baru terlihat jelas saat notanya disentuh kursor
+   atau difokus keyboard, supaya tidak mengganggu saat dibaca. */
+.copot {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.4rem;
+  display: grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--nota-tinta-2);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.nota:hover .copot,
+.nota:focus-within .copot,
+.copot:focus-visible {
+  opacity: 1;
+}
+
+.copot:hover {
+  background: color-mix(in srgb, var(--nota-tinta) 10%, transparent);
+}
+
+.kirim {
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  color: var(--nota-tinta-2);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+@media (min-width: 560px) {
+  .trek {
+    --tampil: 2;
+  }
+}
+
+@media (min-width: 860px) {
+  .trek {
+    --tampil: 3;
+  }
+}
+
+@media (min-width: 1100px) {
+  .trek {
+    --tampil: 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nota {
+    transition: none;
   }
 }

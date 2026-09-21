@@ -38,6 +38,7 @@
 
 .kaki {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   margin-top: auto;
@@ -50,13 +51,13 @@
 .tulisan {
   padding: clamp(1.25rem, 3vw, 1.75rem);
   background: var(--putih);
-  border: 1px solid var(--garis);
   border-radius: var(--radius);
-  transition: border-color 0.2s;
+  box-shadow: var(--bayang);
+  transition: box-shadow 0.2s;
 }
 
 .tulisan:hover {
-  border-color: var(--tinta-3);
+  box-shadow: var(--bayang-naik);
 }
 
 .tulisanIsi {

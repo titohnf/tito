@@ -30,6 +30,13 @@ export type TahapProses = {
  * "Sedang ditulis." — jadi aman dipublikasikan sambil dicicil.
  */
 export type DetailProyek = {
+  /**
+   * Kunci penghitung love. WAJIB dan SEKALI SEUMUR HIDUP: begitu halamannya
+   * tayang, nilai ini tidak boleh diubah lagi. Judul kartu dan slug boleh
+   * diganti kapan saja — kunci ini sengaja terpisah supaya angka love-nya
+   * tidak ikut hilang.
+   */
+  kunci: string;
   slug: string;
   /** Peran personal kamu, bukan peran tim. */
   peran?: string;
@@ -66,6 +73,14 @@ export type LaporanKerja = {
   detail?: DetailProyek;
 };
 
+/**
+ * Id penghitung love satu proyek. Dibentuk dari `kunci`, bukan dari judul
+ * atau slug, supaya keduanya bebas diubah tanpa mengosongkan angkanya.
+ */
+export function idProyek(detail: DetailProyek) {
+  return `rekam-jejak:${detail.kunci}`;
+}
+
 export const laporanKerja: LaporanKerja[] = [
   {
     tahun: "2024-sekarang",
@@ -76,6 +91,7 @@ export const laporanKerja: LaporanKerja[] = [
     pencapaian:
       "Menyatukan 8 ruang layanan pendidikan, menang Winner WSIS Prizes 2026 — pertama untuk Indonesia.",
     detail: {
+      kunci: "rumah-pendidikan",
       slug: "rumah-pendidikan",
       peran: "[PLACEHOLDER — peran spesifik di tim \"rumah\"-nya]",
       klien: "Kementerian Pendidikan Dasar dan Menengah",
@@ -107,6 +123,7 @@ export const laporanKerja: LaporanKerja[] = [
     pencapaian:
       "Memimpin desain fitur di salah satu super app nasional dengan 20+ layanan publik digital.",
     detail: {
+      kunci: "inaku",
       slug: "inaku",
       peran: "[PLACEHOLDER — Lead Designer? Berapa orang tim?]",
       klien: "Peruri / INA Digital",
@@ -132,6 +149,7 @@ export const laporanKerja: LaporanKerja[] = [
     pencapaian:
       "Memimpin redesain berbasis data yang membawa JAKI menang Champion WSIS Prizes 2021.",
     detail: {
+      kunci: "redesain-jaki",
       slug: "redesain-jaki",
       peran: "Lead Designer",
       klien: "Jakarta Smart City, Pemprov DKI Jakarta",
@@ -178,6 +196,7 @@ export const laporanKerja: LaporanKerja[] = [
     gambar: "",
     pencapaian: "Belajar UI/UX otodidak sambil merangkap frontend dan desain grafis.",
     detail: {
+      kunci: "awal-karier-kominfo",
       slug: "awal-karier-kominfo",
       peran: "UI Designer & Frontend Developer",
       klien: "Kementerian Komunikasi dan Informatika",
@@ -205,6 +224,7 @@ export const laporanKerja: LaporanKerja[] = [
     pencapaian:
       "Mendirikan yayasan pendidikan untuk anak marjinal, kini membina 50+ anak binaan.",
     detail: {
+      kunci: "tera",
       slug: "tera",
       peran: "Pendiri",
       klien: "Tera Foundation",
@@ -217,6 +237,27 @@ export const laporanKerja: LaporanKerja[] = [
         { judul: "Sistem internal untuk operasional bimbel", paragraf: [] },
         { judul: "Membangun website Tera", paragraf: [] },
       ],
+      hasil: [],
+      kredit: "",
+    },
+  },
+  {
+    // TODO: isi rentang tahun & pencapaian bimbel Tera (mis. jumlah murid/kelas).
+    tahun: "",
+    segmen: ["pendamping"],
+    judul: "Bimbel Tera",
+    tim: "Tera Foundation",
+    gambar: "",
+    pencapaian: "",
+    detail: {
+      kunci: "bimbel-tera",
+      slug: "bimbel-tera",
+      peran: "Pendiri",
+      klien: "Tera Foundation",
+      // TODO: isi ceritanya — konteks, proses, dan hasil bimbel Tera.
+      // Bagian yang dibiarkan kosong tampil sebagai "Sedang ditulis."
+      konteks: [],
+      proses: [],
       hasil: [],
       kredit: "",
     },

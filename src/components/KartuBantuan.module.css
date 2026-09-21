@@ -1,26 +1,67 @@
-/* Kartu layanan kini tombol (membuka pop up), jadi gaya bawaan tombol dinetralkan */
+/*
+ * Kartu layanan kini tombol (membuka pop up), jadi gaya bawaan tombol
+ * dinetralkan. Tampilannya mengikuti blok CTA di bab Pendamping (Sorotan.tsx):
+ * ikon 3D di kepala kartu + ornamen kisi titik di sudut kanan-atas.
+ * isolation: isolate supaya ::before ornamen duduk di atas latar kartu tapi
+ * tetap di bawah ikon & teks.
+ */
 .kartu {
   width: 100%;
+  min-height: clamp(13rem, 22vw, 16rem);
+  padding: 1.5rem 1.5rem 1.75rem;
   font: inherit;
   text-align: left;
   cursor: pointer;
+  isolation: isolate;
+}
+
+/*
+ * Ornamen: kisi titik yang memudar dari sudut kanan-atas — sama persis dengan
+ * blok CTA. Murni dekoratif; tidak ada teks di atasnya, jadi kontras judul dan
+ * ringkasan tidak tersentuh.
+ */
+.kartu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--radius);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--tinta) 16%, transparent) 2.5px,
+    transparent 2.5px
+  );
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(64% 52% at 100% 0%, #000, transparent 72%);
+  mask-image: radial-gradient(64% 52% at 100% 0%, #000, transparent 72%);
 }
 
 /* Ikon di kepala kartu, menggantikan nomor urut */
 .kepala {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
+/* Ikon 3D, seukuran ikon di blok CTA. Mengambang sedikit saat kartu disentuh. */
 .ikon {
-  width: 1.85rem;
-  height: 1.85rem;
-  color: var(--tinta-3);
-  transition: color 0.2s;
+  width: 3.5rem;
+  height: 3.5rem;
+  overflow: visible;
+  transition: transform 0.25s ease-out;
 }
 
 .kartu:hover .ikon {
-  color: var(--tinta);
+  transform: translateY(-4px) rotate(-4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ikon {
+    transition: none;
+  }
+
+  .kartu:hover .ikon {
+    transform: none;
+  }
 }
 
 /* Pop up detail layanan */
@@ -125,4 +166,28 @@
 
 .aksiDialog {
   margin-top: 0.5rem;
+}
+
+/*
+ * Grid tiga kartu layanan. Sengaja grid diam, bukan trek geser: beranda sudah
+ * punya empat deretan yang digeser berturut-turut (tiga bab Tentang + Kata
+ * Mereka), dan yang kelima membuat semuanya terbaca sebagai pola yang sama.
+ *
+ * Di 640-860px `.grid` bawaan memberi dua kolom, dan kartu ketiga menggantung
+ * sendirian di baris kedua. Di rentang itu kartu ketiga dilebarkan penuh, jadi
+ * barisnya terbaca sebagai susunan yang memang dirancang — bukan sisa.
+ */
+@media (min-width: 640px) and (max-width: 859.98px) {
+  .daftar > li:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Kelasnya disebut dua kali dengan sengaja: aturan ini harus menang atas
+   `.grid` di KartuGrid.module.css (yang di lebar ini memberi dua kolom), dan
+   kekhususannya sama besar — tanpa ini hasilnya bergantung urutan berkas CSS. */
+@media (min-width: 860px) {
+  .daftar.daftar {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

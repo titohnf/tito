@@ -18,7 +18,15 @@ type Dasar = {
   segmen?: Segmen[];
 };
 
-export type Tulisan = Dasar & {
+/**
+ * Kunci penghitung love. WAJIB dan SEKALI SEUMUR HIDUP: begitu kontennya tayang,
+ * nilai ini tidak boleh diubah lagi. Judul dan slug boleh diganti kapan saja —
+ * kunci ini sengaja terpisah supaya angka love-nya tidak ikut hilang.
+ */
+type BerLove = { kunci: string };
+
+export type Tulisan = Dasar &
+  BerLove & {
   tipe: "tulisan";
   slug: string;
   judul: string;
@@ -28,11 +36,12 @@ export type Tulisan = Dasar & {
   isi: string[]; // satu string = satu paragraf
 };
 
-export type Pemikiran = Dasar & {
-  tipe: "pemikiran";
-  id: string;
-  teks: string;
-};
+export type Pemikiran = Dasar &
+  BerLove & {
+    tipe: "pemikiran";
+    id: string;
+    teks: string;
+  };
 
 export type Video = Dasar & {
   tipe: "video";
@@ -48,6 +57,7 @@ export type TipeKonten = Konten["tipe"];
 export const konten: Konten[] = [
   {
     tipe: "tulisan",
+    kunci: "usaha-kampus",
     slug: "kurang-nasionalisme-apa-coba",
     judul: "Kurang nasionalisme apa coba, saya sempat bikin dua usaha kampus",
     pengantar:
@@ -66,6 +76,7 @@ export const konten: Konten[] = [
   // ——— CONTOH (hapus/ganti saat konten asli sudah ada) ———
   {
     tipe: "pemikiran",
+    kunci: "contoh-1",
     contoh: true,
     id: "contoh-pemikiran-1",
     teks: "Contoh catatan pendek. Satu-dua kalimat yang terlintas, langsung terbaca tanpa perlu diklik.",
@@ -84,6 +95,7 @@ export const konten: Konten[] = [
   },
   {
     tipe: "pemikiran",
+    kunci: "contoh-2",
     contoh: true,
     id: "contoh-pemikiran-2",
     teks: "Catatan pendek kedua, supaya kelihatan bagaimana beberapa kartu kecil tersusun di grid.",
@@ -91,6 +103,7 @@ export const konten: Konten[] = [
   },
   {
     tipe: "tulisan",
+    kunci: "contoh-tulisan-2",
     contoh: true,
     slug: "contoh-tulisan-kedua",
     judul: "Tulisan kedua, judulnya bisa agak panjang sampai dua baris",
@@ -121,6 +134,14 @@ export function kontenTampil(): Konten[] {
 
 export function daftarTulisan(): Tulisan[] {
   return kontenTampil().filter((k): k is Tulisan => k.tipe === "tulisan");
+}
+
+/**
+ * Id penghitung love satu konten. Dibentuk dari `kunci`, bukan dari judul
+ * atau slug, supaya keduanya bebas diubah tanpa mengosongkan angkanya.
+ */
+export function idKonten(item: Tulisan | Pemikiran) {
+  return `${item.tipe}:${item.kunci}`;
 }
 
 export function formatTanggal(tanggal: string) {

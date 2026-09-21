@@ -5,7 +5,8 @@ import { HalamanSederhana } from "@/components/HalamanSederhana";
 import { FunFakta } from "@/components/FunFakta";
 import { TagSegmen } from "@/components/TagSegmen";
 import { Tombol } from "@/components/Tombol";
-import { laporanBerdetail } from "@/content/laporan-kerja";
+import { laporanBerdetail, idProyek } from "@/content/laporan-kerja";
+import { TombolLove } from "@/components/TombolLove";
 import type { AnggotaTim } from "@/content/laporan-kerja";
 import { site } from "@/config/site";
 import styles from "./detail.module.css";
@@ -182,6 +183,10 @@ export default async function HalamanProyek({ params }: Props) {
           </ul>
         ) : null}
       </Bagian>
+
+      <div className="love">
+        <TombolLove id={idProyek(detail)} label={judul} />
+      </div>
 
       <div className="aksi">
         <Tombol href="/rekam-jejak" varian="garis">

@@ -1,7 +1,73 @@
+/*
+ * Kaki halaman ikut gelap, warnanya sama persis dengan segmen Ayo Ngobrol di
+ * atasnya (--gelap), jadi di beranda keduanya menutup halaman sebagai
+ * satu bidang. Di halaman lain kaki ini berdiri sendiri di atas latar terang.
+ */
 .kaki {
   padding-block: 2.5rem;
+  background: var(--gelap);
   font-size: 1rem;
-  color: var(--tinta-3);
+  color: color-mix(in srgb, var(--latar) 58%, transparent);
+  position: relative;
+  /* Semburat di bawah duduk di z-index -1: isolate supaya "di bawah" berhenti
+     di kaki ini, bukan tembus ke latar halaman di belakangnya. */
+  isolation: isolate;
+}
+
+/*
+ * Lanjutan semburat dari segmen Ayo Ngobrol: noda ungu yang di sana setengah
+ * terpotong tepi bawah muncul lagi di sini dari tepi atas, dan satu noda ungu
+ * redup menutup di kanan bawah. Warnanya sengaja lebih pudar daripada di segmen
+ * atasnya — kaki halaman tempat mata berhenti, bukan tempat yang harus menarik
+ * perhatian. Di halaman selain beranda, kaki ini berdiri sendiri dan semburatnya
+ * terbaca sebagai penutup halaman.
+ */
+.kaki::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      38rem 18rem at calc(70% + var(--hanyut-x)) calc(-14% + var(--hanyut-y)),
+      color-mix(in srgb, var(--ungu) 32%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      30rem 16rem at calc(12% - var(--hanyut-x)) calc(110% - var(--hanyut-y)),
+      color-mix(in srgb, var(--ungu) 22%, transparent),
+      transparent 70%
+    );
+  animation: hanyut 24s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kaki::before {
+    animation: none;
+  }
+}
+
+/*
+ * Kembar dengan deklarasi di page.module.css & CtaInteraktif.module.css, dan itu
+ * disengaja: nama keyframes di dalam CSS Module selalu di-hash per berkas —
+ * rujukan `animation: hanyut` pun ikut di-hash walau keyframes-nya dideklarasikan
+ * global, sehingga jadi menunjuk nama yang tidak ada dan animasinya diam-diam mati.
+ */
+@keyframes hanyut {
+  from {
+    --hanyut-x: -2%;
+    --hanyut-y: -1.5%;
+  }
+  to {
+    --hanyut-x: 2%;
+    --hanyut-y: 1.5%;
+  }
+}
+
+/* Cincin fokus bawaan berwarna --tinta; di latar gelap ini tidak akan terlihat. */
+.kaki :focus-visible {
+  outline-color: var(--latar);
 }
 
 .isi {
@@ -10,7 +76,8 @@
   gap: 0.75rem 2rem;
   justify-content: space-between;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--garis);
+  /* --garis dibuat untuk latar terang; di sini jadi garis cahaya tipis */
+  border-top: 1px solid color-mix(in srgb, var(--latar) 16%, transparent);
 }
 
 .kontak {
@@ -24,10 +91,11 @@
 
 .kontak a {
   text-decoration: none;
-  color: var(--tinta-2);
+  color: color-mix(in srgb, var(--latar) 80%, transparent);
   transition: color 0.2s;
 }
 
 .kontak a:hover {
-  color: var(--tinta);
+  color: var(--latar);
 }
+

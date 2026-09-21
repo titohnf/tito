@@ -8,10 +8,62 @@
   --garis: #e5e5e5;
   --hijau: #2f9e5b;
   --merah: #ce1126;
+  /* Biru & ungu hanya dipakai sebagai semburat di latar hero, segmen Ayo
+     Ngobrol, dan kaki halaman — cuma dua warna ini, supaya latarnya tidak
+     ramai. Birunya diambil
+     dari gradien jendela peramban pada ikon 3D layanan web; ungunya disetel
+     dengan kepekatan yang setara, supaya ketiga semburat sama bobotnya. */
+  --biru: #2f62ab;
+  --ungu: #6a4fa3;
+  /* Semburat merah untuk ujung bawah gradien hero dan pita segmen "Apa yang
+     bisa saya bantu?". Sangat tipis — selisih kanal merah terhadap biru cuma
+     5 poin, jadi bukan --merah yang diencerkan melainkan kertas yang
+     dihangatkan sedikit. */
+  --merah-tipis: #fdf9f8;
+  /* Pasangan dingin dari --merah-tipis, dengan kepekatan yang setara: latar
+     segmen Tentang. Selisih kanal birunya terhadap merah cuma 5 poin, jadi yang
+     terbaca bukan "bidang biru" melainkan kertas yang sedikit didinginkan —
+     cukup untuk memisahkan segmen ini dari putih tetangganya. */
+  --biru-tipis: #f8fafd;
+  /* Latar bidang gelap yang menutup halaman: segmen Ayo Ngobrol dan kaki
+     halaman. Hitam yang dilunakkan, bukan hitam pekat — sedikit lebih hangat
+     dari netral murni, dan masih selisih satu tingkat dari --tinta yang dipakai
+     teks, jadi tulisan gelap di kartu putih di atasnya tidak terbaca sebagai
+     warna yang sama. */
+  --gelap: #171614;
   /* Kuning hangat untuk penanda dukungan */
   --kuning-latar: #fdf6e3;
   --kuning-garis: #efdcab;
   --kuning-tinta: #7a5a12;
+  /* Kertas sticky note di segmen testimoni: warnanya berputar per nota */
+  --nota-1: #d7e8ae;
+  --nota-2: #fdeeb0;
+  --nota-3: #cfe1f2;
+  --nota-4: #f8d7dd;
+  --nota-5: #fcdec2;
+  /* Tinta netral, bukan senada satu warna, supaya kebacaan tetap sama di kelima kertas.
+     --nota-tinta-2 dipakai untuk baris jabatan yang kecil; nilainya dipilih supaya
+     kontrasnya tetap >= 4.5:1 di kertas paling terang sekalipun. */
+  --nota-tinta: #2b2a26;
+  --nota-tinta-2: #5f5e57;
+  /* nota kosong yang masih bisa diisi pengunjung */
+  --nota-kosong: #f2f1ea;
+
+  /*
+   * Bayangan kartu. Kartu tidak lagi pakai garis tepi: tepinya dibentuk bayangan
+   * tipis, jadi bidang putihnya terbaca mengambang di atas latar, bukan sebagai
+   * kotak bergaris. Dua lapis — satu rapat 1px sebagai pengganti garis, satu
+   * lebar dan sangat samar sebagai kedalamannya. Warnanya --tinta yang
+   * diencerkan, bukan hitam murni, supaya senada dengan tinta halaman.
+   * --bayang-naik dipakai saat kartu disentuh: bayangannya melebar sedikit,
+   * kesannya kartu terangkat — tanpa garis yang menebal.
+   */
+  --bayang:
+    0 1px 2px rgb(18 18 17 / 0.05),
+    0 2px 8px rgb(18 18 17 / 0.05);
+  --bayang-naik:
+    0 2px 4px rgb(18 18 17 / 0.06),
+    0 10px 24px -6px rgb(18 18 17 / 0.12);
 
   --lebar: 70rem;
   --tepi: clamp(1.25rem, 5vw, 2.5rem);
@@ -26,13 +78,22 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  /*
+   * `scroll-behavior: smooth` sengaja TIDAK dipakai di sini.
+   * Chrome membatalkan animasi smooth begitu ada operasi scroll lain menyusul,
+   * dan itu persis yang terjadi saat App Router merender halaman: lompatan ke
+   * #ngobrol / #bantuan jadi tidak bergerak sama sekali, hash-nya masuk ke URL
+   * tapi halamannya diam. Lompatan yang langsung sampai lebih baik daripada
+   * animasi yang tidak pernah jalan. Geseran halus di trek kartu tidak terpengaruh
+   * — komponennya memanggil scrollTo({ behavior: "smooth" }) sendiri.
+   */
 }
 
 body {
   margin: 0;
-  /* Gradien dari putih di area hero */
-  background: linear-gradient(var(--putih), var(--latar)) top / 100% 44rem no-repeat, var(--latar);
+  /* Putih polos; bidang yang berbeda warna menyebutkan latarnya sendiri.
+     Gradien hero tidak lagi di sini — lihat .atas di page.module.css. */
+  background: var(--putih);
   color: var(--tinta);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 1.0625rem;
@@ -92,7 +153,34 @@ img {
   white-space: nowrap;
 }
 
+/*
+ * Geseran semburat warna di latar hero, segmen Bantuan, segmen Ayo Ngobrol &
+ * kaki halaman.
+ *
+ * Dulu hanyutnya dibuat dengan transform: scale()+translate() pada pseudo-element
+ * semburatnya. Itu membesarkan kotaknya melewati batas segmen, dan karena tidak
+ * ada overflow: hidden, warnanya meluber ke segmen tetangga — paling kentara
+ * pada noda yang posisinya di tepi. Memberi overflow: hidden bukan jawabannya:
+ * di hero, itu akan ikut memotong paku yang sedang diseret keluar foto.
+ *
+ * Jadi yang digeser sekarang titik pusat gradiennya, bukan kotaknya. Kotaknya
+ * tetap persis seukuran segmen, jadi tidak ada yang bisa keluar batas.
+ * Nama custom property tidak ikut di-hash CSS Module, jadi cukup didaftarkan
+ * sekali di sini; @property-nya wajib supaya nilainya bisa dianimasikan mulus,
+ * bukan melompat.
+ */
+@property --hanyut-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --hanyut-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
 }

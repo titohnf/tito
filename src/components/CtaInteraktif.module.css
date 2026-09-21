@@ -1,13 +1,89 @@
+/*
+ * Pembuka bidang gelap yang menutup beranda: segmen ini dan kaki halaman tepat
+ * di bawahnya memakai latar yang sama, jadi keduanya terbaca sebagai satu
+ * bidang penutup. Yang memecahnya bukan warna latar, melainkan kartu putih di
+ * dalamnya.
+ */
 .cta {
   /* Atas disamakan dengan jarak di sisi lain garis pembatas segmen Tentang */
   padding-block: clamp(3rem, 8vw, 5rem);
+  background: var(--gelap);
   scroll-margin-top: 4rem;
+  position: relative;
+  /* Semburat di bawah duduk di z-index -1: isolate supaya "di bawah" berhenti
+     di segmen ini, bukan tembus ke latar halaman di belakangnya. */
+  isolation: isolate;
 }
 
+/*
+ * Semburat warna di latar gelap — pasangan dari yang ada di hero, dengan noda
+ * yang sama (dua ungu, satu biru) tapi ditaruh di tepi, supaya yang terlihat
+ * justru bagian yang mengintip di sekeliling kartu putih di tengah. Kadarnya
+ * dua digit persen, bukan satu seperti di hero: di atas hitam, campuran 8%
+ * praktis tidak kelihatan. Satu pseudo-element saja, jadi tidak ada markup
+ * tambahan dan tidak ada yang bisa menghalangi isi kartu.
+ *
+ * Kadarnya jauh lebih pekat daripada di hero (empat puluhan persen lawan satu
+ * digit): di atas --gelap, campuran di bawah ~20% hilang sama sekali. Yang
+ * dilihat mata tetap semburat samar, karena hitam di bawahnya menelan sebagian
+ * besar warnanya. Noda bawah-kanan diteruskan ke kaki halaman (lihat
+ * Kaki.module.css), jadi bidang gelap penutup beranda terbaca menyatu.
+ */
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      40rem 24rem at calc(6% + var(--hanyut-x)) calc(10% + var(--hanyut-y)),
+      color-mix(in srgb, var(--ungu) 38%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36rem 22rem at calc(96% - var(--hanyut-x)) calc(30% + var(--hanyut-y)),
+      color-mix(in srgb, var(--biru) 40%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38rem 24rem at calc(70% + var(--hanyut-x)) calc(108% - var(--hanyut-y)),
+      color-mix(in srgb, var(--ungu) 36%, transparent),
+      transparent 72%
+    );
+  animation: hanyut 24s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta::before {
+    animation: none;
+  }
+}
+
+/*
+ * Kembar dengan deklarasi di page.module.css, dan itu disengaja: nama keyframes
+ * di dalam CSS Module selalu di-hash per berkas — rujukan `animation: hanyut`
+ * pun ikut di-hash walau keyframes-nya dideklarasikan global, sehingga jadi
+ * menunjuk nama yang tidak ada dan animasinya diam-diam mati.
+ */
+@keyframes hanyut {
+  from {
+    --hanyut-x: -2%;
+    --hanyut-y: -1.5%;
+  }
+  to {
+    --hanyut-x: 2%;
+    --hanyut-y: 1.5%;
+  }
+}
+
+/* Kartu putih yang mengambang di atas latar gelap segmen ini. Isinya kembali
+   memakai tinta gelap biasa, sama seperti kartu lain di beranda. */
 .panel {
   padding: clamp(1.5rem, 6vw, 4.5rem);
   border-radius: 20px;
-  background: var(--panel);
+  background: var(--putih);
+  color: var(--tinta);
 }
 
 .kalimat {
@@ -105,9 +181,12 @@
   margin-bottom: 0.6rem;
 }
 
+/* Gelembung pesan dulu kertas putih di atas panel abu. Sekarang panelnya yang
+   putih, jadi warnanya ditukar — kalau tidak, gelembungnya lenyap ke dalam
+   kartu dan hanya tersisa garis tepinya. */
 .gelembung {
   padding: 0.9rem 1.1rem;
-  background: var(--putih);
+  background: var(--panel);
   border: 1px solid var(--garis);
   border-radius: 14px 14px 14px 4px;
   font-size: 1rem;

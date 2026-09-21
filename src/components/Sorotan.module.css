@@ -50,6 +50,9 @@
   /* (lebar trek - total jarak antar kartu) / jumlah kartu yang tampil */
   flex: 0 0 calc((100% - (var(--tampil) - 1) * var(--jarak)) / var(--tampil));
   display: flex;
+  /* kunci ke flex-basis: tanpa ini, min-width:auto membuat kartu dengan
+     aspect-ratio bisa mendorong slotnya jadi lebih lebar dan treknya meluber */
+  min-width: 0;
   scroll-snap-align: start;
 }
 
@@ -90,14 +93,74 @@
   font-size: 0.95rem;
 }
 
+/* Daftar fakta mengisi sisa tinggi kartu, sehingga tombol "Berikutnya" di
+   dalamnya bisa didorong ke dasar kartu — bukan menempel di bawah daftar. */
+.kartuFakta > div:not(.kepalaFakta) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.kartuFakta button {
+  margin-top: auto;
+  /* di dalam kolom flex, tombol pil ini akan melar selebar kartu kalau tidak
+     dikunci ke lebar isinya sendiri */
+  align-self: flex-start;
+}
+
+/* Baris kepala kartu fun fact: ikon di kiri, labelnya menempel di sampingnya. */
+.kepalaFakta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.15rem;
+}
+
+/* label di baris ini sudah punya jarak dari .kepalaFakta */
+.kepalaFakta > span {
+  margin-bottom: 0;
+}
+
+/* Ikon 3D di kartu fun fact — sekeluarga dengan ikon di blok CTA. */
+.ikonFakta {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  overflow: visible;
+  transition: transform 0.25s ease-out;
+}
+
+.kartuFakta:hover .ikonFakta {
+  transform: translateY(-4px) rotate(-4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ikonFakta {
+    transition: none;
+  }
+
+  .kartuFakta:hover .ikonFakta {
+    transform: none;
+  }
+}
+
+
 /*
  * Kartu lebar: gambar jadi latar sepenuh kartu, teks duduk di atasnya dengan
- * gradien gelap supaya tetap terbaca. Tingginya dipatok min-height, bukan
+ * gradien gelap supaya tetap terbaca. Tingginya ditentukan rasio fotonya, bukan
  * hasil penumpukan gambar + teks, jadi kartu tidak menjulang.
  */
 .kartuGambar {
   justify-content: flex-end;
-  min-height: clamp(14rem, 24vw, 19rem);
+  /* Tinggi kartu mengikuti rasio fotonya (1600×700), jadi foto tampil selebar
+     kartu tanpa terpotong kiri-kanan. min-height hanya jaring pengaman di layar
+     sempit, supaya teksnya tidak berdesakan. */
+  aspect-ratio: 1600 / 700;
+  min-height: 12rem;
+  /* Lebar dikunci ke slotnya. Tanpa ini, aspect-ratio bekerja dua arah: kalau
+     kartu tetangga lebih tinggi, kartu ini ikut meninggi lalu MELEBAR mengikuti
+     rasio, dan treknya jadi meluber. */
+  width: 100%;
   padding: 0;
   overflow: hidden;
   background: var(--tinta);
@@ -116,8 +179,12 @@
   color: var(--tinta-3);
 }
 
+/* Sisa potongan hanya muncul di layar sempit (saat min-height mengambil alih);
+   jangkarnya digeser ke atas supaya yang terbuang bagian bawah (baju), bukan
+   ujung rambut anak-anak di tepi atas foto. */
 .latar img {
   object-fit: cover;
+  object-position: center 20%;
 }
 
 .isiGambar {
@@ -257,4 +324,192 @@
 .tombolPanah:disabled {
   opacity: 0.35;
   cursor: default;
+}
+
+/*
+ * Blok CTA penutup trek sorotan. Latarnya abu panel — beda tipis dari kartu
+ * sorotan yang putih, jadi terbaca sebagai penutup tanpa harus jadi blok gelap.
+ * Isinya ajakan ngobrol: tombolnya yang jadi titik akhir, bukan seluruh kartunya.
+ */
+.blokCta {
+  justify-content: flex-end;
+  gap: 0.3rem;
+  min-height: clamp(14rem, 24vw, 19rem);
+  padding: 1.5rem 1.5rem 1.75rem;
+  /* Putih seperti kartu lain; yang membedakan ornamennya, bukan warnanya.
+     isolation: isolate supaya ::before ornamen bisa duduk di atas latar kartu
+     tapi tetap di bawah ikon & teks. */
+  background: var(--putih);
+  isolation: isolate;
+}
+
+/*
+ * Ornamen: kisi titik yang memudar dari sudut kanan-atas. Murni dekoratif —
+ * tidak ada teks di atasnya, dan kontras tombol/judul tidak tersentuh.
+ */
+.blokCta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* titik lebih besar, jaraknya ikut dilebarkan supaya tidak jadi rapat */
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--tinta) 16%, transparent) 2.5px,
+    transparent 2.5px
+  );
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(64% 52% at 100% 0%, #000, transparent 72%);
+  mask-image: radial-gradient(64% 52% at 100% 0%, #000, transparent 72%);
+}
+
+/* Ikon 3D di atas judul. Mengambang sedikit saat kartunya disentuh kursor. */
+.ikonCta {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: auto;
+  overflow: visible;
+  transition: transform 0.25s ease-out;
+}
+
+.blokCta:hover .ikonCta {
+  transform: translateY(-4px) rotate(-4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ikonCta {
+    transition: none;
+  }
+
+  .blokCta:hover .ikonCta {
+    transform: none;
+  }
+}
+
+.judulCta {
+  max-width: 24ch;
+  margin-top: 0.85rem;
+  color: var(--tinta);
+  font-weight: 500;
+  /* sama persis dengan judul kartu sorotan lain */
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.teksCta {
+  max-width: 30ch;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+
+.tombolCta {
+  margin-top: 1rem;
+}
+
+/*
+ * Varian kartu lebar "samping": bukan gambar-jadi-latar dengan teks di atasnya,
+ * melainkan kartu terang biasa seperti kartu rekam jejak — hanya orientasinya
+ * yang mendatar. Gambar jadi kolom/blok tersendiri (di kanan mulai layar
+ * tablet), teksnya di kartu putih.
+ */
+.kartuSamping {
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Bukan kartu foto-penuh: tingginya ikut isinya, bukan rasio foto. */
+  aspect-ratio: auto;
+  min-height: clamp(13rem, 22vw, 17rem);
+  background: var(--putih);
+  color: inherit;
+}
+
+/* Gambar berhenti jadi latar sepenuh kartu. Di mobile jadi blok 16:9 di atas
+   isi kartu, sama seperti kartu rekam jejak. */
+.kartuSamping .latar {
+  position: relative;
+  inset: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--panel);
+}
+
+/* Teks kembali ke warna kartu terang: tanpa gradien, tanpa teks putih. */
+.kartuSamping .isiGambar {
+  flex: 1;
+  padding: 1.25rem;
+  background: none;
+  color: inherit;
+}
+
+.kartuSamping .labelGambar {
+  margin-bottom: 0.75rem;
+  color: var(--tinta-3);
+}
+
+.kartuSamping .judulGambar {
+  color: var(--tinta);
+}
+
+.kartuSamping .teksGambar {
+  margin-top: 0.75rem;
+  color: var(--tinta-2);
+}
+
+@media (min-width: 640px) {
+  /* Mulai layar tablet barulah mendatar: teks di kiri, gambar penuh di kanan. */
+  .kartuSamping {
+    flex-direction: row-reverse;
+    align-items: stretch;
+  }
+
+  .kartuSamping .latar {
+    flex: 0 0 48%;
+    align-self: stretch;
+    /* tinggi gambar mengikuti kartu, bukan rasio tetap */
+    aspect-ratio: auto;
+  }
+
+  .kartuSamping .isiGambar {
+    min-width: 0;
+    padding: 1.5rem 1.75rem;
+  }
+
+  .kartuSamping .judulGambar,
+  .kartuSamping .teksGambar {
+    max-width: 34ch;
+  }
+
+  /* Kolomnya lebih sempit dari kartu lebar biasa, jadi judulnya boleh 3 baris. */
+  .kartuSamping .judulGambar {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+/* Penutup kartu "samping": sama persis dengan .status di kartu rekam jejak. */
+.statusSamping {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--tinta-3);
+}
+
+.statusSamping span {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.kartuSamping:hover .statusSamping {
+  color: var(--tinta);
+}
+
+.kartuSamping:hover .statusSamping span {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statusSamping span {
+    transition: none;
+  }
 }

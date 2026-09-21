@@ -36,7 +36,9 @@ export const site = {
   tipeKontenAktif: ["tulisan"] as ("tulisan" | "pemikiran" | "video")[],
 
   tautan: {
-    bantuan: "/bantuan",
+    // Segmen "Apa yang bisa saya bantu?" di beranda (halaman /bantuan sudah dihapus).
+    // Dari halaman lain, tautannya perlu diawali "/" — lihat pemakaian `ngobrol`.
+    bantuan: "#bantuan",
     rekamJejak: "/rekam-jejak",
     pembelajaran: "/pembelajaran",
     tera: "/rekam-jejak/tera",

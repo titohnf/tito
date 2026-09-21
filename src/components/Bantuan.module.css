@@ -1,0 +1,82 @@
+/*
+ * Satu-satunya bidang bersemburat di beranda: pita merah yang sangat tipis di
+ * antara halaman yang serba putih. Atas-bawahnya dibuat sama besar — sebagai
+ * pita berwarna, kedua tepinya sama-sama kelihatan, jadi kartu di dalamnya
+ * butuh ruang yang sama di kedua sisi.
+ */
+.bantuan {
+  position: relative;
+  /* Semburat di bawah duduk di z-index -1: isolate supaya "di bawah" berhenti
+     di pita ini, bukan tembus ke latar halaman di belakangnya. */
+  isolation: isolate;
+  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  background: var(--merah-tipis);
+  /* Tujuan tombol utama di hero (#bantuan): beri ruang supaya judulnya tidak
+     tertutup kepala halaman yang menempel di atas. Sama dengan segmen Ayo Ngobrol. */
+  scroll-margin-top: 4rem;
+}
+
+/*
+ * Semburat warna yang sama dengan latar hero — merah, biru, ungu — di atas pita
+ * merah tipis ini. Posisinya disesuaikan dengan bentuk pita yang lebar dan
+ * pendek: dua di kiri-kanan, satu menutup di tengah bawah. Kadarnya sedikit
+ * lebih rendah dari hero karena kertasnya di sini sudah bersemburat merah.
+ */
+.bantuan::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      36rem 20rem at calc(8% + var(--hanyut-x)) calc(15% + var(--hanyut-y)),
+      color-mix(in srgb, var(--merah) 8%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      32rem 18rem at calc(92% - var(--hanyut-x)) calc(20% + var(--hanyut-y)),
+      color-mix(in srgb, var(--biru) 8%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      34rem 20rem at calc(55% + var(--hanyut-x)) calc(100% - var(--hanyut-y)),
+      color-mix(in srgb, var(--ungu) 7%, transparent),
+      transparent 72%
+    );
+  /* Hanyut yang sama dengan hero; keyframes-nya di bawah */
+  animation: hanyut 24s ease-in-out infinite alternate;
+}
+
+/* Kepala segmen, seukuran judul di segmen Kata Mereka — satu tingkat di atas
+   judul bab di segmen Tentang. Label mono kecilnya dihapus, lihat Testimoni. */
+.judul {
+  max-width: 26ch;
+  font-weight: 500;
+  font-size: clamp(1.75rem, 5.6vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.038em;
+}
+
+.kartu {
+  margin-top: 1.75rem;
+}
+
+/*
+ * Kembar dengan deklarasi di berkas satunya, dan itu disengaja: nama keyframes
+ * di dalam CSS Module selalu di-hash per berkas — rujukan `animation: hanyut`
+ * pun ikut di-hash walau keyframes-nya dideklarasikan global, sehingga jadi
+ * menunjuk nama yang tidak ada dan animasinya diam-diam mati. Yang digeser
+ * adalah titik pusat gradien (lihat @property di globals.css), bukan kotaknya,
+ * supaya semburatnya tidak pernah keluar batas segmen.
+ */
+@keyframes hanyut {
+  from {
+    --hanyut-x: -2%;
+    --hanyut-y: -1.5%;
+  }
+  to {
+    --hanyut-x: 2%;
+    --hanyut-y: 1.5%;
+  }
+}

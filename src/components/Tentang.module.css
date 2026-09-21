@@ -1,10 +1,19 @@
 .tentang {
-  /* Jarak ke garis dibuat sama dengan jarak konten tetangganya:
-     nilai yang sama dipakai Pencapaian (di atas) dan CtaInteraktif (di bawah). */
+  /* Jarak yang sama dipakai Pencapaian (di atas) dan CtaInteraktif (di bawah),
+     jadi ritme antar segmen tetap seragam. */
   padding-block: clamp(3rem, 8vw, 5rem);
-  /* Garis penuh selebar layar, mengapit segmen ini di atas dan di bawah */
-  border-top: 1px solid var(--garis);
-  border-bottom: 1px solid var(--garis);
+  /* Tanpa garis pembatas atas/bawah: pemisah segmennya warna, bukan garis.
+     Semburat biru paling tipis, memudar ke putih di tepi atas dan bawah —
+     warnanya paling terasa di tengah segmen dan sudah putih lagi begitu sampai
+     di tepi, jadi peralihan ke segmen tetangga tidak terlihat. Kartu di
+     dalamnya tetap --putih, jadi kartunya justru lebih menonjol daripada waktu
+     latarnya ikut putih. */
+  background: linear-gradient(
+    var(--putih) 0%,
+    var(--biru-tipis) 30%,
+    var(--biru-tipis) 70%,
+    var(--putih) 100%
+  );
 }
 
 .daftar {
@@ -15,6 +24,9 @@
 
 .bab {
   display: grid;
+  /* Jarak judul bab ke deretan kartunya. 1.75rem — angka yang sama dipakai
+     segmen Kata Mereka (.trek di Testimoni) dan segmen Bantuan (.kartu),
+     jadi jarak kepala-ke-kartu seragam di seluruh beranda. */
   gap: 1.75rem;
   padding-block: clamp(1.5rem, 4.5vw, 3rem);
   border-top: 1px solid var(--garis);
@@ -73,6 +85,13 @@
   margin-top: 0;
 }
 
+/* Bab tanpa paragraf & tanpa tautan tetap merender wadah ini. Kalau dibiarkan,
+   margin-top-nya menambah 1rem ke jarak judul→kartu dan bab itu jadi lebih
+   longgar dari bab lain (dan dari segmen Kata Mereka & Bantuan). */
+.isi:empty {
+  display: none;
+}
+
 .tautan {
   margin-top: 1rem;
   display: flex;
@@ -83,10 +102,6 @@
 }
 
 @media (min-width: 900px) {
-  .bab {
-    gap: 2.25rem;
-  }
-
   /* Batas keras dua baris; di layar sempit teks dibiarkan mengalir penuh
      supaya tidak ada kalimat yang terpotong. */
   .judul {

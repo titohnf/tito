@@ -4,11 +4,42 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { BabTentang } from "@/content/profil";
+import { linkWhatsApp } from "@/config/site";
+import { pesanUmum } from "@/content/cta";
 import { FunFakta } from "./FunFakta";
+import { IkonFakta, IkonNgobrol } from "./Ikon3D";
+import { Tombol } from "./Tombol";
 import kartuStyles from "./KartuGrid.module.css";
 import styles from "./Sorotan.module.css";
 
 type Kartu = NonNullable<BabTentang["sorotan"]>[number];
+
+/**
+ * Tautan kartu. Tujuan ke bagian lain di halaman yang sama (mis. "#bantuan")
+ * pakai <a> biasa — lewat <Link>, App Router menahan posisi scroll.
+ */
+function TautanKartu({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className: string;
+  children: React.ReactNode;
+}) {
+  if (href.startsWith("#")) {
+    return (
+      <a href={href} className={className}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 /**
  * Deretan kartu sorotan yang bisa digeser ke samping.
@@ -20,6 +51,7 @@ export function Sorotan({
   label,
   hrefSemua,
   funFakta,
+  cta,
 }: {
   kartu: Kartu[];
   label: string;
@@ -27,6 +59,8 @@ export function Sorotan({
   hrefSemua?: string;
   /** Kalau diisi, kartu penutupnya berisi fun fact bab ini, bukan tautan rekam jejak. */
   funFakta?: string[];
+  /** Kalau diisi, slot terakhir trek jadi blok ajakan ngobrol, bukan kartu sorotan. */
+  cta?: NonNullable<BabTentang["cta"]>;
 }) {
   const trekRef = useRef<HTMLUListElement>(null);
   const [posisi, setPosisi] = useState({ bisaKiri: false, bisaKanan: false });
@@ -49,7 +83,7 @@ export function Sorotan({
       trek.removeEventListener("scroll", ukur);
       observer.disconnect();
     };
-  }, [ukur, kartu.length, hrefSemua, funFakta?.length]);
+  }, [ukur, kartu.length, hrefSemua, funFakta?.length, cta]);
 
   /**
    * Geser satu kartu (termasuk jaraknya) per klik.
@@ -96,21 +130,36 @@ export function Sorotan({
           s.lebar === 2 ? (
             // Kartu lebar: teks ditumpuk di atas gambar supaya kartunya tidak
             // ikut memanjang seperti kartu biasa (gambar + teks bertingkat).
+            // `tata: "samping"` membelahnya jadi landscape: gambar kiri, teks kanan.
             <li key={s.judul} className={`${styles.item} ${styles.item2}`}>
-              <Link href={s.href} className={`${kartuStyles.kartu} ${styles.kartuGambar}`}>
-                {/* Tanpa gambar, latar gelap kartu sudah cukup — tulisan
-                    placeholder justru bertabrakan dengan teks di atasnya. */}
+              <TautanKartu
+                href={s.href}
+                className={`${kartuStyles.kartu} ${styles.kartuGambar} ${
+                  s.tata === "samping" ? styles.kartuSamping : ""
+                }`}
+              >
+                {/* Placeholder "Gambar" hanya untuk varian samping: di kartu
+                    bergambar-latar, tulisannya bertabrakan dengan teks di atasnya. */}
                 <div className={styles.latar}>
-                  {s.gambar && (
+                  {s.gambar ? (
                     <Image src={s.gambar} alt="" fill sizes="(min-width: 640px) 44rem, 78vw" />
+                  ) : (
+                    s.tata === "samping" && <span aria-hidden="true">Gambar</span>
                   )}
                 </div>
                 <div className={styles.isiGambar}>
                   {s.label && <span className={styles.labelGambar}>{s.label}</span>}
                   <h4 className={styles.judulGambar}>{s.judul}</h4>
                   {s.teks && <p className={styles.teksGambar}>{s.teks}</p>}
+                  {/* Susunan kartu rekam jejak, tapi mendatar. Penutupnya <span>,
+                      bukan tautan: seluruh kartunya sendiri sudah jadi tautan. */}
+                  {s.tata === "samping" && (
+                    <p className={styles.statusSamping}>
+                      Baca selengkapnya <span aria-hidden="true">→</span>
+                    </p>
+                  )}
                 </div>
-              </Link>
+              </TautanKartu>
             </li>
           ) : (
             <li key={s.judul} className={styles.item}>
@@ -137,11 +186,34 @@ export function Sorotan({
           )
         )}
 
+        {/* Blok CTA menutup trek: nadanya sama dengan kartu sorotan lebar
+            (latar gelap), tapi isinya ajakan ngobrol, bukan tautan halaman. */}
+        {cta && (
+          <li className={styles.item}>
+            <div className={`${kartuStyles.kartu} ${styles.blokCta}`}>
+              <IkonNgobrol className={styles.ikonCta} />
+              <h4 className={styles.judulCta}>{cta.judul}</h4>
+              {cta.teks && <p className={styles.teksCta}>{cta.teks}</p>}
+              <div className={styles.tombolCta}>
+                <Tombol href={linkWhatsApp(pesanUmum)} varian="utama" eksternal>
+                  {cta.tombol} <span aria-hidden="true">→</span>
+                </Tombol>
+              </div>
+            </div>
+          </li>
+        )}
+
         {/* Kartu penutup: fun fact kalau ada, kalau tidak tautan ke rekam jejak. */}
         {funFakta?.length ? (
           <li className={styles.item}>
             <div className={`${kartuStyles.kartu} ${styles.kartuFakta}`}>
-              <span className={kartuStyles.nomor}>Fun fact</span>
+              {/* Ikon & label sebaris: ikon di kiri, label memakai gaya label
+                  kartu yang lain. Sebaris begini, tinggi kartunya tetap sama
+                  dengan kartu foto di sebelahnya walau daftarnya 4 baris. */}
+              <div className={styles.kepalaFakta}>
+                <IkonFakta className={styles.ikonFakta} />
+                <span className={kartuStyles.nomor}>Fakta menarik</span>
+              </div>
               <FunFakta fakta={funFakta} baris={4} />
             </div>
           </li>

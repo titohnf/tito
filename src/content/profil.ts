@@ -43,10 +43,13 @@ export type BabTentang = {
   // kartu "Lihat seluruh rekam jejak") dan dipakai lagi di halaman detail sorotan.
   funFakta?: string[];
   tautan?: { label: string; href: "bantuan" | "rekamJejak" | "tera" };
-  /** Ganti deretan sorotan bab ini dengan kartu kebutuhan dari halaman /bantuan. */
-  kartuBantuan?: boolean;
   /** Sembunyikan kartu penutup "Lihat seluruh rekam jejak" di deretan sorotan bab ini. */
   tanpaTautanUmum?: boolean;
+  /**
+   * Blok ajakan ngobrol yang menutup deretan sorotan bab ini (menggantikan kartu
+   * sorotan terakhir). Tombolnya selalu menuju WhatsApp dengan `pesanUmum`.
+   */
+  cta?: { judul: string; teks?: string; tombol: string };
   // Kartu di kolom kanan (gambar + label + judul). Kosong = 3 placeholder.
   // gambar: path di /public, mis. "/images/kominfo.jpg"
   sorotan?: {
@@ -57,6 +60,11 @@ export type BabTentang = {
     gambar?: string;
     /** 2 = kartu dilebarkan jadi dua kolom di trek sorotan (mulai layar tablet). */
     lebar?: 2;
+    /**
+     * Tata letak kartu lebar. Default: teks ditumpuk di atas gambar.
+     * "samping" = gambar penuh di kiri, teks di kanan (landscape).
+     */
+    tata?: "samping";
   }[];
 };
 
@@ -92,6 +100,7 @@ export const tentang: BabTentang[] = [
         label: "Mendirikan Tera Foundation",
         judul: "Bebaskan anak marjinal untuk bermimpi",
         href: "/rekam-jejak/tera",
+        gambar: "/images/tera-kelas-bimbel-2.jpg",
         lebar: 2,
       },
     ],
@@ -100,8 +109,31 @@ export const tentang: BabTentang[] = [
     id: "pendamping",
     label: "Sebagai Desainer Pendamping Rakyat",
     judul: "Memberi nilai tambah untuk ide dan usaha yang kamu kembangkan.",
-    kartuBantuan: true,
     tanpaTautanUmum: true,
+    // TODO: cek ulang & rapikan — draf ini disusun dari materi yang sudah ada di
+    // repo (dua usaha kampus di /tulisan, cerita membangun sistem Tera, dan
+    // angka "Mendampingi 3 sesi konsultasi" di daftar pencapaian).
+    funFakta: [
+      "Sempat bikin dua usaha waktu kuliah",
+      "Bangun sistem operasional bimbel sendiri",
+      "Belajar ngoding dibantu AI, tanpa tim",
+      "Sudah 3 sesi konsultasi pendampingan",
+      "Ngobrol pertama gratis, tanpa komitmen",
+    ],
+    // Satu kartu lebar bergaya kartu Tera, lalu ditutup kartu fun fact di slot terakhir.
+    // TODO: ganti copy & tambahkan `gambar` kalau fotonya sudah ada.
+    sorotan: [
+      {
+        label: "Mendampingi Pelaku Usaha",
+        judul: "Menemani dari ide di kepala sampai jadi yang bisa dipakai",
+        teks:
+          "Merapikan ide, menyusun alur, sampai rancangan yang siap dipakai. " +
+          "Menemani pemilik usaha yang belum punya tim desain sendiri.",
+        href: "/rekam-jejak/bimbel-tera",
+        lebar: 2,
+        tata: "samping",
+      },
+    ],
   },
 ];
 

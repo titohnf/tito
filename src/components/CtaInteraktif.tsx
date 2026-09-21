@@ -26,89 +26,93 @@ export function CtaInteraktif() {
   }
 
   return (
-    <section id="ngobrol" className={`wadah ${styles.cta}`} aria-labelledby="ngobrol-judul">
-      <div className={styles.panel}>
-        <h2 id="ngobrol-judul" className="label">
-          Ayo ngobrol
-        </h2>
+    // Latar gelapnya harus penuh selebar layar, jadi .wadah turun jadi pembungkus
+    // di dalam — sama seperti segmen Bantuan tepat di atasnya.
+    <section id="ngobrol" className={styles.cta} aria-labelledby="ngobrol-judul">
+      <div className="wadah">
+        <div className={styles.panel}>
+          <h2 id="ngobrol-judul" className="label">
+            Ayo ngobrol
+          </h2>
 
-        <form className={styles.kalimat} onSubmit={(e) => e.preventDefault()}>
-          <span>Kamu </span>
-          <label htmlFor={idPeran} className="sr-only">
-            Kamu
-          </label>
-          <span className={styles.menempel}>
+          <form className={styles.kalimat} onSubmit={(e) => e.preventDefault()}>
+            <span>Kamu </span>
+            <label htmlFor={idPeran} className="sr-only">
+              Kamu
+            </label>
+            <span className={styles.menempel}>
+              <span className={styles.pilihWadah}>
+                <span className={styles.cermin} aria-hidden="true">
+                  {peranTerpilih?.label ?? "pilih…"}
+                </span>
+                <select
+                  id={idPeran}
+                  className={styles.pilih}
+                  value={peranId}
+                  onChange={(e) => gantiPeran(e.target.value)}
+                  data-kosong={!peranId}
+                >
+                  <option value="" disabled>
+                    pilih…
+                  </option>
+                  {peran.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.label}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </span>
+            <span> dan </span>
+            <label htmlFor={idKebutuhan} className="sr-only">
+              dan
+            </label>
             <span className={styles.pilihWadah}>
               <span className={styles.cermin} aria-hidden="true">
-                {peranTerpilih?.label ?? "pilih…"}
+                {kebutuhanTerpilih?.label ?? "pilih…"}
               </span>
               <select
-                id={idPeran}
+                id={idKebutuhan}
                 className={styles.pilih}
-                value={peranId}
-                onChange={(e) => gantiPeran(e.target.value)}
-                data-kosong={!peranId}
+                value={kebutuhanTerpilih ? kebutuhanId : ""}
+                onChange={(e) => setKebutuhanId(e.target.value)}
+                data-kosong={!kebutuhanTerpilih}
               >
                 <option value="" disabled>
                   pilih…
                 </option>
-                {peran.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.label}
+                {opsiKebutuhan.map((k) => (
+                  <option key={k.id} value={k.id}>
+                    {k.label}
                   </option>
                 ))}
               </select>
             </span>
-          </span>
-          <span> dan </span>
-          <label htmlFor={idKebutuhan} className="sr-only">
-            dan
-          </label>
-          <span className={styles.pilihWadah}>
-            <span className={styles.cermin} aria-hidden="true">
-              {kebutuhanTerpilih?.label ?? "pilih…"}
-            </span>
-            <select
-              id={idKebutuhan}
-              className={styles.pilih}
-              value={kebutuhanTerpilih ? kebutuhanId : ""}
-              onChange={(e) => setKebutuhanId(e.target.value)}
-              data-kosong={!kebutuhanTerpilih}
-            >
-              <option value="" disabled>
-                pilih…
-              </option>
-              {opsiKebutuhan.map((k) => (
-                <option key={k.id} value={k.id}>
-                  {k.label}
-                </option>
-              ))}
-            </select>
-          </span>
-        </form>
+          </form>
 
-        <div className={styles.hasil} data-tampil={Boolean(lengkap)} aria-live="polite">
-          {lengkap ? (
-            <>
-              <p className={`label ${styles.labelPesan}`}>Pesan pembuka</p>
-              <p className={styles.gelembung}>{pesan}</p>
-              <div className={styles.aksi}>
-                <a
-                  href={linkWhatsApp(pesan)}
-                  className={styles.tombol}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Kirim lewat WhatsApp <span aria-hidden="true">↗</span>
-                </a>
-                <p className={styles.catatan}>{catatanCta}</p>
-              </div>
-            </>
-          ) : (
-            <p className={styles.petunjuk}>
-              Pilih keduanya, pesan pembukanya langsung jadi.
-            </p>
-          )}
+          <div className={styles.hasil} data-tampil={Boolean(lengkap)} aria-live="polite">
+            {lengkap ? (
+              <>
+                <p className={`label ${styles.labelPesan}`}>Pesan pembuka</p>
+                <p className={styles.gelembung}>{pesan}</p>
+                <div className={styles.aksi}>
+                  <a
+                    href={linkWhatsApp(pesan)}
+                    className={styles.tombol}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Kirim lewat WhatsApp <span aria-hidden="true">↗</span>
+                  </a>
+                  <p className={styles.catatan}>{catatanCta}</p>
+                </div>
+              </>
+            ) : (
+              <p className={styles.petunjuk}>
+                Pilih keduanya, pesan pembukanya langsung jadi.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </section>

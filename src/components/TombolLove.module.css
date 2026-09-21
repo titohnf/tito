@@ -1,0 +1,63 @@
+.love {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  /* margin negatif: area kliknya lega, tapi tombolnya tetap rata dengan teks di sebelahnya */
+  margin: -0.35rem;
+  padding: 0.35rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--tinta-3);
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.love:hover {
+  color: var(--merah);
+}
+
+.love[data-disukai="true"] {
+  color: var(--merah);
+}
+
+.hati {
+  width: 1.15em;
+  height: 1.15em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linejoin: round;
+  /* transform-origin di tengah supaya animasi detaknya tidak meleset */
+  transform-origin: center;
+  transition: fill 0.2s;
+}
+
+.love[data-disukai="true"] .hati {
+  fill: currentColor;
+}
+
+/* Hati membesar sesaat ketika ditekan */
+.love[data-disukai="true"] .hati {
+  animation: berdetak 0.35s ease;
+}
+
+.jumlah {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85em;
+}
+
+@keyframes berdetak {
+  40% {
+    transform: scale(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .love[data-disukai="true"] .hati {
+    animation: none;
+  }
+}
