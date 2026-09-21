@@ -3,7 +3,7 @@ import { KartuBantuan } from "./KartuBantuan";
 import styles from "./Bantuan.module.css";
 
 /**
- * Segmen penutup sebelum ajakan ngobrol: tiga layanan yang biasa saya bantu.
+ * Segmen penutup sebelum ajakan ngobrol: empat layanan yang biasa saya bantu.
  * Kartunya komponen yang sama dengan halaman /bantuan.
  */
 export function Bantuan() {

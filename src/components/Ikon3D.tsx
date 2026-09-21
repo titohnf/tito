@@ -181,3 +181,72 @@ export function IkonAudit({ className }: { className?: string }) {
   );
 }
 
+
+/** Kilau AI di atas jendela peramban — layanan belajar bikin web sendiri pakai AI. */
+export function IkonAi({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="ln-layarAi" x1="0.2" y1="0" x2="0.8" y2="1">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="1" stopColor="#dcdcd6" />
+        </linearGradient>
+        <linearGradient id="ln-kilauAi" x1="0.2" y1="0" x2="0.8" y2="1">
+          <stop offset="0" stopColor="#c4b0fb" />
+          <stop offset="0.55" stopColor="#8b5cf6" />
+          <stop offset="1" stopColor="#6132c9" />
+        </linearGradient>
+        <radialGradient id="ln-sorotAi" cx="0.32" cy="0.25" r="0.6">
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+        <filter id="ln-bayangAi" x="-25%" y="-25%" width="150%" height="160%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" floodColor="#121211" floodOpacity="0.22" />
+        </filter>
+      </defs>
+
+      <ellipse cx="32" cy="56" rx="16" ry="3.2" fill="#121211" opacity="0.12" />
+
+      {/* jendela peramban yang sedang dirakit sendiri — kertas, bukan layar penuh warna,
+          supaya kilau ungunya yang jadi tokoh utama */}
+      <g filter="url(#ln-bayangAi)">
+        <rect x="7" y="15" width="42" height="34" rx="5" fill="url(#ln-layarAi)" />
+      </g>
+      <path d="M7 20a5 5 0 0 1 5-5h32a5 5 0 0 1 5 5v3H7v-3Z" fill="#c9c8c1" fillOpacity="0.55" />
+      <g fill="#b3b2ab">
+        <circle cx="13" cy="19" r="1.5" />
+        <circle cx="18" cy="19" r="1.5" />
+        <circle cx="23" cy="19" r="1.5" />
+      </g>
+      <g fill="#c9c8c1">
+        <rect x="13" y="28" width="15" height="3" rx="1.5" />
+        <rect x="13" y="34.5" width="24" height="3" rx="1.5" />
+        <rect x="13" y="41" width="10" height="3" rx="1.5" />
+      </g>
+
+      {/* kilau besar: tanda "dibantu AI" */}
+      <g filter="url(#ln-bayangAi)">
+        <path
+          d="M43 17c1.9 8.4 3.7 10.2 12.1 12.1-8.4 1.9-10.2 3.7-12.1 12.1-1.9-8.4-3.7-10.2-12.1-12.1C39.3 27.2 41.1 25.4 43 17Z"
+          fill="url(#ln-kilauAi)"
+        />
+        <path
+          d="M43 17c1.9 8.4 3.7 10.2 12.1 12.1-8.4 1.9-10.2 3.7-12.1 12.1-1.9-8.4-3.7-10.2-12.1-12.1C39.3 27.2 41.1 25.4 43 17Z"
+          fill="url(#ln-sorotAi)"
+        />
+      </g>
+
+      {/* dua kilau kecil sebagai iringan */}
+      <path
+        d="M53.5 40c.9 4 1.8 4.9 5.8 5.8-4 .9-4.9 1.8-5.8 5.8-.9-4-1.8-4.9-5.8-5.8 4-.9 4.9-1.8 5.8-5.8Z"
+        fill="url(#ln-kilauAi)"
+        opacity="0.85"
+      />
+      <path
+        d="M31.5 6c.6 2.7 1.2 3.3 3.9 3.9-2.7.6-3.3 1.2-3.9 3.9-.6-2.7-1.2-3.3-3.9-3.9 2.7-.6 3.3-1.2 3.9-3.9Z"
+        fill="url(#ln-kilauAi)"
+        opacity="0.7"
+      />
+    </svg>
+  );
+}

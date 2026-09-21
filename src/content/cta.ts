@@ -73,6 +73,14 @@ export type Layanan = {
   detail: BagianLayanan[];
   /** Pesan pembuka WhatsApp dari layanan ini */
   pesan: string;
+  /**
+   * Kartu lebar: turun ke barisnya sendiri selebar segmen, isinya ditata
+   * mendatar dengan ilustrasi di kanan dan dua tombol di bawah teks.
+   * Dipakai satu kartu saja — lebih dari satu dan barisnya jadi pola, bukan sorotan.
+   */
+  lebar?: boolean;
+  /** Tombol kedua di kartu lebar, mis. mendaftar kelas. `pesan` = pembuka WhatsApp-nya. */
+  tombolDaftar?: { label: string; pesan: string };
 };
 
 /**
@@ -153,6 +161,40 @@ export const layanan: Layanan[] = [
       },
     ],
     pesan: "Halo Tito, saya mau ngobrol soal ide atau usaha yang sedang saya pikirkan. Boleh?",
+  },
+  {
+    id: "ai",
+    judul: "Belajar Bikin Web Sendiri",
+    teks: "Saya temani sampai kamu bisa bikin dan rawat website sendiri pakai bantuan AI.",
+    judulDetail: "Belajar bikin website sendiri dengan bantuan AI",
+    detail: [
+      {
+        judul: "Apa yang kamu dapat",
+        paragraf:
+          "Bukan saya yang bikinin, tapi kamu — saya yang nemenin. Kita pakai alat AI yang ada sekarang buat nyusun website kamu dari nol, sampai kamu ngerti cara ngubah dan ngerawatnya sendiri tanpa perlu nunggu siapa-siapa.",
+      },
+      {
+        judul: "Bagaimana prosesnya",
+        langkah: [
+          "Kita tentuin dulu website apa yang mau kamu bikin dan buat siapa",
+          "Saya kenalin alatnya dan cara ngobrol sama AI biar hasilnya sesuai maksud kamu",
+          "Kita kerjain bareng sambil jalan, kamu yang pegang kemudinya",
+          "Terakhir, saya kasih cara ngerawat dan ngembanginnya sendiri",
+        ],
+      },
+      {
+        judul: "Yang perlu kamu siapin",
+        paragraf:
+          "Laptop dan waktu buat nyoba. Nggak perlu bisa ngoding — yang lebih kepakai justru kejelasan soal apa yang mau kamu sampaikan lewat website itu.",
+      },
+    ],
+    pesan:
+      "Halo Tito, saya mau belajar bikin website sendiri dengan bantuan AI. Boleh ngobrol dulu?",
+    lebar: true,
+    tombolDaftar: {
+      label: "Daftar Kelas",
+      pesan: "Halo Tito, saya mau daftar kelas bikin website sendiri dengan AI. Boleh info jadwalnya?",
+    },
   },
 ];
 

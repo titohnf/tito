@@ -169,25 +169,563 @@
 }
 
 /*
- * Grid tiga kartu layanan. Sengaja grid diam, bukan trek geser: beranda sudah
- * punya empat deretan yang digeser berturut-turut (tiga bab Tentang + Kata
- * Mereka), dan yang kelima membuat semuanya terbaca sebagai pola yang sama.
- *
- * Di 640-860px `.grid` bawaan memberi dua kolom, dan kartu ketiga menggantung
- * sendirian di baris kedua. Di rentang itu kartu ketiga dilebarkan penuh, jadi
- * barisnya terbaca sebagai susunan yang memang dirancang — bukan sisa.
+ * Grid kartu layanan: tiga kartu sejajar, lalu kartu keempat (belajar bikin web
+ * sendiri pakai AI) turun ke baris sendiri selebar penuh. Sengaja grid diam,
+ * bukan trek geser: beranda sudah punya empat deretan yang digeser berturut-turut
+ * (tiga bab Tentang + Kata Mereka), dan yang kelima membuat semuanya terbaca
+ * sebagai pola yang sama.
  */
-@media (min-width: 640px) and (max-width: 859.98px) {
-  .daftar > li:last-child {
+
+/* Kartu lebar memakan selebar barisnya, di setiap lebar yang punya lebih dari
+   satu kolom. Di HP grid-nya sudah satu kolom, jadi tidak ada yang perlu diatur. */
+@media (min-width: 640px) {
+  .daftar > .sorot {
+    grid-column: 1 / -1;
+  }
+
+  /* Semua baris setinggi baris yang paling tinggi: kartu lebar di baris kedua
+     jadi persis setinggi tiga kartu di atasnya, tanpa angka tinggi yang dipatok
+     sendiri dan bisa melenceng begitu isinya berubah. Baru berlaku dari 640px,
+     karena di bawah itu tiap kartu punya barisnya sendiri dan menyamakan tinggi
+     justru membuat semuanya ikut setinggi yang terpanjang. */
+  .daftar {
+    grid-auto-rows: 1fr;
+  }
+}
+
+/* Di 640-1000px `.grid` bawaan memberi dua kolom, jadi kartu ketiga tertinggal
+   sendirian di barisnya begitu kartu lebar turun. Di rentang itu kartu ketiga
+   ikut dilebarkan penuh — barisnya jadi terbaca sebagai susunan yang memang
+   dirancang, bukan sisa. Aturan yang sama dulu dipakai waktu kartunya tiga. */
+@media (min-width: 640px) and (max-width: 999.98px) {
+  .daftar > li:nth-child(3) {
     grid-column: 1 / -1;
   }
 }
 
-/* Kelasnya disebut dua kali dengan sengaja: aturan ini harus menang atas
-   `.grid` di KartuGrid.module.css (yang di lebar ini memberi dua kolom), dan
-   kekhususannya sama besar — tanpa ini hasilnya bergantung urutan berkas CSS. */
-@media (min-width: 860px) {
-  .daftar.daftar {
-    grid-template-columns: repeat(3, 1fr);
+/*
+ * Kartu lebar: teks di kiri (ikon, judul, ringkasan, lalu dua tombol di
+ * bawahnya) dan ilustrasi di kanan. min-height kartu kolom dilepas — di bidang
+ * selebar ini tingginya sudah ditentukan isinya sendiri.
+ *
+ * Di HP keduanya bertumpuk: teks dulu, ilustrasi di bawahnya sebagai penutup.
+ */
+.kartuLebar {
+  display: grid;
+  gap: 1.25rem;
+  min-height: 0;
+  padding: 1.5rem;
+  cursor: auto;
+}
+
+.isiLebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.isiLebar .kepala {
+  margin-bottom: 0.6rem;
+}
+
+/* Ikonnya sedikit lebih besar daripada di kartu kolom: bidangnya lebih lapang,
+   dan ia berdiri sendiri di atas judul tanpa kartu sempit yang membatasi. */
+.isiLebar .ikon {
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Ringkasan di kartu lebar: barisnya dijaga tetap enak dibaca walau bidangnya
+   lebar. Dirujuk lewat elemen karena kelasnya datang dari KartuGrid.module.css. */
+.isiLebar p {
+  max-width: 46ch;
+}
+
+/* Dua tombol di bawah teks. Tombol "Pelajari Selengkapnya" memakai kelas dari
+   Tombol.module.css supaya bentuknya persis tombol lain di situs, walau ia
+   <button> (membuka pop up), bukan tautan. */
+.aksiKartu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+
+.aksiKartu > button {
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/*
+ * Panggung foto. Lebarnya ikut kartu, dan ornamennya diletakkan dalam persen
+ * terhadap kotak ini — jadi semuanya ikut mengecil bareng fotonya, tanpa perlu
+ * ukuran khusus per lebar layar.
+ */
+.panggung {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  justify-self: center;
+}
+
+.foto {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/*
+ * Alas foto: noda ungu-biru bersudut tak beraturan, sewarna semburat segmennya.
+ * Bentuknya dibuat dengan border-radius empat nilai + sumbu kedua, cara yang
+ * sama dengan "blob" di ilustrasi pemasaran — lebih ringan daripada SVG dan
+ * ikut melar sendiri mengikuti kotaknya.
+ */
+.noda {
+  position: absolute;
+  inset: 3% 8% 12%;
+  z-index: 0;
+  border-radius: 48% 52% 44% 56% / 54% 46% 54% 46%;
+  /*
+   * Warnanya diambil dari ujung terang gradien ikon 3D, bukan var(--ungu)/
+   * var(--biru) yang tua — di bidang selebar ini yang tua terbaca kelabu.
+   * Dua lapis: gradien ungu→biru sebagai warna dasar, dan sorot putih di
+   * kiri-atas supaya bidangnya terasa melengkung, bukan rata.
+   */
+  background:
+    radial-gradient(90% 70% at 24% 14%, rgba(255, 255, 255, 0.6), transparent 62%),
+    linear-gradient(152deg, #c0a6ff, #a8c6f6 62%, #d6e5fb);
+}
+
+/*
+ * Satu panel gelap: editor kode di belakang bahunya. Ukurannya dalam persen
+ * terhadap panggung, jadi ikut mengecil bareng fotonya.
+ */
+.panel {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.62);
+  /* -webkit- masih perlu untuk Safari */
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  backdrop-filter: blur(10px) saturate(1.3);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--tinta) 16%, transparent);
+  font-size: 0.46rem;
+  line-height: 1.6;
+  color: var(--tinta-2);
+}
+
+/*
+ * Editor kode: panel terbesar dan satu-satunya yang menampilkan kode. Duduk di
+ * belakang bahunya, menjorok ke kanan.
+ *
+ * Miringnya dibuat dengan perspektif sendiri (fungsi perspective() di dalam
+ * transform, bukan properti di induknya): sisi kanannya mendekat ke mata, jadi
+ * ia tampil lebih tinggi daripada sisi kiri — itu yang bikin panelnya terbaca
+ * menghadap ke depan, bukan sejajar dinding.
+ */
+.layar {
+  right: -6%;
+  top: -12%;
+  width: 58%;
+  gap: 0.4rem;
+  padding: 0.45rem 0.5rem 0.55rem;
+  transform: perspective(620px) rotateY(-19deg) rotateX(2deg);
+  transform-origin: right center;
+}
+
+.bilahLayar {
+  display: flex;
+  gap: 0.22rem;
+}
+
+.bilahLayar i {
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tinta) 26%, transparent);
+}
+
+.badanLayar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.kode {
+  display: grid;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  white-space: pre;
+}
+
+/* Daftar berkas di sisi kiri editor */
+.berkas {
+  display: grid;
+  gap: 0.22rem;
+  /* Selebar ini supaya kolom kodenya tetap mulai di kanan kepala orangnya:
+     setiap kali panelnya dilebarkan, yang melebar ke kiri adalah sisi yang
+     tertutup kepala — kolom berkas ini yang menahannya. */
+  width: 2.7rem;
+  padding-top: 0.1rem;
+}
+
+.berkas i {
+  height: 0.3rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--tinta) 14%, transparent);
+}
+
+.berkas i:nth-child(3) {
+  width: 78%;
+}
+
+.berkas i:nth-child(5) {
+  width: 64%;
+}
+
+.berkas i:nth-child(6) {
+  width: 86%;
+}
+
+.berkasAktif {
+  background: color-mix(in srgb, #6d3fd6 45%, transparent);
+}
+
+/* Nomor baris: kolom sempit di kiri tiap baris, warnanya paling redup supaya
+   tidak ikut terbaca sebagai kode. */
+.kode s {
+  display: inline-block;
+  width: 0.9em;
+  margin-right: 0.5em;
+  text-align: right;
+  text-decoration: none;
+  color: var(--tinta-3);
+}
+
+.kode b {
+  font-weight: 400;
+  color: #6d3fd6;
+}
+
+.kode u {
+  text-decoration: none;
+  color: #2f62ab;
+}
+
+.kode i {
+  font-style: normal;
+  color: #1f7742;
+}
+
+/*
+ * Pratinjau web yang mengambang di atas tutup laptop — hasil dari kode di panel
+ * belakangnya. Lapisannya di belakang foto, jadi kakinya tertutup layar laptop
+ * dan ia terbaca muncul dari sana.
+ */
+.pratinjau {
+  position: absolute;
+  left: 0;
+  bottom: 48%;
+  z-index: 1;
+  display: grid;
+  width: 28%;
+  border-radius: 7px;
+  background: var(--putih);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--tinta) 16%, transparent);
+  overflow: hidden;
+}
+
+.bilahPratinjau {
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.3rem 0.35rem;
+  background: #dfe3ef;
+}
+
+.bilahPratinjau i {
+  width: 0.26rem;
+  height: 0.26rem;
+  border-radius: 50%;
+  background: #9aa1bb;
+}
+
+.isiPratinjau {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.35rem;
+}
+
+/* Hero: teks + tombol di kiri, gambar di kanan */
+.heroPratinjau {
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  border-radius: 4px;
+  background: #eaeefa;
+}
+
+.teksHero {
+  display: grid;
+  align-content: start;
+  gap: 0.16rem;
+}
+
+.teksHero i {
+  height: 0.2rem;
+  border-radius: 999px;
+  background: #c3cbe6;
+}
+
+.teksHero i:nth-child(2) {
+  width: 86%;
+}
+
+.teksHero i:nth-child(3) {
+  width: 64%;
+}
+
+/* Tombol ajakan di hero — satu-satunya bidang berwarna penuh, sama seperti di
+   halaman beneran. */
+.teksHero b {
+  width: 58%;
+  height: 0.35rem;
+  margin-top: 0.12rem;
+  border-radius: 3px;
+  background: #4353e0;
+}
+
+/* Gambar hero: langit gelap, matahari, dan dua puncak gunung dari clip-path */
+.gambarHero {
+  position: relative;
+  border-radius: 4px;
+  background: #3f4a6e;
+  overflow: hidden;
+}
+
+.gambarHero::before {
+  content: "";
+  position: absolute;
+  top: 18%;
+  right: 16%;
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.gambarHero::after {
+  content: "";
+  position: absolute;
+  inset: 40% 8% 0 8%;
+  background: #cdd4ee;
+  clip-path: polygon(0 100%, 34% 18%, 58% 100%, 52% 100%, 74% 42%, 100% 100%);
+}
+
+/* Tiga kartu kecil di bawah hero */
+.kartuPratinjau {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+}
+
+.kartuPratinjau > span {
+  display: grid;
+  gap: 0.14rem;
+  padding: 0.28rem;
+  border-radius: 4px;
+  background: #eaeefa;
+}
+
+.kartuPratinjau u {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #8b96dd;
+}
+
+.kartuPratinjau i {
+  height: 0.16rem;
+  border-radius: 999px;
+  background: #c3cbe6;
+}
+
+.kartuPratinjau i:last-child {
+  width: 70%;
+}
+
+/*
+ * Gelembung "AI": badan gradien biru-ungu dengan ekor kecil di kiri-bawah yang
+ * menunjuk ke panel kode. Duduk di depan foto (z-index di atas .foto) — ia
+ * penanda, bukan bagian dari adegan di belakang orangnya.
+ */
+.bisik {
+  position: absolute;
+  top: 4%;
+  right: 57%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 12px;
+  background: linear-gradient(125deg, #3f7fd0, #7c53f0 55%, #6132c9);
+  box-shadow: 0 8px 18px color-mix(in srgb, #6132c9 32%, transparent);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
+/* Ekor gelembung: segitiga sewarna ujung gradien di sisi itu, jadi sambungannya
+   ke badan gelembung tidak kelihatan. */
+.bisik::after {
+  content: "";
+  position: absolute;
+  left: 14%;
+  bottom: -0.42rem;
+  width: 0.75rem;
+  height: 0.5rem;
+  background: #5f38c6;
+  clip-path: polygon(0 0, 100% 0, 18% 100%);
+}
+
+.kilauAi {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: none;
+}
+
+/*
+ * Dua lencana ikon yang mengambang di sisi kanan foto, di depan orangnya
+ * (z-index di atas .foto). Kartu putih kecil supaya ikon bergaris tipis tetap
+ * terbaca di atas baju yang gelap.
+ */
+.lencana {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 10px;
+  background: var(--putih);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--tinta) 18%, transparent);
+}
+
+/* Kode: ungu, sewarna gelembung AI. */
+.lencanaAtas {
+  top: 32%;
+  right: -4%;
+  color: #6d3fd6;
+}
+
+/* Pita janji di kanan bawah, sebidang dengan lencana kode di atasnya. */
+.janji {
+  position: absolute;
+  right: -4%;
+  bottom: 18%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: var(--putih);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--tinta) 18%, transparent);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+
+/* Centangnya hijau — warna "beres" di situs ini (lihat --hijau). */
+.janji svg {
+  color: var(--hijau);
+}
+
+/*
+ * Di bawah 760px panggungnya jadi selebar kartu, dan panel kode yang dipatok
+ * dalam persen jadi terlalu sempit untuk barisnya: kodenya meluber keluar
+ * panel, bahkan keluar kartu. Di lebar itu panelnya dilebarkan, hurufnya
+ * dikecilkan, dan kolom berkasnya dipersempit.
+ *
+ * Susunan panelnya sendiri sama persis dengan desktop; yang diatur di sini cuma
+ * ukuran huruf, lebar kolom berkas, dan jarak panggung ke tombol di atasnya.
+ */
+@media (max-width: 759.98px) {
+  .panggung {
+    /* Panel kode dipasang menjorok ke atas (top negatif). Di HP panggungnya
+       bertumpuk di bawah tombol, bukan di sebelahnya, jadi jorokan itu perlu
+       diberi ruang — kalau tidak, panelnya naik ke belakang tombol
+       "Daftar Kelas". */
+    margin-top: 2.5rem;
+  }
+
+  .kode {
+    font-size: 0.4rem;
+  }
+
+  .berkas {
+    width: 1.6rem;
+  }
+}
+
+/*
+ * Dari 760px fotonya pindah ke kanan teks — dan di sini tingginya yang jadi
+ * patokan, bukan lebarnya.
+ *
+ * Fotonya dipasang absolut, setinggi ruang kartu. Kalau ia ikut mengalir
+ * seperti biasa, dialah yang menentukan tinggi kartu — dan kartu lebar ini
+ * selalu lebih jangkung daripada barisnya, berapa pun tinggi baris di atasnya.
+ * Tinggi barisnya sendiri disamakan lewat grid-auto-rows: 1fr di .daftar.
+ *
+ * Lebar fotonya lahir dari tingginya lewat aspect-ratio (rasio asli berkasnya),
+ * dan ruang untuk foto itu dipesan dengan padding-right di kartunya.
+ */
+@media (min-width: 760px) {
+  .kartuLebar {
+    display: block;
+    padding: 1.75rem 2rem;
+  }
+
+  /* Ruang untuk foto: teks berhenti di 52% lebar kartu. */
+  .kartuLebar .isiLebar {
+    width: 52%;
+  }
+
+  /*
+   * Turun melewati kaki kartu: sikunya menggantung keluar bidang, jadi fotonya
+   * terbaca duduk di depan kartu, bukan tertampung rapi di dalamnya. Kartunya
+   * tidak memotong isi (tidak ada overflow: hidden), jadi cukup menempelkan
+   * tepi bawahnya di luar kartu.
+   *
+   * Tingginya dipatok, bukan dibiarkan mengisi kartu dari atas ke bawah: di
+   * lebar layar yang bikin teks kartu kolom membungkus lebih banyak, kartunya
+   * ikut jangkung, dan foto yang mengikuti tinggi itu jadi melebar sampai
+   * menutupi teks di sebelahnya. 16.5rem adalah batas amannya; di kartu yang
+   * lebih pendek, tinggi kartu (+ jorokan ke bawah) yang dipakai.
+   */
+  .panggung {
+    position: absolute;
+    right: 2rem;
+    bottom: -0.75rem;
+    width: auto;
+    max-width: none;
+    height: min(16.5rem, calc(100% + 0.25rem));
+    aspect-ratio: 1009 / 751;
+  }
+
+  .foto {
+    width: 100%;
+    height: 100%;
   }
 }
