@@ -57,6 +57,17 @@
   color: var(--tinta-2);
 }
 
+/* Kata peran di label — "Perwakilan", "Pelayan", "Pendamping" — digarisbawahi.
+   skip-ink dimatikan supaya garisnya satu tarikan penuh, tidak terputus di
+   huruf berekor. */
+.kunci {
+  color: var(--tinta);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.25em;
+}
+
 .judul {
   margin-top: 0.45rem;
   /* Semua headline dipatok selebar ini supaya jatuh dua baris dengan tepi

@@ -26,6 +26,24 @@ function kartuSorotan(bab: BabTentang) {
   return dariRekamJejak.length ? dariRekamJejak : placeholder;
 }
 
+/**
+ * Kata peran di label bab — "Perwakilan", "Pelayan", "Pendamping" — digarisbawahi.
+ * Kata itu selalu sama dengan id babnya, jadi tidak perlu ditulis dua kali di
+ * profil.ts; kalau suatu saat labelnya tidak memuat kata itu, labelnya tampil
+ * apa adanya tanpa garis.
+ */
+function labelBergaris(label: string, kunci: string) {
+  const i = label.toLowerCase().indexOf(kunci.toLowerCase());
+  if (i < 0) return label;
+  return (
+    <>
+      {label.slice(0, i)}
+      <span className={styles.kunci}>{label.slice(i, i + kunci.length)}</span>
+      {label.slice(i + kunci.length)}
+    </>
+  );
+}
+
 export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
   return (
     <section id="tentang" className={styles.tentang} aria-labelledby="tentang-judul">
@@ -39,7 +57,7 @@ export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
             <li key={bab.id} id={bab.id} className={styles.bab}>
               <div className={styles.kiri}>
                 <p className={styles.labelBab}>
-                  <span>{bab.label}</span>
+                  <span>{labelBergaris(bab.label, bab.id)}</span>
                 </p>
                 <h3 className={styles.judul}>{bab.judul}</h3>
 
