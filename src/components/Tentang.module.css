@@ -1,7 +1,14 @@
 .tentang {
   padding-block: clamp(3rem, 8vw, 5rem);
-  /* Gradasi biru ke putih, dari atas ke bawah segmen. */
-  background: linear-gradient(180deg, var(--biru-tipis) 0%, var(--putih) 100%);
+  /* Gradasi biru ke putih, dari atas ke bawah segmen. Birunya diambil dari
+     --biru langsung (bukan --biru-tipis yang nyaris putih), supaya benar-benar
+     terbaca sebagai bidang biru. */
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--biru) 12%, var(--putih)) 0%,
+    color-mix(in srgb, var(--biru) 4%, var(--putih)) 45%,
+    var(--putih) 100%
+  );
 }
 
 /* Kolom kiri (paragraf + fun fact) sejajar dengan kolom kanan (foto

@@ -1,38 +1,34 @@
 import { linkWhatsApp } from "@/config/site";
 import styles from "./BannerDiskusi.module.css";
 
+/** Jenis-jenis sistem yang bisa saya bangun; tampil sebagai daftar berjalan di banner. */
 const topik = [
-  "Website usaha kecil",
-  "Toko online",
-  "Website bimbel & sekolah",
-  "Sistem pendaftaran",
-  "Aplikasi internal",
-  "Dashboard & laporan",
-  "Rapikan alur kerja",
-  "Otomasi kerjaan berulang",
-  "Redesain website lama",
-  "Belajar bikin web sendiri",
-  "Ide yang masih mentah",
-  "Company profile",
-  "Landing page",
-  "Katalog produk",
-  "Sistem booking",
+  "Sistem bimbel & sekolah",
+  "Manajemen siswa & kelas",
   "Jadwal & absensi",
-  "Portal layanan publik",
-  "Riset pengguna",
-  "Desain UI/UX",
-  "Prototipe cepat",
-  "Website portofolio",
-  "Pembayaran online",
-  "Integrasi WhatsApp",
-  "SEO dasar",
-  "Kelola data pelanggan",
+  "Tagihan & pembayaran",
+  "Laporan perkembangan otomatis",
+  "Portal orang tua",
+  "Latihan & ujian online",
+  "Pendaftaran online",
+  "Booking & reservasi",
+  "Pencatatan penjualan",
+  "Stok & inventaris",
+  "Katalog & pemesanan produk",
+  "Data pelanggan (CRM)",
+  "Dashboard & laporan usaha",
+  "Keuangan & pembukuan sederhana",
+  "Honor & gaji tim",
+  "Keanggotaan & langganan",
+  "Pengingat lewat WhatsApp",
   "Formulir & survei",
-  "Aplikasi untuk UMKM",
-  "Kelas & pelatihan online",
-  "Chatbot & AI untuk usaha",
+  "Surat & dokumen otomatis",
+  "Antrean layanan",
+  "Tugas & proyek tim",
+  "Donasi & relawan",
+  "Portal layanan publik",
+  "Aplikasi internal tim",
   "Pindah dari spreadsheet",
-  "Belum tahu mulai dari mana",
 ];
 
 /**
@@ -45,16 +41,16 @@ export function BannerDiskusi() {
     <aside className={styles.banner} aria-labelledby="banner-diskusi-judul">
       <div className={styles.isi}>
         <h3 id="banner-diskusi-judul" className={styles.judul}>
-          Butuh teman untuk mendiskusikan projekmu?
+          Ingin punya sistem untuk bisnismu sendiri?
         </h3>
         <p className={styles.deskripsi}>
-          Saya siap membantu. Belum punya gambaran jelas juga tidak apa-apa — ceritakan saja apa yang
-          ada di kepalamu, nanti kita rapikan bareng.
+          Dari pencatatan, jadwal, sampai laporan otomatis — saya bantu bikin sistem yang pas dengan
+          cara kerja usahamu. Belum punya gambaran jelas juga tidak apa-apa, ceritakan saja dulu.
         </p>
 
         <a
           className={styles.tombol}
-          href={linkWhatsApp("Halo Tito, saya mau diskusi soal projek saya.")}
+          href={linkWhatsApp("Halo Tito, saya mau bikin sistem untuk bisnis saya.")}
           target="_blank"
           rel="noopener noreferrer"
         >

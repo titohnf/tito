@@ -32,10 +32,10 @@ export function CtaInteraktif() {
       <div className="wadah">
         <div className={styles.panel}>
           <h2 id="ngobrol-judul" className={styles.judulPenutup}>
-            Punya usaha atau ide yang butuh tempat di internet?
+            Butuh teman untuk mendiskusikan projekmu?
           </h2>
           <p className={styles.subPenutup}>
-            Ceritakan saja. Saya bantu pikirkan langkah pertamanya.
+            Pilih situasimu di bawah, lalu ceritakan lewat WhatsApp. Saya bantu pikirkan langkah pertamanya.
           </p>
 
           <form className={styles.kalimat} onSubmit={(e) => e.preventDefault()}>
