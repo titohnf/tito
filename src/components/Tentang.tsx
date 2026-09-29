@@ -28,7 +28,7 @@ export function Tentang() {
               {tentangSingkat.paragraf}
             </h2>
             <div className={styles.fakta}>
-              <FunFakta fakta={tentangSingkat.funFakta} />
+              <FunFakta fakta={tentangSingkat.funFakta} bungkus baris={2} />
             </div>
           </div>
 

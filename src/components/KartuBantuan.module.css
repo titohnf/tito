@@ -665,3 +665,16 @@
   gap: 0.75rem;
   margin-top: 0.5rem;
 }
+
+/* Patokan harga di kartu layanan: pill kecil bernuansa biru, di bawah ringkasan. */
+.harga {
+  align-self: flex-start;
+  margin-top: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--biru) 10%, var(--putih));
+  color: var(--biru);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.5;
+}

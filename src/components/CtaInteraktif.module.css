@@ -102,6 +102,14 @@
   color: var(--tinta-2);
 }
 
+/* Ikon kilat di ujung kalimat "balas secepatnya": sewarna aksen, sejajar dengan teks. */
+.kilat {
+  display: inline-block;
+  vertical-align: -0.2em;
+  color: #f2b01e;
+  fill: currentColor;
+}
+
 .kalimat {
   margin-top: 2rem;
   max-width: 54rem;
@@ -207,6 +215,8 @@
   border-radius: 14px 14px 14px 4px;
   font-size: 1rem;
   line-height: 1.55;
+  /* Pesan pembukanya berbaris-baris (bidang usaha, yang ingin dibantu). */
+  white-space: pre-line;
 }
 
 .aksi {
@@ -234,12 +244,6 @@
 
 .tombol:hover {
   background: #33332f;
-}
-
-.catatan {
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--tinta-2);
 }
 
 @media (min-width: 640px) {

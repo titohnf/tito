@@ -15,8 +15,8 @@ export const site = {
   deskripsiSeo:
     "Saya bantu usaha kecil punya website yang rapi dan gampang dipakai pelanggan. 9 tahun mendesain layanan digital pemerintah. Ngobrol dulu, gratis.",
 
-  // TODO: ganti dengan nomor WhatsApp asli (format internasional, tanpa + dan spasi)
-  whatsapp: "6281234567890",
+  // Nomor WhatsApp, format internasional tanpa + dan spasi (0812-1219-4626).
+  whatsapp: "6281212194626",
   // TODO: ganti dengan email asli
   email: "halo@titohanafi.com",
 

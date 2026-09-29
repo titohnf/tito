@@ -50,7 +50,9 @@ export function BannerDiskusi() {
 
         <a
           className={styles.tombol}
-          href={linkWhatsApp("Halo Tito, saya mau bikin sistem untuk bisnis saya.")}
+          href={linkWhatsApp(
+            "Halo Tito, saya mau bikin sistem untuk bisnis saya. Boleh ngobrol dulu?",
+          )}
           target="_blank"
           rel="noopener noreferrer"
         >

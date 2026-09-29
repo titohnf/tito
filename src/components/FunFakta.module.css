@@ -1,4 +1,5 @@
 .wadah {
+  position: relative;
   /* ikut ukuran teks pemanggilnya (kartu sorotan memakai ukuran lebih kecil) */
   font-size: inherit;
   line-height: 1.55;
@@ -75,7 +76,7 @@
 .tanda {
   width: 0.6rem;
   height: 0.6rem;
-  fill: var(--tinta-3);
+  fill: #f2b01e;
 }
 
 /*
@@ -166,4 +167,55 @@
   .item[data-keluar="true"] {
     animation: none;
   }
+}
+
+/*
+ * Mode bungkus: tiap baris setinggi fakta terpanjang (--baris-bungkus, diukur di
+ * browser). Angka bawaan dipakai sesaat sebelum pengukuran selesai. Selebihnya
+ * sama dengan mode satu-baris — termasuk semua animasi geser.
+ */
+.wadah[data-bungkus="true"] .jendela {
+  --baris: var(--baris-bungkus, 5.4rem);
+}
+
+.wadah[data-bungkus="true"] .item {
+  white-space: normal;
+  text-overflow: clip;
+  /* Teks mulai dari atas baris (bukan di tengah), dan bintang duduk sejajar
+     dengan baris pertama teksnya. */
+  align-items: start;
+  padding-top: 0.6rem;
+}
+
+.wadah[data-bungkus="true"] .tanda {
+  margin-top: calc((1.55em - 0.6rem) / 2);
+}
+
+.wadah[data-bungkus="true"] .teks {
+  overflow: visible;
+}
+
+/* Salinan pengukur: keluar dari alur, tidak terlihat, selebar kolom yang sama. */
+.ukur {
+  position: absolute;
+  inset: 0 0 auto 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.itemUkur {
+  display: grid;
+  grid-template-columns: 0.85rem 1fr;
+  gap: 0.55rem;
+  padding-block: 0.6rem;
+  border-top: 1px solid transparent;
+  font-weight: 500;
+  white-space: normal;
+}
+
+.tandaUkur {
+  width: 0.6rem;
 }

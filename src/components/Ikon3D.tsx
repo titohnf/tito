@@ -250,3 +250,181 @@ export function IkonAi({ className }: { className?: string }) {
     </svg>
   );
 }
+
+/** Helm proyek dengan roda gigi kecil — halaman yang sedang dikerjakan. */
+export function IkonPengembangan({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="ln-helm" x1="0.25" y1="0" x2="0.75" y2="1">
+          <stop offset="0" stopColor="#ffe9a3" />
+          <stop offset="0.5" stopColor="#f6c445" />
+          <stop offset="1" stopColor="#d99b16" />
+        </linearGradient>
+        <linearGradient id="ln-brim" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f8cd5a" />
+          <stop offset="1" stopColor="#c98410" />
+        </linearGradient>
+        <linearGradient id="ln-gigi" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#e4e3dd" />
+          <stop offset="1" stopColor="#8a8981" />
+        </linearGradient>
+        <radialGradient id="ln-kilauHelm" cx="0.3" cy="0.22" r="0.6">
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.75" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+        <filter id="ln-bayangDev" x="-25%" y="-25%" width="150%" height="160%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" floodColor="#121211" floodOpacity="0.22" />
+        </filter>
+      </defs>
+
+      <ellipse cx="32" cy="56" rx="19" ry="3.2" fill="#121211" opacity="0.12" />
+
+      {/* helm: kubah, garis tengah, lalu pinggiran */}
+      <g filter="url(#ln-bayangDev)">
+        <path d="M11 41C11 25 19.5 14 32 14s21 11 21 27H11Z" fill="url(#ln-helm)" />
+        <path d="M11 41C11 25 19.5 14 32 14s21 11 21 27H11Z" fill="url(#ln-kilauHelm)" />
+        <rect x="27.5" y="12.5" width="9" height="28" rx="3.5" fill="#ffffff" fillOpacity="0.32" />
+        <rect x="7" y="38.5" width="50" height="9" rx="4.5" fill="url(#ln-brim)" />
+        <rect x="9" y="39.5" width="46" height="2.4" rx="1.2" fill="#ffffff" fillOpacity="0.45" />
+      </g>
+
+      {/* roda gigi kecil di depan pinggiran helm */}
+      <g filter="url(#ln-bayangDev)">
+        <g fill="url(#ln-gigi)">
+          <rect x="47" y="34" width="5" height="22" rx="1.6" transform="rotate(0 49.5 45)" />
+          <rect x="47" y="34" width="5" height="22" rx="1.6" transform="rotate(45 49.5 45)" />
+          <rect x="47" y="34" width="5" height="22" rx="1.6" transform="rotate(90 49.5 45)" />
+          <rect x="47" y="34" width="5" height="22" rx="1.6" transform="rotate(135 49.5 45)" />
+          <circle cx="49.5" cy="45" r="8.6" />
+        </g>
+        <circle cx="49.5" cy="45" r="3.4" fill="#ffffff" fillOpacity="0.95" />
+        <circle cx="49.5" cy="45" r="8.6" fill="none" stroke="#ffffff" strokeOpacity="0.55" strokeWidth="1.2" />
+      </g>
+    </svg>
+  );
+}
+
+/** Basis data + dasbor dengan grafik batang — layanan membuat sistem digital untuk usaha. */
+export function IkonSistem({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="ln-silinder" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#1a8478" />
+          <stop offset="0.45" stopColor="#3fc4b3" />
+          <stop offset="1" stopColor="#15776c" />
+        </linearGradient>
+        <linearGradient id="ln-tutupSilinder" x1="0.2" y1="0" x2="0.8" y2="1">
+          <stop offset="0" stopColor="#a4ece1" />
+          <stop offset="1" stopColor="#4fc9b9" />
+        </linearGradient>
+        <linearGradient id="ln-panel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="1" stopColor="#dcdcd6" />
+        </linearGradient>
+        <linearGradient id="ln-batang" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#5fd6c6" />
+          <stop offset="1" stopColor="#1f9d8f" />
+        </linearGradient>
+        <linearGradient id="ln-centang" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#6fd79a" />
+          <stop offset="1" stopColor="#1f7742" />
+        </linearGradient>
+        <filter id="ln-bayangSis" x="-25%" y="-25%" width="150%" height="160%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" floodColor="#121211" floodOpacity="0.22" />
+        </filter>
+      </defs>
+
+      <ellipse cx="33" cy="57" rx="20" ry="3.2" fill="#121211" opacity="0.12" />
+
+      {/* basis data di belakang */}
+      <g filter="url(#ln-bayangSis)">
+        <path d="M8 15v26c0 4.4 6.7 8 15 8s15-3.6 15-8V15Z" fill="url(#ln-silinder)" />
+        <ellipse cx="23" cy="15" rx="15" ry="5.6" fill="url(#ln-tutupSilinder)" />
+      </g>
+      <ellipse cx="19" cy="13.6" rx="8" ry="2.2" fill="#ffffff" opacity="0.38" />
+      <g fill="none" stroke="#ffffff" strokeOpacity="0.45" strokeWidth="1.6">
+        <path d="M8 24c0 3.1 6.7 5.6 15 5.6s15-2.5 15-5.6" />
+        <path d="M8 33c0 3.1 6.7 5.6 15 5.6s15-2.5 15-5.6" />
+      </g>
+
+      {/* dasbor di depan */}
+      <g filter="url(#ln-bayangSis)">
+        <rect x="26" y="26" width="32" height="27" rx="4" fill="url(#ln-panel)" />
+      </g>
+      <g fill="#b3b2ab">
+        <circle cx="31" cy="30.5" r="1.2" />
+        <circle cx="35" cy="30.5" r="1.2" />
+        <circle cx="39" cy="30.5" r="1.2" />
+      </g>
+      <g fill="url(#ln-batang)">
+        <rect x="32" y="41" width="5.5" height="8" rx="1.6" />
+        <rect x="40.5" y="37" width="5.5" height="12" rx="1.6" />
+        <rect x="49" y="33" width="5.5" height="16" rx="1.6" />
+      </g>
+
+      {/* lencana centang: sistem yang berjalan rapi */}
+      <g filter="url(#ln-bayangSis)">
+        <circle cx="56" cy="27" r="6.5" fill="url(#ln-centang)" />
+      </g>
+      <path d="M52.8 27.2l2.2 2.2 4.1-4.5" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Koper kerja (briefcase) — layanan membuat sistem digital untuk usaha. */
+export function IkonKoper({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="ln-koper" x1="0.2" y1="0" x2="0.8" y2="1">
+          <stop offset="0" stopColor="#ffc998" />
+          <stop offset="0.5" stopColor="#f28c3b" />
+          <stop offset="1" stopColor="#c25f16" />
+        </linearGradient>
+        <linearGradient id="ln-tutupKoper" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="0.05" />
+        </linearGradient>
+        <linearGradient id="ln-gagangKoper" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#e4e3dd" />
+          <stop offset="1" stopColor="#8a8981" />
+        </linearGradient>
+        <linearGradient id="ln-kunciKoper" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="1" stopColor="#c9c8c1" />
+        </linearGradient>
+        <filter id="ln-bayangKoper" x="-25%" y="-25%" width="150%" height="160%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" floodColor="#121211" floodOpacity="0.22" />
+        </filter>
+      </defs>
+
+      <ellipse cx="32" cy="57" rx="20" ry="3.2" fill="#121211" opacity="0.12" />
+
+      {/* gagang di belakang badan koper */}
+      <path
+        d="M23.5 21v-5a4.5 4.5 0 0 1 4.5-4.5h8a4.5 4.5 0 0 1 4.5 4.5v5"
+        fill="none"
+        stroke="url(#ln-gagangKoper)"
+        strokeWidth="4.5"
+        strokeLinecap="round"
+      />
+
+      {/* badan koper */}
+      <g filter="url(#ln-bayangKoper)">
+        <rect x="6" y="19" width="52" height="34" rx="6.5" fill="url(#ln-koper)" />
+      </g>
+      {/* kesan tutup di bagian atas + garis sambungan */}
+      <path d="M6 25.5A6.5 6.5 0 0 1 12.5 19h39a6.5 6.5 0 0 1 6.5 6.5V33H6v-7.5Z" fill="url(#ln-tutupKoper)" />
+      <path d="M6 33h52" stroke="#7a3a08" strokeOpacity="0.22" strokeWidth="1.6" />
+
+      {/* pengunci */}
+      <g filter="url(#ln-bayangKoper)">
+        <rect x="26.5" y="29" width="11" height="9.5" rx="2.6" fill="url(#ln-kunciKoper)" />
+      </g>
+      <circle cx="32" cy="33" r="1.5" fill="#8a8981" />
+      <rect x="31.2" y="33.4" width="1.6" height="2.6" rx="0.8" fill="#8a8981" />
+    </svg>
+  );
+}

@@ -6,7 +6,7 @@ import { CircleCheck, Code2, X } from "lucide-react";
 import { layanan, type Layanan } from "@/content/cta";
 import { linkWhatsApp } from "@/config/site";
 import { Tombol } from "./Tombol";
-import { IkonAi, IkonAudit, IkonNgobrol, IkonWeb } from "./Ikon3D";
+import { IkonAi, IkonKoper, IkonNgobrol, IkonWeb } from "./Ikon3D";
 import kartu from "./KartuGrid.module.css";
 import tombol from "./Tombol.module.css";
 import styles from "./KartuBantuan.module.css";
@@ -18,7 +18,7 @@ import styles from "./KartuBantuan.module.css";
  */
 const ikon: Record<string, (p: { className?: string }) => React.ReactElement> = {
   website: IkonWeb,
-  audit: IkonAudit,
+  audit: IkonKoper,
   ngobrol: IkonNgobrol,
   ai: IkonAi,
 };
@@ -60,6 +60,7 @@ export function KartuBantuan() {
                     </span>
                     <h3 className={kartu.namaKartu}>{l.judul}</h3>
                     <p className={kartu.ringkasan}>{l.teks}</p>
+                {l.harga && <p className={styles.harga}>{l.harga}</p>}
                     <div className={styles.aksiKartu}>
                       <button
                         type="button"
@@ -253,6 +254,7 @@ export function KartuBantuan() {
                 </span>
                 <h3 className={kartu.namaKartu}>{l.judul}</h3>
                 <p className={kartu.ringkasan}>{l.teks}</p>
+                {l.harga && <p className={styles.harga}>{l.harga}</p>}
                 <p className={kartu.status}>
                   Pelajari Selengkapnya <span aria-hidden="true">→</span>
                 </p>

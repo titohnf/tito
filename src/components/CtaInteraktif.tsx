@@ -1,15 +1,14 @@
 "use client";
 
-import { useId, useState } from "react";
-import { peran, kebutuhan, susunPesan, catatanCta } from "@/content/cta";
+import { useState } from "react";
+import { Zap } from "lucide-react";
+import { peran, kebutuhan, susunPesan } from "@/content/cta";
 import { linkWhatsApp } from "@/config/site";
 import styles from "./CtaInteraktif.module.css";
 
 export function CtaInteraktif() {
   const [peranId, setPeranId] = useState("");
   const [kebutuhanId, setKebutuhanId] = useState("");
-  const idPeran = useId();
-  const idKebutuhan = useId();
 
   const peranTerpilih = peran.find((p) => p.id === peranId);
   const opsiKebutuhan = peranId ? kebutuhan.filter((k) => k.untuk.includes(peranId)) : kebutuhan;
@@ -35,28 +34,31 @@ export function CtaInteraktif() {
             Butuh teman untuk mendiskusikan projekmu?
           </h2>
           <p className={styles.subPenutup}>
-            Pilih situasimu di bawah, lalu ceritakan lewat WhatsApp. Saya bantu pikirkan langkah pertamanya.
+            Hubungi saya dengan menceritakan siapa kamu dan apa kebutuhanmu. Saya akan balas
+            secepatnya{" "}
+            <Zap className={styles.kilat} size={18} aria-hidden="true" />
           </p>
 
-          <form className={styles.kalimat} onSubmit={(e) => e.preventDefault()}>
-            <span>Kamu </span>
-            <label htmlFor={idPeran} className="sr-only">
-              Kamu
-            </label>
+          <form
+            className={styles.kalimat}
+            onSubmit={(e) => e.preventDefault()}
+            aria-label="Ceritakan situasi dan kebutuhanmu"
+          >
+            <span aria-hidden="true">Saya </span>
             <span className={styles.menempel}>
               <span className={styles.pilihWadah}>
                 <span className={styles.cermin} aria-hidden="true">
-                  {peranTerpilih?.label ?? "pilih…"}
+                  {peranTerpilih?.label ?? "pilih situasi…"}
                 </span>
                 <select
-                  id={idPeran}
+                  aria-label="Situasi saya"
                   className={styles.pilih}
                   value={peranId}
                   onChange={(e) => gantiPeran(e.target.value)}
                   data-kosong={!peranId}
                 >
                   <option value="" disabled>
-                    pilih…
+                    pilih situasi…
                   </option>
                   {peran.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -66,23 +68,20 @@ export function CtaInteraktif() {
                 </select>
               </span>
             </span>
-            <span> dan </span>
-            <label htmlFor={idKebutuhan} className="sr-only">
-              dan
-            </label>
+            <span aria-hidden="true"> dan </span>
             <span className={styles.pilihWadah}>
               <span className={styles.cermin} aria-hidden="true">
-                {kebutuhanTerpilih?.label ?? "pilih…"}
+                {kebutuhanTerpilih?.label ?? "pilih kebutuhan…"}
               </span>
               <select
-                id={idKebutuhan}
+                aria-label="Yang saya butuhkan"
                 className={styles.pilih}
                 value={kebutuhanTerpilih ? kebutuhanId : ""}
                 onChange={(e) => setKebutuhanId(e.target.value)}
                 data-kosong={!kebutuhanTerpilih}
               >
                 <option value="" disabled>
-                  pilih…
+                  pilih kebutuhan…
                 </option>
                 {opsiKebutuhan.map((k) => (
                   <option key={k.id} value={k.id}>
@@ -105,14 +104,13 @@ export function CtaInteraktif() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Ngobrol via WhatsApp <span aria-hidden="true">↗</span>
+                    Kirim ke WhatsApp <span aria-hidden="true">↗</span>
                   </a>
-                  <p className={styles.catatan}>{catatanCta}</p>
                 </div>
               </>
             ) : (
               <p className={styles.petunjuk}>
-                Pilih keduanya, pesan pembukanya langsung jadi.
+                Pilih dua-duanya, pesan pembukanya langsung muncul di sini.
               </p>
             )}
           </div>

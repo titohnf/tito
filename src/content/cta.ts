@@ -24,6 +24,12 @@ export const kebutuhan: Kebutuhan[] = [
     untuk: semua,
   },
   {
+    id: "sistem",
+    label: "ingin membuat sistem untuk usaha",
+    kalimat: "ingin membuat sistem digital untuk usaha saya",
+    untuk: semua,
+  },
+  {
     id: "benahi",
     label: "ingin membenahi website yang sudah ada",
     kalimat: "ingin membenahi website yang sudah ada",
@@ -43,7 +49,7 @@ export const kebutuhan: Kebutuhan[] = [
   },
   {
     id: "undangan",
-    label: "mau mengundang saya berbagi pengalaman",
+    label: "mau mengundang Tito berbagi pengalaman",
     kalimat: "mau mengundang kamu berbagi pengalaman",
     untuk: ["organisasi", "lainnya"],
   },
@@ -56,9 +62,6 @@ export function susunPesan(p: Peran, k: Kebutuhan) {
   const isi = p.kalimat ? `${p.kalimat} dan ${k.kalimat}` : k.kalimat;
   return `Halo Tito, saya ${isi}. Boleh ngobrol dulu?`;
 }
-
-export const catatanCta =
-  "Ngobrol pertama gratis. Setelah paham kebutuhan kamu, saya kasih tahu bisa bantu apa dan berapa lama.";
 
 /**
  * Kartu layanan di segmen "Apa yang bisa saya bantu?" di beranda.
@@ -73,6 +76,8 @@ export type Layanan = {
   judul: string;
   /** Satu kalimat penjelas di kartu */
   teks: string;
+  /** Patokan harga singkat yang tampil di kartu, mis. "Mulai Rp 2,5 juta". */
+  harga?: string;
   /** Judul panjang di dalam pop up */
   judulDetail: string;
   /** Isi pop up: beberapa bagian, masing-masing paragraf atau daftar langkah */
@@ -101,6 +106,7 @@ export const layanan: Layanan[] = [
   {
     id: "website",
     judul: "Bikin & Benahi Website",
+    harga: "Mulai Rp 2,5 juta",
     teks: "Website baru dari nol, atau benahi yang sudah ada biar nggak bikin pengunjung bingung. Saya yang pegang prosesnya.",
     judulDetail: "Bikin & Benahi Website",
     detail: [
@@ -122,12 +128,23 @@ export const layanan: Layanan[] = [
         paragraf:
           "Bikin baru: logo (kalau ada), foto produk, dan info dasar usaha. Membenahi: link website atau media sosial usaha kamu yang sekarang.",
       },
+      {
+        judul: "Biaya",
+        paragraf:
+          "Website sederhana (beberapa halaman, tombol WhatsApp, nyaman dibuka di HP) mulai Rp 2,5 juta. Toko online atau fitur tambahan menyesuaikan. Domain dan hosting dibayar terpisah, sekitar Rp 500 ribu–1,5 juta per tahun. Angka pastinya saya kabari setelah kita ngobrol, gratis dan tanpa kewajiban.",
+      },
+      {
+        judul: "Setelah jadi",
+        paragraf:
+          "Kalau ada yang error, saya perbaiki gratis selama 30 hari. Setelah itu perawatan bulanan bersifat opsional, mulai Rp 300 ribu per bulan: cadangan data, pembaruan, ubah konten, dan perbaikan kecil. Mau mengurus sendiri? Saya ajari lewat kelas.",
+      },
     ],
     pesan: "Halo Tito, saya mau bikin atau benahi website usaha saya. Boleh ngobrol dulu?",
   },
   {
     id: "audit",
     judul: "Buat Sistem Digital untuk Usaha",
+    harga: "Mulai Rp 5 juta",
     teks: "Pencatatan masih manual atau berantakan di banyak tempat? Saya bantu susun jadi satu sistem yang rapi.",
     judulDetail: "Buat Sistem Digital untuk Usaha",
     detail: [
@@ -148,12 +165,23 @@ export const layanan: Layanan[] = [
         judul: "Yang perlu disiapkan",
         paragraf: "Ceritakan alur kerja usaha kamu sekarang, walau masih manual atau pakai spreadsheet.",
       },
+      {
+        judul: "Biaya",
+        paragraf:
+          "Sistem sederhana (pencatatan, jadwal, atau tagihan untuk satu jenis pengguna) mulai Rp 5 juta. Sistem dengan beberapa peran pengguna dan laporan biasanya Rp 8–15 juta, tergantung alur kerja usahamu. Dikerjakan bertahap dari bagian yang paling penting, jadi kamu bisa berhenti di tahap yang sudah cukup. Angka pastinya saya kabari setelah kita ngobrol, gratis dan tanpa kewajiban.",
+      },
+      {
+        judul: "Setelah jadi",
+        paragraf:
+          "Kalau ada yang error, saya perbaiki gratis selama 30 hari, dan saya dampingi kamu dan timmu sampai terbiasa memakainya. Setelah itu perawatan bulanan bersifat opsional, mulai Rp 300 ribu per bulan: cadangan data, pembaruan, dan perbaikan kecil.",
+      },
     ],
     pesan: "Halo Tito, saya mau bikin sistem digital untuk usaha saya. Boleh ngobrol dulu?",
   },
   {
     id: "ai",
     judul: "Belajar Bikin Website Sendiri",
+    harga: "Mulai Rp 750 ribu",
     teks: "Saya temani sampai kamu bisa bikin dan merawat website sendiri dengan bantuan AI.",
     judulDetail: "Belajar Bikin Website Sendiri",
     detail: [
@@ -175,6 +203,11 @@ export const layanan: Layanan[] = [
         judul: "Yang perlu disiapkan",
         paragraf:
           "Laptop dan waktu buat nyoba. Nggak perlu bisa ngoding — yang lebih kepakai justru kejelasan soal apa yang mau kamu sampaikan lewat website itu.",
+      },
+      {
+        judul: "Biaya",
+        paragraf:
+          "Biaya kelas mulai Rp 750 ribu per orang. Jadwal dan formatnya saya kabari lewat WhatsApp.",
       },
     ],
     pesan:

@@ -7,7 +7,7 @@ export const hero = {
   sapaan: "👋 Halo, saya Tito",
   judul: "Saya bantu membuat website dan sistem untuk usaha kamu",
   tombolUtama: "Ngobrol Dulu, Gratis",
-  pesanTombolUtama: "Halo Tito, saya mau ngobrol soal website usaha saya. Boleh?",
+  pesanTombolUtama: "Halo Tito, saya mau ngobrol soal website atau sistem untuk usaha saya. Boleh ngobrol dulu?",
   tombolSekunder: "Lihat Layanan",
   // Dipakai di gambar preview link (OG)
   catatanTombol: "Ngobrol dulu, gratis.",
@@ -18,11 +18,11 @@ export const tentangSingkat = {
   paragraf:
     "9+ tahun dipercaya merancang web dan aplikasi pemerintah, saat ini aktif mengembangkan sistem untuk usaha dan komunitas.",
   funFakta: [
-    "9+ tahun jadi tenaga ahli perancang di instansi pemerintah",
-    "Mendirikan yayasan sebelum umur 30",
-    "Membina 50+ anak binaan yayasan",
-    "Membangun sistem operasional bimbel sendiri",
-    "Belajar ngoding dibantu AI, tanpa tim",
+    "Senang membangun startup sejak kuliah, satu di antaranya mendapatkan pendanaan dari kampus",
+    "Memimpin tim desain di 2 instansi dengan 5 sampai 7 anggota",
+    "Memimpin tim desain membuat aplikasi \"super app\" yang memenangkan penghargaan tingkat global",
+    "Mendirikan yayasan, mengajar mapel Matematika dan Kelas Siap Kerja",
+    "Semua pengalaman kerja full time di pemerintahan, mulai dari pemprov, kementerian, dan BUMN",
   ],
 };
 

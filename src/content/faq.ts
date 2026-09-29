@@ -6,24 +6,30 @@ export type Faq = { pertanyaan: string; jawaban: string | null };
 
 export const faq: Faq[] = [
   {
-    pertanyaan: "Apa yang perlu saya siapkan?",
-    jawaban: "Logo (kalau ada), foto produk, dan info dasar usaha. Belum punya? Kita mulai dari yang ada.",
-  },
-  {
-    pertanyaan: "Saya belum tahu butuh apa.",
-    jawaban: "Ngobrol saja dulu, gratis.",
+    pertanyaan: "Saya belum tahu butuh apa. Harus mulai dari mana?",
+    jawaban:
+      "Mulai dari cerita saja. Kirim pesan lewat WhatsApp, ceritakan usahamu dan apa yang bikin repot. Nanti saya bantu pilihkan mana yang paling perlu dikerjakan dulu. Tidak perlu paham istilah teknis, dan ngobrol pertama gratis.",
   },
   {
     pertanyaan: "Berapa biayanya?",
     jawaban:
-      "Beda-beda, tergantung kebutuhan usaha kamu. Nanti kita bahas pas ngobrol dulu, biar dapat harga yang wajar buat kamu.",
+      "Website sederhana mulai Rp 2,5 juta, sistem digital mulai Rp 5 juta, dan kelas belajar bikin website mulai Rp 750 ribu. Angka pastinya tergantung kebutuhanmu; saya kabari setelah kita ngobrol, tanpa kewajiban lanjut.",
   },
   {
-    pertanyaan: "Butuh berapa lama?",
-    jawaban: "Tergantung besar kecilnya website, tapi biasanya beres dalam hitungan minggu, bukan bulan.",
+    pertanyaan: "Berapa lama pengerjaannya?",
+    jawaban:
+      "Website biasanya selesai dalam hitungan minggu, bukan bulan. Sistem dikerjakan bertahap dari bagian yang paling penting, jadi kamu sudah bisa memakainya sebelum semuanya rampung.",
   },
-  // TODO: isi jawabannya, lalu hapus komentar ini.
-  { pertanyaan: "Setelah jadi, siapa yang merawat?", jawaban: null },
+  {
+    pertanyaan: "Apa yang perlu saya siapkan?",
+    jawaban:
+      "Untuk website: logo (kalau ada), foto produk, dan info dasar usaha. Untuk sistem: cukup ceritakan cara kerja usahamu sekarang, walau masih manual atau pakai spreadsheet. Belum punya semuanya? Kita mulai dari yang ada.",
+  },
+  {
+    pertanyaan: "Kalau sudah jadi, siapa yang merawat?",
+    jawaban:
+      "Saya. Kalau ada yang error, saya perbaiki gratis selama 30 hari. Setelah itu ada paket perawatan bulanan (opsional) mulai Rp 300 ribu: cadangan data, pembaruan, ubah konten, dan perbaikan kecil. Mau mengurus sendiri? Saya bisa ajari lewat kelas.",
+  },
 ];
 
 /** Hanya pertanyaan yang sudah punya jawaban. */

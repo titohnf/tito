@@ -28,10 +28,11 @@
 }
 
 .sapaan {
-  margin-bottom: 0.75rem;
-  font-weight: 500;
-  font-size: 1.05rem;
-  color: var(--tinta-2);
+  margin-bottom: 0.9rem;
+  font-weight: 600;
+  font-size: clamp(1.2rem, 3.6vw, 1.5rem);
+  letter-spacing: -0.02em;
+  color: var(--tinta);
 }
 
 .judul {

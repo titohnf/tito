@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import styles from "./FunFakta.module.css";
 
 /** Jumlah fakta yang tampil sekaligus kalau pemanggil tidak menentukan. */
@@ -13,8 +13,45 @@ const BAWAAN = 3;
  * `baris` = berapa fakta yang tampak sekaligus.
  * Satu fakta = satu baris; kalimat yang kepanjangan dipotong dengan elipsis.
  */
-export function FunFakta({ fakta, baris = BAWAAN }: { fakta: string[]; baris?: number }) {
+export function FunFakta({
+  fakta,
+  baris = BAWAAN,
+  bungkus = false,
+}: {
+  fakta: string[];
+  baris?: number;
+  /**
+   * Kalimat panjang boleh turun ke beberapa baris (tanpa elipsis). Semua baris
+   * dibuat setinggi fakta terpanjang — diukur di browser, dan diukur ulang saat
+   * lebarnya berubah — sehingga jendela geser dan animasinya tetap sama persis
+   * dengan mode satu-baris.
+   */
+  bungkus?: boolean;
+}) {
   const TAMPIL = baris;
+  const wadahRef = useRef<HTMLDivElement>(null);
+  const ukurRef = useRef<HTMLUListElement>(null);
+  // Tinggi satu baris (px) di mode bungkus; null = belum terukur (pakai bawaan CSS).
+  const [tinggiBaris, setTinggiBaris] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    if (!bungkus) return;
+    const daftar = ukurRef.current;
+    if (!daftar) return;
+    const ukur = () => {
+      let maks = 0;
+      for (const li of Array.from(daftar.children)) {
+        maks = Math.max(maks, li.getBoundingClientRect().height);
+      }
+      if (maks > 0) setTinggiBaris(Math.ceil(maks));
+    };
+    ukur();
+    // Lebar kolom berubah (mis. layar diputar) atau font selesai dimuat: ukur ulang.
+    const pengamat = new ResizeObserver(ukur);
+    pengamat.observe(daftar);
+    if (wadahRef.current) pengamat.observe(wadahRef.current);
+    return () => pengamat.disconnect();
+  }, [bungkus, fakta]);
   // Indeks fakta teratas yang sedang tampil
   const [mulai, setMulai] = useState(0);
   const adaSisa = fakta.length > TAMPIL;
@@ -33,7 +70,25 @@ export function FunFakta({ fakta, baris = BAWAAN }: { fakta: string[]; baris?: n
   });
 
   return (
-    <div className={styles.wadah}>
+    <div
+      ref={wadahRef}
+      className={styles.wadah}
+      data-bungkus={bungkus || undefined}
+      style={
+        bungkus && tinggiBaris ? ({ "--baris-bungkus": `${tinggiBaris}px` } as React.CSSProperties) : undefined
+      }
+    >
+      {bungkus && (
+        // Salinan tak terlihat: dipakai hanya untuk mengukur tinggi tiap fakta.
+        <ul ref={ukurRef} className={styles.ukur} aria-hidden="true">
+          {fakta.map((teks) => (
+            <li key={teks} className={styles.itemUkur}>
+              <span className={styles.tandaUkur} />
+              <span>{teks}</span>
+            </li>
+          ))}
+        </ul>
+      )}
       <div
         className={styles.jendela}
         style={{ "--jumlah": tampak } as React.CSSProperties}

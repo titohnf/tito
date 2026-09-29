@@ -1,4 +1,21 @@
 import type { Metadata } from "next";
+import { SedangDikembangkan } from "@/components/SedangDikembangkan";
+
+export const metadata: Metadata = {
+  title: "Pembelajaran",
+};
+
+export default function Halaman() {
+  return <SedangDikembangkan bagian="Pembelajaran" />;
+}
+
+/*
+ * Halaman Pembelajaran yang asli, disimpan sementara sebagai komentar.
+ * Untuk menampilkannya lagi: hapus komponen sementara di atas (impor
+ * `SedangDikembangkan`, `metadata`, dan `Halaman`), lalu hapus penanda komentar
+ * ini supaya kode di bawah aktif.
+ *
+import type { Metadata } from "next";
 import { HalamanSederhana } from "@/components/HalamanSederhana";
 import { GridKonten } from "@/components/GridKonten";
 import { kontenTampil } from "@/content/konten";
@@ -17,3 +34,4 @@ export default function Pembelajaran() {
     </HalamanSederhana>
   );
 }
+ */
