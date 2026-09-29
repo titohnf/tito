@@ -7,6 +7,8 @@
  *   - video     → thumbnail YouTube, klik membuka YouTube di tab baru
  *
  * Item dengan `contoh: true` hanya tampil kalau `site.tampilkanContoh` = true.
+ * Item dengan `draf: true` disembunyikan di mana pun (halaman jadi 404, tidak masuk
+ * sitemap) sampai penandanya dihapus.
  */
 import { site } from "@/config/site";
 import type { Segmen } from "./segmen";
@@ -14,6 +16,8 @@ import type { Segmen } from "./segmen";
 type Dasar = {
   tanggal: string; // format YYYY-MM-DD
   contoh?: boolean;
+  /** Belum selesai ditulis: disembunyikan dari situs sampai penanda ini dihapus. */
+  draf?: boolean;
   // Tag peran (Perwakilan / Pelayan / Pendamping) yang tampil di kartu.
   segmen?: Segmen[];
 };
@@ -58,6 +62,7 @@ export const konten: Konten[] = [
   {
     tipe: "tulisan",
     kunci: "usaha-kampus",
+    draf: true, // ceritanya belum dilanjutkan; hapus baris ini saat sudah siap tayang
     slug: "kurang-nasionalisme-apa-coba",
     judul: "Kurang nasionalisme apa coba, saya sempat bikin dua usaha kampus",
     pengantar:
@@ -127,6 +132,7 @@ export const konten: Konten[] = [
 /** Konten yang siap ditampilkan, urut dari yang terbaru. */
 export function kontenTampil(): Konten[] {
   return konten
+    .filter((k) => !k.draf)
     .filter((k) => site.tampilkanContoh || !k.contoh)
     .filter((k) => site.tipeKontenAktif.includes(k.tipe))
     .sort((a, b) => b.tanggal.localeCompare(a.tanggal));
