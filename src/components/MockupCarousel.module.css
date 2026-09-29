@@ -224,10 +224,15 @@
   border-radius: 50%;
   background: var(--putih);
   color: var(--tinta);
-  font: inherit;
-  font-size: 1rem;
+  /* Panah berupa SVG (bukan karakter teks ← →): posisinya tepat di tengah
+     lingkaran di semua font dan perangkat. */
+  padding: 0;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
+}
+
+.tombolPanah svg {
+  display: block;
 }
 
 .tombolPanah:hover {

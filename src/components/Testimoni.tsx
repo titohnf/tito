@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { linkWhatsApp } from "@/config/site";
 import { testimoni, kepala, notaKosong, type Testimoni as Kesan } from "@/content/testimoni";
 import { TombolLove } from "./TombolLove";
@@ -195,7 +196,7 @@ export function Testimoni() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {notaKosong.tautanKirim} <span aria-hidden="true">→</span>
+                    {notaKosong.tautanKirim} <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
                   </a>
                 </figcaption>
               </figure>
@@ -216,7 +217,7 @@ export function Testimoni() {
               disabled={!posisi.bisaKiri}
               aria-label="Testimoni sebelumnya"
             >
-              <span aria-hidden="true">←</span>
+              <ArrowLeft size={18} strokeWidth={2} aria-hidden="true" />
             </button>
             <button
               type="button"
@@ -225,7 +226,7 @@ export function Testimoni() {
               disabled={!posisi.bisaKanan}
               aria-label="Testimoni berikutnya"
             >
-              <span aria-hidden="true">→</span>
+              <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </button>
           </div>
         )}

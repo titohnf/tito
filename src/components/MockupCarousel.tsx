@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { mockup } from "@/content/mockup";
 import styles from "./MockupCarousel.module.css";
 
@@ -216,7 +217,7 @@ export function MockupCarousel() {
             onClick={() => setAktif((aktif - 1 + jumlah) % jumlah)}
             aria-label="Mockup sebelumnya"
           >
-            <span aria-hidden="true">←</span>
+            <ArrowLeft size={18} strokeWidth={2} aria-hidden="true" />
           </button>
           <button
             type="button"
@@ -224,7 +225,7 @@ export function MockupCarousel() {
             onClick={() => setAktif((aktif + 1) % jumlah)}
             aria-label="Mockup berikutnya"
           >
-            <span aria-hidden="true">→</span>
+            <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </button>
         </div>
       )}
