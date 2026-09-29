@@ -287,11 +287,14 @@ export function sorotanSegmen(segmen: string) {
 }
 
 /** Proyek yang punya halaman detail. */
-/** True selama masih ada teks "[PLACEHOLDER …]" di dalam proyek: belum layak diindeks mesin pencari. */
-export function masihPlaceholder(l: LaporanKerja) {
-  return JSON.stringify(l).includes("[PLACEHOLDER");
-}
-
 export function laporanBerdetail() {
   return laporanKerja.filter((l): l is LaporanKerja & { detail: DetailProyek } => Boolean(l.detail));
+}
+
+/**
+ * Proyek berdetail yang halamannya boleh tampil: yang masih memuat teks
+ * "[PLACEHOLDER …]" disembunyikan (404, tidak masuk sitemap) sampai diisi.
+ */
+export function laporanTayang() {
+  return laporanBerdetail().filter((l) => !JSON.stringify(l).includes("[PLACEHOLDER"));
 }

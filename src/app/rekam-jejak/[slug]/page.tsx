@@ -5,7 +5,7 @@ import { HalamanSederhana } from "@/components/HalamanSederhana";
 import { FunFakta } from "@/components/FunFakta";
 import { TagSegmen } from "@/components/TagSegmen";
 import { Tombol } from "@/components/Tombol";
-import { laporanBerdetail, idProyek, masihPlaceholder } from "@/content/laporan-kerja";
+import { laporanTayang, idProyek } from "@/content/laporan-kerja";
 import { TombolLove } from "@/components/TombolLove";
 import type { AnggotaTim } from "@/content/laporan-kerja";
 import { site } from "@/config/site";
@@ -16,11 +16,11 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return laporanBerdetail().map((l) => ({ slug: l.detail.slug }));
+  return laporanTayang().map((l) => ({ slug: l.detail.slug }));
 }
 
 function cari(slug: string) {
-  return laporanBerdetail().find((l) => l.detail.slug === slug);
+  return laporanTayang().find((l) => l.detail.slug === slug);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -31,8 +31,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: proyek.judul,
     description: proyek.pencapaian || undefined,
     openGraph: { title: proyek.judul, description: proyek.pencapaian || undefined },
-    // Jangan diindeks selama masih ada teks [PLACEHOLDER]
-    ...(masihPlaceholder(proyek) && { robots: { index: false, follow: false } }),
   };
 }
 
