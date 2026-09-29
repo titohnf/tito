@@ -4,8 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import { mockup } from "@/content/mockup";
 import styles from "./MockupCarousel.module.css";
 
-/** Jeda antar pergantian slide otomatis, dalam milidetik. */
+/** Jeda antar pergantian slide otomatis (slide iframe), dalam milidetik. */
 const JEDA_OTOMATIS = 5000;
+
+/**
+ * Putar video dari awal. `play()` bisa ditolak browser (mis. AbortError saat
+ * tab baru saja tersembunyi/muncul), jadi dicoba sekali lagi sebentar kemudian.
+ */
+function putarDariAwal(v: HTMLVideoElement) {
+  v.currentTime = 0;
+  v.play().catch(() => {
+    setTimeout(() => v.play().catch(() => {}), 200);
+  });
+}
+
+/**
+ * Slide video pindah lewat `onEnded`; ini batas atas menunggunya, cuma jaring
+ * pengaman kalau videonya gagal dimuat atau macet.
+ */
+const BATAS_TUNGGU_VIDEO = 20000;
 
 /** Lebar acuan iframe pratinjau (setara viewport desktop), sebelum diskalakan turun. */
 const LEBAR_ACUAN = 1440;
@@ -27,6 +44,7 @@ export function MockupCarousel() {
   const bingkaiRef = useRef<HTMLDivElement>(null);
   const [aktif, setAktif] = useState(0);
   const jalanRef = useRef(true);
+  const videoRef = useRef<(HTMLVideoElement | null)[]>([]);
   const jumlah = mockup.length;
 
   // Skala iframe pratinjau dihitung dari lebar kartu sebenarnya (bukan CSS
@@ -48,17 +66,46 @@ export function MockupCarousel() {
     return () => observer.disconnect();
   }, []);
 
-  // Pindah slide sendiri tiap beberapa detik; timer dimulai ulang tiap kali
-  // slide aktif berubah (baik oleh timer ini sendiri maupun interaksi
-  // pengunjung), jadi jedanya selalu penuh sejak interaksi terakhir.
+  // Slide video: hanya yang aktif diputar, selalu dari awal. Kalau pengunjung
+  // minta gerakan dikurangi, tidak ada yang diputar (posternya saja).
+  useEffect(() => {
+    const kurangiGerak = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    videoRef.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === aktif && !kurangiGerak) {
+        putarDariAwal(v);
+      } else {
+        v.pause();
+      }
+    });
+  }, [aktif]);
+
+  // Pindah slide sendiri; timer dimulai ulang tiap kali slide aktif berubah
+  // (baik oleh timer ini sendiri maupun interaksi pengunjung), jadi jedanya
+  // selalu penuh sejak interaksi terakhir. Slide iframe pindah tiap
+  // JEDA_OTOMATIS; slide video menunggu videonya selesai (lihat `selesai`),
+  // dan timer di sini hanya jaring pengaman.
   useEffect(() => {
     if (jumlah <= 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const jeda = mockup[aktif].video ? BATAS_TUNGGU_VIDEO : JEDA_OTOMATIS;
     const timer = setTimeout(() => {
       if (jalanRef.current) setAktif((a) => (a + 1) % jumlah);
-    }, JEDA_OTOMATIS);
+    }, jeda);
     return () => clearTimeout(timer);
   }, [aktif, jumlah]);
+
+  // Video slide aktif selesai: lanjut ke slide berikutnya, atau ulang kalau
+  // pengunjung sedang menyentuh/di-hover carousel-nya.
+  const selesai = (i: number) => {
+    if (i !== aktif) return;
+    if (jalanRef.current && jumlah > 1) {
+      setAktif((a) => (a + 1) % jumlah);
+    } else {
+      const v = videoRef.current[i];
+      if (v) putarDariAwal(v);
+    }
+  };
 
   if (jumlah === 0) return null;
 
@@ -105,15 +152,32 @@ export function MockupCarousel() {
                   <i />
                 </span>
                 <div className={styles.layar}>
-                  <div className={styles.previewSkala}>
-                    <iframe
-                      src={m.href}
-                      title={`Pratinjau hero ${m.judul}`}
-                      loading={i === 0 ? "eager" : "lazy"}
+                  {m.video ? (
+                    <video
+                      ref={(el) => {
+                        videoRef.current[i] = el;
+                      }}
+                      className={styles.video}
+                      src={m.video}
+                      poster={m.poster}
+                      muted
+                      playsInline
+                      preload="metadata"
                       tabIndex={-1}
                       aria-hidden="true"
+                      onEnded={() => selesai(i)}
                     />
-                  </div>
+                  ) : (
+                    <div className={styles.previewSkala}>
+                      <iframe
+                        src={m.href}
+                        title={`Pratinjau hero ${m.judul}`}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        tabIndex={-1}
+                        aria-hidden="true"
+                      />
+                    </div>
+                  )}
                   <a href={m.href} target="_blank" rel="noopener noreferrer" className={styles.overlay}>
                     <span className={styles.tombolKunjungi}>
                       Kunjungi Website <span aria-hidden="true">→</span>

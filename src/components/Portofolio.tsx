@@ -3,6 +3,7 @@ import { portofolio } from "@/content/portofolio";
 import { site } from "@/config/site";
 import { PratinjauBimbel } from "./PratinjauBimbel";
 import { Tombol } from "./Tombol";
+import { VideoPopup } from "./VideoPopup";
 import kartuStyles from "./KartuGrid.module.css";
 import styles from "./Portofolio.module.css";
 
@@ -60,15 +61,7 @@ export function Portofolio() {
                           {k.pratinjau ? (
                             <PratinjauBimbel />
                           ) : k.video ? (
-                            <video
-                              className={kartuStyles.videoKartu}
-                              src={k.video}
-                              poster={k.poster}
-                              autoPlay
-                              loop
-                              muted
-                              playsInline
-                            />
+                            <VideoPopup src={k.video} poster={k.poster} judul={k.judul} mobile={k.mobile} />
                           ) : k.gambar ? (
                             <>
                               {k.poster && (

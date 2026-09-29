@@ -1,0 +1,159 @@
+/* Pemicu: menutupi seluruh "layar" kartu (induknya position:relative). */
+.pemicu {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.pemicu:focus-visible {
+  outline: 3px solid var(--biru);
+  outline-offset: -3px;
+}
+
+/* Petunjuk kecil di pojok: muncul saat kartu di-hover / difokus. */
+.petunjuk {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: rgb(18 18 17 / 0.72);
+  color: var(--putih);
+  font-size: 0.75rem;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
+  pointer-events: none;
+}
+
+.pemicu:hover .petunjuk,
+.pemicu:focus-visible .petunjuk {
+  opacity: 1;
+  transform: none;
+}
+
+/* Layar sentuh tidak punya hover: petunjuknya selalu terlihat. */
+@media (hover: none) {
+  .petunjuk {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Popup ------------------------------------------------------------------ */
+.dialog {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+  /* dialog modal sudah di tengah; ukuran ditentukan varian di bawah. */
+}
+
+.dialog::backdrop {
+  background: rgb(18 18 17 / 0.72);
+  backdrop-filter: blur(2px);
+}
+
+.dialog[open] {
+  animation: muncul 0.18s ease-out;
+}
+
+.dialog[open]::backdrop {
+  animation: pudar 0.18s ease-out;
+}
+
+.dialogWeb {
+  width: min(94vw, 60rem);
+}
+
+/* Video potret: dibatasi tingginya, lebar mengikuti rasio 9:16. */
+.dialogMobile {
+  height: min(90vh, 52rem);
+  aspect-ratio: 9 / 16;
+  max-width: 94vw;
+}
+
+.isi {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.videoBesar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: #000;
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.45);
+  object-fit: contain;
+}
+
+.tutup {
+  position: absolute;
+  top: -0.9rem;
+  right: -0.9rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--putih);
+  color: var(--tinta);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.3);
+  cursor: pointer;
+}
+
+.tutup:focus-visible {
+  outline: 3px solid var(--biru);
+  outline-offset: 2px;
+}
+
+/* Di layar sempit tombol tutup masuk ke dalam supaya tidak terpotong. */
+@media (max-width: 640px) {
+  .tutup {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+@keyframes muncul {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes pudar {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open],
+  .dialog[open]::backdrop {
+    animation: none;
+  }
+}
