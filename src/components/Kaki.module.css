@@ -14,6 +14,11 @@
   isolation: isolate;
 }
 
+/* Menyambung segmen gelap di atasnya: jarak atas sudah ada di sana. */
+.sambung {
+  padding-top: 0;
+}
+
 /*
  * Lanjutan semburat dari segmen Ayo Ngobrol: noda ungu yang di sana setengah
  * terpotong tepi bawah muncul lagi di sini dari tepi atas, dan satu noda ungu

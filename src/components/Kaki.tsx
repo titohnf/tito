@@ -1,11 +1,17 @@
 import { site, linkWhatsApp } from "@/config/site";
 import styles from "./Kaki.module.css";
 
-export function Kaki() {
+/**
+ * `sambung`: kaki langsung menyambung segmen gelap di atasnya (beranda, tepat
+ * setelah segmen Ayo Ngobrol). Jarak di atas garis pemisah sudah disediakan
+ * segmen itu lewat padding bawahnya, jadi kaki tidak menambah jarak sendiri —
+ * kalau ditambah, jaraknya dobel.
+ */
+export function Kaki({ sambung = false }: { sambung?: boolean }) {
   return (
     // Latar gelapnya harus penuh selebar layar, jadi .wadah turun jadi pembungkus
     // di dalam — sama seperti segmen Ayo Ngobrol tepat di atasnya.
-    <footer className={styles.kaki}>
+    <footer className={`${styles.kaki} ${sambung ? styles.sambung : ""}`}>
       <div className="wadah">
         <div className={styles.isi}>
           <p>

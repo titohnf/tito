@@ -31,19 +31,21 @@ export function FunFakta({
   const TAMPIL = baris;
   const wadahRef = useRef<HTMLDivElement>(null);
   const ukurRef = useRef<HTMLUListElement>(null);
-  // Tinggi satu baris (px) di mode bungkus; null = belum terukur (pakai bawaan CSS).
-  const [tinggiBaris, setTinggiBaris] = useState<number | null>(null);
+  // Tinggi tiap fakta (px, urutannya sama dengan `fakta`) di mode bungkus;
+  // null = belum terukur (pakai tinggi bawaan CSS).
+  const [tinggiFakta, setTinggiFakta] = useState<number[] | null>(null);
 
   useLayoutEffect(() => {
     if (!bungkus) return;
     const daftar = ukurRef.current;
     if (!daftar) return;
     const ukur = () => {
-      let maks = 0;
-      for (const li of Array.from(daftar.children)) {
-        maks = Math.max(maks, li.getBoundingClientRect().height);
-      }
-      if (maks > 0) setTinggiBaris(Math.ceil(maks));
+      const hasil = Array.from(daftar.children, (li) => Math.ceil(li.getBoundingClientRect().height));
+      if (hasil.some((h) => h <= 0)) return;
+      // Kembalikan state lama kalau tidak ada yang berubah, supaya tidak memicu render ulang.
+      setTinggiFakta((lama) =>
+        lama && lama.length === hasil.length && lama.every((h, i) => h === hasil[i]) ? lama : hasil,
+      );
     };
     ukur();
     // Lebar kolom berubah (mis. layar diputar) atau font selesai dimuat: ukur ulang.
@@ -69,14 +71,32 @@ export function FunFakta({
     return { indeks, teks: fakta[indeks] };
   });
 
+  // Mode bungkus: tiap fakta setinggi isinya sendiri, jadi jarak antarfakta selalu
+  // sama walau ada yang dua baris dan ada yang tiga. Dua hal mengikuti itu:
+  // - jarak geser animasi = tinggi baris yang keluar (baris paling atas), dan
+  // - tinggi jendela dikunci ke jendela terpanjang dari semua kemungkinan posisi,
+  //   supaya blok (dan tombol di bawahnya) tidak melompat saat fakta bergeser.
+  const ukuran = bungkus && tinggiFakta ? tinggiFakta : null;
+  let tinggiJendela: number | undefined; // ruang yang dipesan (jendela terpanjang)
+  let tinggiTampak: number | undefined; // tinggi isi yang sedang tampil
+  let jarakGeser: number | undefined;
+  if (ukuran) {
+    tinggiTampak = tampil
+      .slice(adaSisa ? 1 : 0, (adaSisa ? 1 : 0) + tampak)
+      .reduce((jml, { indeks }) => jml + ukuran[indeks], 0);
+    tinggiJendela = Math.max(
+      ...ukuran.map((_, awal) =>
+        Array.from({ length: tampak }, (_, k) => ukuran[(awal + k) % ukuran.length]).reduce((a, b) => a + b, 0),
+      ),
+    );
+    jarakGeser = ukuran[tampil[0].indeks];
+  }
+
   return (
     <div
       ref={wadahRef}
       className={styles.wadah}
       data-bungkus={bungkus || undefined}
-      style={
-        bungkus && tinggiBaris ? ({ "--baris-bungkus": `${tinggiBaris}px` } as React.CSSProperties) : undefined
-      }
     >
       {bungkus && (
         // Salinan tak terlihat: dipakai hanya untuk mengukur tinggi tiap fakta.
@@ -89,16 +109,21 @@ export function FunFakta({
           ))}
         </ul>
       )}
-      <div
-        className={styles.jendela}
-        style={{ "--jumlah": tampak } as React.CSSProperties}
-      >
+      {/* Ruang blok dipesan sebesar jendela terpanjang (tombol di bawahnya tidak
+          bergeser); jendela di dalamnya sebesar isi yang tampil, supaya baris
+          berikutnya tidak mengintip saat isinya sedang lebih pendek. */}
+      <div style={{ minHeight: tinggiJendela }}>
+        <div
+          className={styles.jendela}
+          style={{ "--jumlah": tampak, height: tinggiTampak } as React.CSSProperties}
+        >
         {/* key = posisi jendela: tiap geseran memutar ulang animasi naik satu baris */}
         <ul
           key={mulai}
           className={styles.daftar}
           data-geser={adaSisa}
           aria-live="polite"
+          style={jarakGeser ? ({ "--baris": `${jarakGeser}px` } as React.CSSProperties) : undefined}
         >
           {tampil.map(({ indeks, teks }, i) => {
             // Baris di luar jendela (yang keluar & cadangan) tidak dibacakan
@@ -121,6 +146,7 @@ export function FunFakta({
             );
           })}
         </ul>
+        </div>
       </div>
 
       {adaSisa && (

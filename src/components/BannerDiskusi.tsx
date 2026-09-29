@@ -37,28 +37,14 @@ const topik = [
  * sudah terisi supaya pengunjung tinggal kirim.
  */
 export function BannerDiskusi() {
+  // Anak langsung <aside> (judul, jendela topik, deskripsi, tombol) ditata grid:
+  // di HP bertumpuk berurutan sesuai kode ini, di layar lebar jendela topik
+  // pindah ke kolom kanan (lihat BannerDiskusi.module.css).
   return (
     <aside className={styles.banner} aria-labelledby="banner-diskusi-judul">
-      <div className={styles.isi}>
-        <h3 id="banner-diskusi-judul" className={styles.judul}>
-          Ingin punya sistem untuk bisnismu sendiri?
-        </h3>
-        <p className={styles.deskripsi}>
-          Dari pencatatan, jadwal, sampai laporan otomatis — saya bantu bikin sistem yang pas dengan
-          cara kerja usahamu. Belum punya gambaran jelas juga tidak apa-apa, ceritakan saja dulu.
-        </p>
-
-        <a
-          className={styles.tombol}
-          href={linkWhatsApp(
-            "Halo Tito, saya mau bikin sistem untuk bisnis saya. Boleh ngobrol dulu?",
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hubungi via WhatsApp <span aria-hidden="true">→</span>
-        </a>
-      </div>
+      <h3 id="banner-diskusi-judul" className={styles.judul}>
+        Ingin punya sistem untuk bisnismu sendiri?
+      </h3>
 
       {/* Daftar topik berjalan dari bawah ke atas. Daftarnya diduplikasi supaya
           putarannya mulus; salinan kedua disembunyikan dari pembaca layar. */}
@@ -76,6 +62,20 @@ export function BannerDiskusi() {
           </ul>
         </div>
       </div>
+
+      <p className={styles.deskripsi}>
+        Dari pencatatan, jadwal, sampai laporan otomatis — saya bantu bikin sistem yang pas dengan
+        cara kerja usahamu.
+      </p>
+
+      <a
+        className={styles.tombol}
+        href={linkWhatsApp("Halo Tito, saya mau bikin sistem untuk bisnis saya. Boleh ngobrol dulu?")}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Hubungi via WhatsApp <span aria-hidden="true">→</span>
+      </a>
     </aside>
   );
 }

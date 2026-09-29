@@ -143,17 +143,29 @@
 .lagi {
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
+  justify-content: center;
+  gap: 0.4em;
   margin-top: 0.75rem;
-  padding: 0.2rem 0.6rem;
+  /* Di HP dibuat lebih besar, setinggi target sentuh (44px). */
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
   border: 1px solid var(--garis);
   border-radius: 999px;
   background: var(--putih);
   color: var(--tinta-2);
   font: inherit;
-  font-size: 0.8rem;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
+}
+
+@media (min-width: 640px) {
+  .lagi {
+    min-height: 0;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.85rem;
+  }
 }
 
 .lagi:hover {
@@ -170,21 +182,39 @@
 }
 
 /*
- * Mode bungkus: tiap baris setinggi fakta terpanjang (--baris-bungkus, diukur di
- * browser). Angka bawaan dipakai sesaat sebelum pengukuran selesai. Selebihnya
- * sama dengan mode satu-baris — termasuk semua animasi geser.
+ * Mode bungkus: tiap fakta setinggi isinya sendiri, dengan jarak atas-bawah yang
+ * sama (jadi dua baris atau tiga baris, jaraknya tetap proper). Tinggi diukur di
+ * browser; --baris (jarak geser animasi) dan tinggi jendela diisi dari
+ * FunFakta.tsx. Angka di bawah hanya dipakai sesaat sebelum pengukuran selesai.
+ * Selebihnya sama dengan mode satu-baris — termasuk semua animasi geser.
  */
 .wadah[data-bungkus="true"] .jendela {
-  --baris: var(--baris-bungkus, 5.4rem);
+  --baris: 5.4rem;
+  /* Tinggi jendela mengikuti isi yang tampil; berubah halus saat fakta bergeser. */
+  transition: height 0.75s cubic-bezier(0.3, 0.8, 0.4, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wadah[data-bungkus="true"] .jendela {
+    transition: none;
+  }
 }
 
 .wadah[data-bungkus="true"] .item {
+  height: auto;
   white-space: normal;
   text-overflow: clip;
   /* Teks mulai dari atas baris (bukan di tengah), dan bintang duduk sejajar
      dengan baris pertama teksnya. */
   align-items: start;
-  padding-top: 0.6rem;
+  padding-block: 0.6rem;
+}
+
+/* Garis atas tetap dihitung di baris paling atas (hanya disamarkan) supaya
+   tinggi tiap baris sama dengan hasil ukur. */
+.wadah[data-bungkus="true"] .item:first-child,
+.wadah[data-bungkus="true"] .item[data-keluar="true"] + .item {
+  border-top: 1px solid transparent;
 }
 
 .wadah[data-bungkus="true"] .tanda {

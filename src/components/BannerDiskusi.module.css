@@ -1,11 +1,13 @@
 /*
  * Kartu gelap dengan dua semburat warna di sudut, isi di kiri dan daftar
- * topik berjalan di kanan (di bawah isi pada layar sempit).
+ * topik berjalan di kanan (di bawah judul pada layar sempit).
  */
 .banner {
   position: relative;
   display: grid;
-  gap: 2rem;
+  /* minmax(0, ...): isi yang lebar (baris pil berjalan) tidak boleh melebarkan kolom. */
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
   padding: clamp(1.5rem, 5vw, 3rem);
   overflow: hidden;
   border-radius: 20px;
@@ -16,18 +18,40 @@
   color: var(--latar);
 }
 
+/*
+ * Layar lebar: dua kolom. Isi (judul, deskripsi, tombol) di kiri dan dipusatkan
+ * secara vertikal lewat baris kosong 1fr di atas-bawahnya; jendela topik
+ * membentang di kanan. Di HP tidak ada area: semuanya bertumpuk sesuai urutan
+ * kode — judul, jendela topik, deskripsi, tombol.
+ */
 @media (min-width: 860px) {
   .banner {
-    grid-template-columns: 1.4fr 1fr;
-    align-items: center;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto auto 1fr;
+    column-gap: 2rem;
   }
-}
 
-.isi {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  .judul {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .deskripsi {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .tombol {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .jendela {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin-top: 0;
+  }
 }
 
 .judul {
@@ -79,6 +103,10 @@
 /* Topik berjalan naik */
 .jendela {
   position: relative;
+  min-width: 0;
+  width: 100%;
+  /* Di HP duduk tepat di bawah judul. */
+  margin-top: 1rem;
 }
 
 /* Jendela dengan tepi atas & bawah memudar, jadi topik muncul dan hilang halus */

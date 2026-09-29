@@ -19,12 +19,15 @@ export function Portofolio() {
               Membangun sistem Bimbel
             </h2>
           </div>
+          {/* Tombol ke halaman Rekam Jejak disembunyikan dulu selama halamannya belum siap.
+              Buka komentar ini begitu kontennya ada:
           <Tombol href={site.tautan.rekamJejak} varian="garis">
             Lihat seluruh rekam jejak <span aria-hidden="true">→</span>
           </Tombol>
+          */}
         </div>
         <p className={styles.subjudul}>
-          dari progres siswa hingga status pembayaran, semua tercatat dengan jelas.
+          Dari progres siswa hingga status pembayaran, semua tercatat dengan jelas.
         </p>
 
         <div className={styles.kelompokDaftar}>

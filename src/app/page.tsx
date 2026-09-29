@@ -28,7 +28,7 @@ export default function Beranda() {
         <PertanyaanUmum />
         <CtaInteraktif />
       </main>
-      <Kaki />
+      <Kaki sambung />
     </>
   );
 }
