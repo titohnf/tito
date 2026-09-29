@@ -89,11 +89,11 @@ export function Portofolio() {
                           )}
                         </div>
                       </div>
-                      <h4
+                      <h3
                         className={`${kartuStyles.namaKartu} ${styles.judulKartu} ${duaKartu ? styles.judulKartuOverlay : ""}`}
                       >
                         {k.judul}
-                      </h4>
+                      </h3>
                     </div>
                   </li>
                   );

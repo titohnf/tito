@@ -176,7 +176,7 @@ export function MockupCarousel() {
                       <iframe
                         src={m.href}
                         title={`Pratinjau hero ${m.judul}`}
-                        loading={i === 0 ? "eager" : "lazy"}
+                        loading="lazy"
                         tabIndex={-1}
                         aria-hidden="true"
                       />
