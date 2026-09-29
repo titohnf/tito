@@ -1,4 +1,5 @@
 import { Redis } from "@upstash/redis";
+import { tahanKalauBerlebih } from "@/lib/batas";
 
 /**
  * Penghitung "love" per item (tulisan, proyek rekam jejak, testimoni).
@@ -28,6 +29,9 @@ function redis() {
 const tanpaCache = { "Cache-Control": "no-store" };
 
 export async function GET(req: Request) {
+  const ditahan = await tahanKalauBerlebih(req, "love-baca", 120);
+  if (ditahan) return ditahan;
+
   const ids = (new URL(req.url).searchParams.get("ids") ?? "")
     .split(",")
     .filter((id) => POLA_ID.test(id))
@@ -41,6 +45,9 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  const ditahan = await tahanKalauBerlebih(req, "love-tulis", 20);
+  if (ditahan) return ditahan;
+
   const { id, aksi } = await req.json().catch(() => ({}));
 
   if (typeof id !== "string" || !POLA_ID.test(id)) {

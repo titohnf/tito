@@ -1,4 +1,5 @@
 import { Redis } from "@upstash/redis";
+import { tahanKalauBerlebih } from "@/lib/batas";
 
 /**
  * Penghitung klik tombol WhatsApp.
@@ -26,6 +27,9 @@ function hariIni(offsetHari = 0) {
 }
 
 export async function POST(req: Request) {
+  const ditahan = await tahanKalauBerlebih(req, "klik", 30);
+  if (ditahan) return ditahan;
+
   const { lokasi, halaman } = await req.json().catch(() => ({}));
   if (typeof lokasi !== "string" || !POLA_LOKASI.test(lokasi)) {
     return Response.json({ error: "Lokasi tidak sah" }, { status: 400 });
