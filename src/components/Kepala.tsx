@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { site, linkWhatsApp } from "@/config/site";
+import { site } from "@/config/site";
 import styles from "./Kepala.module.css";
 
 const menu = [
@@ -17,6 +17,16 @@ export function Kepala() {
   const pathname = usePathname();
   // Menu hamburger hanya dipakai di layar sempit
   const [terbuka, setTerbuka] = useState(false);
+  // Header transparan di puncak halaman; begitu digulir (mulai menempel di atas
+  // konten) latarnya jadi kaca buram.
+  const [menempel, setMenempel] = useState(false);
+
+  useEffect(() => {
+    const perbarui = () => setMenempel(window.scrollY > 8);
+    perbarui();
+    window.addEventListener("scroll", perbarui, { passive: true });
+    return () => window.removeEventListener("scroll", perbarui);
+  }, []);
 
   // Tulisan satuan tetap menandai menu Pembelajaran sebagai aktif
   const aktif = (href: string) =>
@@ -33,7 +43,7 @@ export function Kepala() {
   }, [terbuka]);
 
   return (
-    <header className={styles.kepala}>
+    <header className={styles.kepala} data-menempel={menempel || terbuka}>
       <div className={`wadah ${styles.isi}`}>
         <Link href="/" className={styles.nama} onClick={() => setTerbuka(false)}>
           {site.nama}
@@ -67,14 +77,6 @@ export function Kepala() {
               {m.label}
             </Link>
           ))}
-          <a
-            href={linkWhatsApp()}
-            className={styles.ngobrol}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ngobrol
-          </a>
         </nav>
       </div>
     </header>

@@ -2,9 +2,20 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: color-mix(in srgb, var(--putih) 80%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    backdrop-filter 0.25s ease;
+}
+
+/* Sudah digulir (atau menu HP terbuka): kaca buram di atas konten. */
+.kepala[data-menempel="true"] {
+  background: color-mix(in srgb, var(--putih) 65%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--garis) 70%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
 }
 
 .isi {
@@ -110,26 +121,6 @@
   font-weight: 500;
 }
 
-.ngobrol {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0.5rem;
-  padding: 0.6rem 1.1rem;
-  border-radius: 10px;
-  background: var(--tinta);
-  color: var(--latar);
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background-color 0.2s;
-}
-
-.ngobrol:hover {
-  background: #33332f;
-}
-
 /* Layar lebar: menu sebaris, tanpa hamburger */
 @media (min-width: 640px) {
   .hamburger {
@@ -151,10 +142,5 @@
 
   .tautan {
     padding-block: 0;
-  }
-
-  .ngobrol {
-    margin-top: 0;
-    margin-left: 0.5rem;
   }
 }

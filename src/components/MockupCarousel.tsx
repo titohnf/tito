@@ -43,7 +43,16 @@ export function MockupCarousel() {
   const wadahRef = useRef<HTMLDivElement>(null);
   const bingkaiRef = useRef<HTMLDivElement>(null);
   const [aktif, setAktif] = useState(0);
-  const jalanRef = useRef(true);
+  // Dijeda selama pengunjung menyentuh/di-hover/memfokus carousel. State (bukan
+  // cuma ref) supaya timer pindah-slide dijadwalkan ulang begitu jeda berakhir —
+  // dulu hanya ref, jadi timer yang habis saat di-hover terlewat dan auto-slide
+  // mati selamanya sampai pengunjung menekan tombol.
+  const [dijeda, setDijeda] = useState(false);
+  const dijedaRef = useRef(false);
+  const setJeda = (nilai: boolean) => {
+    dijedaRef.current = nilai;
+    setDijeda(nilai);
+  };
   const videoRef = useRef<(HTMLVideoElement | null)[]>([]);
   const jumlah = mockup.length;
 
@@ -86,20 +95,18 @@ export function MockupCarousel() {
   // JEDA_OTOMATIS; slide video menunggu videonya selesai (lihat `selesai`),
   // dan timer di sini hanya jaring pengaman.
   useEffect(() => {
-    if (jumlah <= 1) return;
+    if (jumlah <= 1 || dijeda) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const jeda = mockup[aktif].video ? BATAS_TUNGGU_VIDEO : JEDA_OTOMATIS;
-    const timer = setTimeout(() => {
-      if (jalanRef.current) setAktif((a) => (a + 1) % jumlah);
-    }, jeda);
+    const timer = setTimeout(() => setAktif((a) => (a + 1) % jumlah), jeda);
     return () => clearTimeout(timer);
-  }, [aktif, jumlah]);
+  }, [aktif, jumlah, dijeda]);
 
   // Video slide aktif selesai: lanjut ke slide berikutnya, atau ulang kalau
   // pengunjung sedang menyentuh/di-hover carousel-nya.
   const selesai = (i: number) => {
     if (i !== aktif) return;
-    if (jalanRef.current && jumlah > 1) {
+    if (!dijedaRef.current && jumlah > 1) {
       setAktif((a) => (a + 1) % jumlah);
     } else {
       const v = videoRef.current[i];
@@ -109,12 +116,8 @@ export function MockupCarousel() {
 
   if (jumlah === 0) return null;
 
-  const berhenti = () => {
-    jalanRef.current = false;
-  };
-  const lanjut = () => {
-    jalanRef.current = true;
-  };
+  const berhenti = () => setJeda(true);
+  const lanjut = () => setJeda(false);
 
   return (
     <div
@@ -178,9 +181,24 @@ export function MockupCarousel() {
                       />
                     </div>
                   )}
-                  <a href={m.href} target="_blank" rel="noopener noreferrer" className={styles.overlay}>
-                    <span className={styles.tombolKunjungi}>
-                      Kunjungi Website <span aria-hidden="true">→</span>
+                  <a
+                    href={m.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.tautan}
+                    aria-label={`Kunjungi website ${m.judul}`}
+                    onPointerMove={(e) => {
+                      // Label "Kunjungi web" menggantikan kursor: posisinya
+                      // dilangsung disetel ke elemen (bukan state) supaya
+                      // gerakan mouse tidak memicu render ulang carousel.
+                      const r = e.currentTarget.getBoundingClientRect();
+                      const k = e.currentTarget.style;
+                      k.setProperty("--x", `${e.clientX - r.left}px`);
+                      k.setProperty("--y", `${e.clientY - r.top}px`);
+                    }}
+                  >
+                    <span className={styles.etiket} aria-hidden="true">
+                      Kunjungi web
                     </span>
                   </a>
                 </div>
@@ -200,22 +218,6 @@ export function MockupCarousel() {
           >
             <span aria-hidden="true">←</span>
           </button>
-
-          <div className={styles.titik} role="tablist" aria-label="Pilih mockup">
-            {mockup.map((m, i) => (
-              <button
-                key={m.id}
-                type="button"
-                role="tab"
-                aria-selected={i === aktif}
-                aria-label={m.judul}
-                className={styles.titikTombol}
-                data-aktif={i === aktif || undefined}
-                onClick={() => setAktif(i)}
-              />
-            ))}
-          </div>
-
           <button
             type="button"
             className={styles.tombolPanah}

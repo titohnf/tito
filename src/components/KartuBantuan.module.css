@@ -82,10 +82,13 @@
 @media (min-width: 640px) {
   .daftar {
     grid-template-columns: repeat(2, 1fr);
-    /* Semua baris setinggi baris yang paling tinggi: kartu lebar di baris
-       kedua jadi persis setinggi dua kartu di atasnya, tanpa angka tinggi
-       yang dipatok sendiri dan bisa melenceng begitu isinya berubah. */
-    grid-auto-rows: 1fr;
+    /* Tiap baris punya tinggi dasar yang sama (18,65rem, setinggi kartu lebar
+       saat normal), tapi tumbuh sendiri-sendiri kalau isinya lebih tinggi.
+       Dulu `1fr`: semua baris dipaksa setinggi baris tertinggi, sehingga begitu
+       kartu lebar sesaat menjulang (mis. layout belum stabil, atau tumpuk di
+       lebar sempit) dua kartu kolom di atasnya ikut melar dan menyisakan
+       whitespace besar. */
+    grid-auto-rows: minmax(18.65rem, auto);
   }
 
   /* Kartu lebar memakan selebar barisnya, di setiap lebar yang punya lebih

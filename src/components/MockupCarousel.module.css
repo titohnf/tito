@@ -52,7 +52,7 @@
   transform: translateX(calc(var(--delta) * 74%)) scale(0.42);
   opacity: 0.4;
   transition: transform 0.35s ease, opacity 0.35s ease;
-  /* Cuma kartu aktif yang interaktif (lihat .bingkai[data-aktif] .overlay di
+  /* Cuma kartu aktif yang interaktif (lihat .bingkai[data-aktif] .tautan di
      bawah) — kartu kiri-kanan murni dekoratif, tidak bisa diklik. */
   pointer-events: none;
 }
@@ -128,7 +128,7 @@
   height: 900px;
   border: 0;
   display: block;
-  /* Dekoratif saja: pengunjung buka situsnya lewat tombol overlay, bukan
+  /* Dekoratif saja: pengunjung buka situsnya lewat tautan .tautan, bukan
      berinteraksi langsung dengan iframe yang sudah diperkecil ini. */
   pointer-events: none;
 }
@@ -147,41 +147,71 @@
   pointer-events: none;
 }
 
-.overlay {
+/*
+ * Tautan ke situs aslinya menutupi seluruh layar, tanpa overlay: kursor
+ * bawaan tetap terlihat, dan label "Kunjungi web" ikut di sebelahnya
+ * (posisinya --x/--y, disetel dari MockupCarousel.tsx). Cuma kartu aktif
+ * yang bisa diklik.
+ */
+.tautan {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  background: color-mix(in srgb, var(--tinta) 55%, transparent);
-  opacity: 0;
-  transition: opacity 0.2s;
+  display: block;
+  cursor: pointer;
   pointer-events: none;
 }
 
-.layar:hover .overlay,
-.overlay:focus-visible {
-  opacity: 1;
+.bingkai[data-aktif] .tautan {
   pointer-events: auto;
 }
 
-.tombolKunjungi {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.55rem 1.1rem;
+.etiket {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  /* Bergeser ke kanan-bawah titik pointer supaya tidak menutupi kursornya. */
+  transform: translate(1.1rem, 1.1rem) scale(0.85);
+  transform-origin: top left;
+  padding: 0.45rem 0.9rem;
   border-radius: 999px;
-  background: var(--putih);
-  color: var(--tinta);
+  background: var(--tinta);
+  color: var(--putih);
   font-size: 0.82rem;
   font-weight: 600;
   white-space: nowrap;
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+  pointer-events: none;
 }
 
+.tautan:hover .etiket,
+.tautan:focus-visible .etiket {
+  opacity: 1;
+  transform: translate(1.1rem, 1.1rem) scale(1);
+}
+
+/* Layar sentuh tidak punya hover atau kursor: tautannya tetap bisa diketuk. */
+@media (hover: none) {
+  .etiket {
+    display: none;
+  }
+}
+
+.tautan:focus-visible {
+  outline: 3px solid var(--biru);
+  outline-offset: -3px;
+}
+
+/* Selebar (dan sejajar dengan) bingkai aktif, tombolnya di ujung kanan. */
 .kontrol {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  width: min(calc(100vw - 2 * var(--tepi)), 68rem);
+  margin-inline: auto;
 }
 
 .tombolPanah {
@@ -204,29 +234,3 @@
   border-color: var(--tinta-3);
 }
 
-.titik {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.titikTombol {
-  width: 0.5rem;
-  height: 0.5rem;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: var(--garis);
-  cursor: pointer;
-  transition: background 0.2s, width 0.2s;
-}
-
-.titikTombol:hover {
-  background: var(--tinta-3);
-}
-
-.titikTombol[data-aktif] {
-  width: 1.35rem;
-  border-radius: 999px;
-  background: var(--tinta);
-}
