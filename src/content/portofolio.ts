@@ -8,7 +8,7 @@ export type KartuPortofolio = {
   teks: string;
   href: string;
   gambar?: string;
-  /** Bingkai pertama `gambar` (kalau gif), tampil diam sampai kartunya di-hover. */
+  /** Bingkai diam: tampil di `gambar` (gif) sampai di-hover, atau jadi `poster` <video> sebelum videonya termuat. */
   poster?: string;
   /** Preview video singkat (autoplay, mute, loop) menggantikan `gambar` kalau diisi. */
   video?: string;
@@ -38,16 +38,16 @@ export const portofolio: KelompokPortofolio[] = [
         teks: "Dari pencatatan manual jadi serba digital, dibangun dari nol untuk bimbel keluarga sendiri. Bukan klien berbayar, tapi cara kerjanya sama.",
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar sistem beneran (data dummy, bukan siswa asli).
-        gambar: "/videos/bimbel-tera-preview.gif",
-        poster: "/videos/bimbel-tera-preview-poster.png",
+        video: "/videos/bimbel-tera-preview.mp4",
+        poster: "/videos/bimbel-tera-poster.png",
       },
       {
-        judul: "Latihan Mandiri per Topik",
-        teks: "Siswa bisa berlatih soal sendiri per topik pelajaran, dengan pembahasan langsung tanpa perlu nunggu tutor.",
+        judul: "Belajar Mandiri per Topik",
+        teks: "Dari portal keluarga, anak bisa memilih mapel dan topik lalu membaca materinya sendiri, kapan saja tanpa perlu nunggu tutor.",
         href: "/rekam-jejak/bimbel-tera",
-        // Rekaman layar sistem beneran (akun dummy, bukan siswa asli), ukuran mobile.
-        gambar: "/videos/belajar-mandiri-preview.gif",
-        poster: "/videos/belajar-mandiri-preview-poster.png",
+        // Rekaman layar portal keluarga beneran (akun & siswa dummy, bukan siswa asli), ukuran mobile.
+        video: "/videos/belajar-mandiri-preview.mp4",
+        poster: "/videos/belajar-mandiri-poster.png",
         mobile: true,
       },
     ],

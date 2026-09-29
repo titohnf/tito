@@ -63,6 +63,7 @@ export function Portofolio() {
                             <video
                               className={kartuStyles.videoKartu}
                               src={k.video}
+                              poster={k.poster}
                               autoPlay
                               loop
                               muted
