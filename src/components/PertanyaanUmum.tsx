@@ -1,7 +1,12 @@
 import { faqTampil } from "@/content/faq";
 import styles from "./PertanyaanUmum.module.css";
 
-/** Pertanyaan yang sering muncul — hanya yang sudah punya jawaban yang tampil. */
+/**
+ * Pertanyaan yang sering muncul — hanya yang sudah punya jawaban yang tampil.
+ * Akordeon bawaan browser (<details>): jawaban terbuka saat pertanyaannya diklik.
+ * Atribut `name` yang sama membuat hanya satu yang terbuka sekaligus. Keyboard
+ * dan pembaca layar tetap jalan tanpa JavaScript.
+ */
 export function PertanyaanUmum() {
   const daftar = faqTampil();
   if (daftar.length === 0) return null;
@@ -13,14 +18,17 @@ export function PertanyaanUmum() {
           Pertanyaan yang sering muncul
         </h2>
 
-        <dl className={styles.daftar}>
+        <div className={styles.daftar}>
           {daftar.map((f) => (
-            <div key={f.pertanyaan} className={styles.item}>
-              <dt className={styles.pertanyaan}>{f.pertanyaan}</dt>
-              <dd className={styles.jawaban}>{f.jawaban}</dd>
-            </div>
+            <details key={f.pertanyaan} name="faq" className={styles.item}>
+              <summary className={styles.pertanyaan}>
+                <span>{f.pertanyaan}</span>
+                <span className={styles.ikon} aria-hidden="true" />
+              </summary>
+              <p className={styles.jawaban}>{f.jawaban}</p>
+            </details>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   );

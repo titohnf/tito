@@ -2,3 +2,9 @@
 .atas {
   background: var(--putih);
 }
+
+/* Banner ajakan diskusi di bawah Rekam Jejak: jarak bawah lebih longgar
+   supaya tidak menempel ke segmen Tentang. */
+.banner {
+  padding-bottom: clamp(2.5rem, 7vw, 4.5rem);
+}

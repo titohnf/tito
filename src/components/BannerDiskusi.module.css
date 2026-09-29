@@ -1,0 +1,128 @@
+/*
+ * Kartu gelap dengan dua semburat warna di sudut, isi di kiri dan daftar
+ * topik berjalan di kanan (di bawah isi pada layar sempit).
+ */
+.banner {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  overflow: hidden;
+  border-radius: 20px;
+  background:
+    radial-gradient(28rem 18rem at 100% 0%, color-mix(in srgb, var(--biru) 55%, transparent), transparent 70%),
+    radial-gradient(24rem 16rem at 0% 100%, color-mix(in srgb, var(--ungu) 40%, transparent), transparent 70%),
+    var(--gelap);
+  color: var(--latar);
+}
+
+@media (min-width: 860px) {
+  .banner {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+  }
+}
+
+.isi {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.judul {
+  max-width: 22ch;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 4.6vw, 2.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.deskripsi {
+  max-width: 34rem;
+  margin: 0.9rem 0 1.75rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--latar) 75%, transparent);
+}
+
+.tombol {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 3rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 10px;
+  background: var(--latar);
+  color: var(--tinta);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.tombol:hover {
+  background: var(--putih);
+}
+
+.tombol span {
+  transition: transform 0.2s;
+}
+
+.tombol:hover span {
+  transform: translateX(3px);
+}
+
+.tombol:focus-visible {
+  outline: 2px solid var(--latar);
+  outline-offset: 3px;
+}
+
+/* Topik berjalan naik */
+.jendela {
+  position: relative;
+}
+
+/* Jendela dengan tepi atas & bawah memudar, jadi topik muncul dan hilang halus */
+.gulir {
+  height: 18rem;
+  overflow: hidden;
+  mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+}
+
+.trek {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0 0 0.45rem;
+  list-style: none;
+  animation: naik 40s linear infinite;
+}
+
+/* Dua trek identik ditumpuk; menggeser satu trek penuh = satu putaran mulus */
+@keyframes naik {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.gulir:hover .trek {
+  animation-play-state: paused;
+}
+
+.trek li {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--latar) 25%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--latar) 8%, transparent);
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--latar) 90%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trek {
+    animation: none;
+  }
+  .gulir {
+    overflow-y: auto;
+  }
+}
