@@ -29,7 +29,7 @@ export const site = {
 
   // Tampilkan kartu "Contoh" di segmen Apa yang Saya Pikirkan.
   // Set ke false sebelum rilis — kalau belum ada konten asli, empty state yang tampil.
-  tampilkanContoh: true,
+  tampilkanContoh: false,
 
   // Jenis konten yang tampil di "Apa yang saya pikirkan".
   // Tambahkan "pemikiran" / "video" lagi kalau sudah siap — datanya tetap tersimpan di src/content/konten.ts.

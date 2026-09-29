@@ -40,10 +40,41 @@ export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };
 
+const dataTerstruktur = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${site.url}/#tito`,
+      name: site.nama,
+      url: site.url,
+      image: `${site.url}${site.fotoAsli}`,
+      jobTitle: "Desainer dan pengembang website",
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${site.url}/#layanan`,
+      name: `${site.nama} — Jasa Website untuk Usaha Kecil`,
+      url: site.url,
+      description: site.deskripsiSeo,
+      inLanguage: "id-ID",
+      areaServed: { "@type": "Country", name: "Indonesia" },
+      founder: { "@id": `${site.url}/#tito` },
+      telephone: `+${site.whatsapp}`,
+    },
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={`${sans.variable} ${mono.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(dataTerstruktur).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
         <PelacakWA />
       </body>
