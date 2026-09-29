@@ -82,18 +82,15 @@
   scrollbar-width: none;
 }
 
-.trek {
-  transition: opacity 0.2s;
-}
-
+/* visibility (bukan opacity): elemen tersembunyi tidak dihitung sebagai layout shift */
 .trek[data-siap="false"] {
-  opacity: 0;
+  visibility: hidden;
 }
 
 /* Tanpa JavaScript urutannya tidak pernah diacak, jadi tidak perlu disembunyikan */
 @media (scripting: none) {
   .trek[data-siap="false"] {
-    opacity: 1;
+    visibility: visible;
   }
 }
 
