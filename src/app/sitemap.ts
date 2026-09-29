@@ -1,13 +1,15 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/config/site";
 import { daftarTulisan } from "@/content/konten";
-import { laporanBerdetail } from "@/content/laporan-kerja";
+import { laporanBerdetail, masihPlaceholder } from "@/content/laporan-kerja";
 
-// Halaman /rekam-jejak dan /pembelajaran belum dimasukkan karena masih "sedang dikembangkan".
+// Proyek yang masih berisi [PLACEHOLDER] tidak dimasukkan. Halaman /rekam-jejak dan /pembelajaran belum dimasukkan karena masih "sedang dikembangkan".
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: site.url, changeFrequency: "monthly", priority: 1 },
-    ...laporanBerdetail().map((l) => ({
+    ...laporanBerdetail()
+      .filter((l) => !masihPlaceholder(l))
+      .map((l) => ({
       url: `${site.url}/rekam-jejak/${l.detail.slug}`,
       changeFrequency: "yearly" as const,
       priority: 0.6,

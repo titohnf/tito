@@ -5,7 +5,7 @@ import { HalamanSederhana } from "@/components/HalamanSederhana";
 import { FunFakta } from "@/components/FunFakta";
 import { TagSegmen } from "@/components/TagSegmen";
 import { Tombol } from "@/components/Tombol";
-import { laporanBerdetail, idProyek } from "@/content/laporan-kerja";
+import { laporanBerdetail, idProyek, masihPlaceholder } from "@/content/laporan-kerja";
 import { TombolLove } from "@/components/TombolLove";
 import type { AnggotaTim } from "@/content/laporan-kerja";
 import { site } from "@/config/site";
@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: proyek.judul,
     description: proyek.pencapaian || undefined,
     openGraph: { title: proyek.judul, description: proyek.pencapaian || undefined },
+    // Jangan diindeks selama masih ada teks [PLACEHOLDER]
+    ...(masihPlaceholder(proyek) && { robots: { index: false, follow: false } }),
   };
 }
 
