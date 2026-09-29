@@ -11,9 +11,9 @@ export const site = {
       : "http://localhost:3000"),
 
   // Untuk preview link (WhatsApp, Instagram, dsb.)
-  judulSeo: "Tito Hanafi — Desainer Perwakilan Rakyat",
+  judulSeo: "Tito Hanafi — Jasa Website untuk Usaha Kecil",
   deskripsiSeo:
-    "Dari mendesain layanan publik hingga mendirikan yayasan, sekarang terbuka untuk mendiskusikan produk yang kamu kembangkan.",
+    "Saya bantu usaha kecil punya website yang rapi dan gampang dipakai pelanggan. 9 tahun mendesain layanan digital pemerintah. Ngobrol dulu, gratis.",
 
   // TODO: ganti dengan nomor WhatsApp asli (format internasional, tanpa + dan spasi)
   whatsapp: "6281234567890",
@@ -36,9 +36,9 @@ export const site = {
   tipeKontenAktif: ["tulisan"] as ("tulisan" | "pemikiran" | "video")[],
 
   tautan: {
-    // Segmen "Apa yang bisa saya bantu?" di beranda (halaman /bantuan sudah dihapus).
+    // Segmen "Layanan" di beranda.
     // Dari halaman lain, tautannya perlu diawali "/" — lihat pemakaian `ngobrol`.
-    bantuan: "#bantuan",
+    layanan: "#layanan",
     rekamJejak: "/rekam-jejak",
     pembelajaran: "/pembelajaran",
     tera: "/rekam-jejak/tera",

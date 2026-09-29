@@ -1,0 +1,301 @@
+.segmen {
+  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+}
+
+/* Label kecil di atas judul, sama gaya dengan segmen Layanan/Tentang. */
+.label {
+  margin-bottom: 1rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+/* Label + judul di kiri, tombol "Lihat seluruh rekam jejak" (secondary,
+   varian="garis") di kanan sejajar — bukan lagi tautan teks di bawah daftar
+   kartu. Bungkus dengan flex-wrap supaya tombolnya turun ke baris sendiri
+   di layar sempit, bukan berdesakan dengan judul yang panjang. */
+.kepala {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+
+.judul {
+  max-width: 26ch;
+  font-weight: 500;
+  font-size: clamp(1.75rem, 5.6vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.038em;
+}
+
+.subjudul {
+  max-width: 34ch;
+  margin-top: 0.6rem;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+
+.kelompokDaftar {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3rem);
+}
+
+.judulKelompok {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.deskripsiKelompok {
+  max-width: 32rem;
+  margin-bottom: 1rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+
+/* Dipakai kalau kelompoknya cuma punya satu kartu: daripada kartu itu
+   menyempit ke lebar satu kolom grid tiga-kolom, ia dibesarkan jadi satu
+   kartu lebar sendiri supaya videonya kebaca. */
+.satu {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.satu li {
+  max-width: 40rem;
+}
+
+/* Dipakai kalau kelompoknya punya persis dua kartu: dua kolom sejajar,
+   bukan grid tiga-kolom yang menyisakan satu kolom kosong ganjil. */
+.dua {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .dua {
+    /* Kartu web (kolom pertama) lebih lebar daripada kartu mobile. */
+    grid-template-columns: 1.7fr 1fr;
+    /* Bukan stretch (bawaan grid): tinggi kartu sekarang dipatok eksplisit
+       lewat .kartuTinggiTetap di kedua kartu, bukan disamakan otomatis oleh
+       grid ke baris yang paling tinggi. */
+    align-items: start;
+  }
+}
+
+/* Sama seperti latar segmen Mockup (Mockup.module.css) — gradien biru-ke-ungu,
+   bukan warna rata — supaya senada dengan segmen di bawah Hero itu. Dipakai
+   kalau cuma satu kartu (bukan `.dua`) — begitu ada dua kartu sejajar,
+   masing-masing pakai warna sendiri (.kartuUngu / .kartuBiru) supaya kartu
+   web & mobile kebeda. */
+.kartuWarna {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--biru) 24%, var(--putih)),
+    color-mix(in srgb, var(--ungu) 20%, var(--putih))
+  );
+}
+
+.kartuUngu {
+  background: color-mix(in srgb, var(--ungu) 20%, var(--putih));
+}
+
+.kartuBiru {
+  background: color-mix(in srgb, var(--biru) 20%, var(--putih));
+}
+
+/* Kelebihan tinggi (mockup web 16:9 atau HP yang sengaja dibuat penuh)
+   dipotong lewat overflow:hidden, dan .judulKartuOverlay menutupi sisa
+   potongan itu di bagian bawah. Tinggi eksplisit (biar dua kartu sama
+   tinggi) cuma dipatok dari 640px ke atas (lihat media query `.dua` di
+   atas) — di bawah itu (kartu bertumpuk satu kolom) tinggi masing-masing
+   dibiarkan alami, boleh beda. */
+.kartuTinggiTetap {
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .kartuTinggiTetap {
+    height: 29rem;
+  }
+}
+
+/*
+ * Judul kartu duduk di atas kertas biru tipis, jadi dikasih latar putih
+ * sendiri (bukan warna kartu) supaya tetap kebaca. Dibentangkan selebar kartu
+ * lewat margin negatif sebesar padding kartu (1.25rem, dari KartuGrid.module.css
+ * .kartu) — jadi terlihat seperti bilah judul sendiri, bukan pil di dalam
+ * kartu. Sudut bawahnya mengikuti --radius kartu supaya nyambung mulus dengan
+ * sudut kartu itu sendiri.
+ *
+ * margin-top: auto (bukan 1rem) supaya judulnya selalu menempel di bawah
+ * kartu, bukan di posisi wajar setelah bingkai. Di `.dua` (dua kartu
+ * sejajar), grid menyamakan tinggi kedua kartu ke yang paling tinggi — kartu
+ * mobile yang lebih pendek isinya jadi punya sisa ruang kosong di bawahnya,
+ * dan tanpa margin-top:auto judulnya ikut "mengambang" di tengah sisa ruang
+ * itu alih-alih menempel di bawah.
+ */
+.judulKartu {
+  display: block;
+  margin: auto -1.25rem -1.25rem;
+  padding: 1.1rem 1.5rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--putih);
+  color: var(--tinta);
+  font-size: 1.02rem;
+}
+
+/* Judulnya menutupi (bukan menyambung setelah) bagian bawah mockup yang
+   sengaja dibiarkan/dipotong lebih tinggi dari kartu — posisinya lepas dari
+   alur flex (position:absolute) supaya tidak ikut mendorong tinggi kartu.
+   .kartu sudah position:relative (KartuGrid.module.css), jadi absolute di
+   sini mengacu ke kartu itu sendiri. */
+.judulKartuOverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  margin: 0;
+}
+
+/*
+ * Bingkai ala jendela browser di sekitar preview sistem, gaya sama dengan
+ * segmen Mockup (MockupCarousel.module.css): bilah titik tiga di atas,
+ * "layar" berisi previewnya di bawah. Bedanya statis — bukan carousel yang
+ * diskalakan, cuma satu kartu diam.
+ */
+.bingkai {
+  margin-bottom: 0;
+  border-radius: 16px;
+  border: 6px solid var(--putih);
+  background: var(--panel);
+  box-shadow: var(--bayang);
+  overflow: hidden;
+}
+
+.bilah {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--putih);
+  border-bottom: 1px solid var(--garis);
+}
+
+.bilah i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.bilah i:nth-child(1) {
+  background: #ff5f57;
+}
+
+.bilah i:nth-child(2) {
+  background: #febc2e;
+}
+
+.bilah i:nth-child(3) {
+  background: #28c840;
+}
+
+/* Rasio layar web umum (16:9), lebarnya mengikuti kolom grid `.dua` yang
+   memang dibuat lebih lebar daripada kolom mobile. */
+.layar {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.layar img {
+  object-fit: cover;
+}
+
+/*
+ * Gif defaultnya diam: bingkai pertamanya (.poster, gambar statis) duduk di
+ * atas gif yang sudah jalan terus-menerus di baliknya (browser tidak bisa
+ * "menjeda" gif), lalu memudar begitu kartunya di-hover — jadi yang
+ * kelihatan bergerak cuma pas disentuh, walau gif-nya sendiri tidak pernah
+ * benar-benar berhenti main di baliknya.
+ */
+.posterGambar {
+  z-index: 2;
+  transition: opacity 0.15s ease-out;
+}
+
+.itemKartu:hover .posterGambar {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .itemKartu:hover .posterGambar {
+    opacity: 1;
+  }
+}
+
+/*
+ * Mockup HP, bukan jendela browser (tanpa .bilah titik tiga): bezel gelap
+ * tebal dan sudut lebih bulat ala ponsel, dengan notch kecil di atas layar.
+ * Rasio layarnya dibuat proporsional tapi TIDAK sepanjang tangkapan layar
+ * aslinya (220:478 terlalu jangkung untuk kartu) — cuma bagian atasnya yang
+ * ditampilkan (object-position: top), separuh bagian bawah rekamannya
+ * dipotong supaya isinya tetap kebaca besar, bukan mengecil demi memuat
+ * semuanya.
+ */
+.bingkaiMobile {
+  position: relative;
+  /* fit-content, bukan max-width: .kartu adalah flex column dengan
+     align-items: stretch bawaan, jadi tanpa ini bingkainya melebar penuh.
+     Amannya lebih tinggi sekarang karena .layarMobile punya width & height
+     eksplisit (bukan aspect-ratio) — fit-content tinggal mengikuti ukuran
+     itu, tidak ada lagi hitungan lebar-dari-tinggi yang bisa meleset di
+     browser tertentu. */
+  width: fit-content;
+  /* Tinggi dibiarkan mengikuti .layarMobile penuh (tidak dipotong di sini) —
+     yang membatasi tinggi tampilannya adalah .kartuMobile (max-height +
+     overflow:hidden) di kartu pembungkusnya, bukan bingkai ini. */
+  margin-inline: auto;
+  /* Bezel putih tebal ala bingkai ponsel (bukan gelap seperti sebelumnya). */
+  border-width: 10px;
+  border-color: var(--putih);
+  border-radius: 24px;
+}
+
+/* Lebar & tinggi ditulis eksplisit (bukan aspect-ratio + width:auto —
+   supaya tidak bergantung pada urutan resolusi ukuran yang bisa beda antar
+   browser dan bikin gambarnya gepeng). Rasio 9:16 — sengaja dibesarkan
+   sampai bagian bawahnya keluar dari batas kartu (overflow, bukan bug). */
+.layarMobile {
+  width: 15.75rem;
+  height: 28rem;
+  /* Tanpa ini, ujung gif-nya persegi walau bingkai di luarnya (.bingkaiMobile)
+     sudah membulat — .layar sudah overflow:hidden, tinggal dikasih radius
+     yang sama supaya ujung gambarnya ikut mengikuti lengkung bingkainya. */
+  border-radius: 16px;
+}
+
+.layarMobile img {
+  object-position: top;
+}
+

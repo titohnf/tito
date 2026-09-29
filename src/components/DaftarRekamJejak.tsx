@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { LaporanKerja } from "@/content/laporan-kerja";
 import { tautanLaporan } from "@/content/laporan-kerja";
+import { labelSegmenFilter } from "@/content/segmen";
 import { TagSegmen } from "./TagSegmen";
 import { TabSegmen, hitungSegmen, saringSegmen, useTabSegmen } from "./TabSegmen";
 import styles from "./KartuGrid.module.css";
@@ -16,7 +17,7 @@ export function DaftarRekamJejak({ items }: { items: LaporanKerja[] }) {
 
   return (
     <div style={{ marginTop: "2rem" }}>
-      <TabSegmen aktif={aktif} onPilih={setAktif} jumlah={jumlah} />
+      <TabSegmen aktif={aktif} onPilih={setAktif} jumlah={jumlah} labelOverride={labelSegmenFilter} />
 
       {tampil.length === 0 ? (
         <div className={styles.kosong}>

@@ -1,64 +1,23 @@
 .hero {
   text-align: center;
   padding-top: clamp(2rem, 6vw, 4.5rem);
-  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  padding-bottom: clamp(3rem, 8vw, 5.5rem);
 }
 
-.judul {
-  font-weight: 500;
-  /* Di HP judul sengaja besar: batas bawahnya 3rem dan kemiringannya 12.5vw,
-     jadi "Desainer [kata] Rakyat" mengisi lebar layar dan jadi elemen paling
-     dominan di hero. Batas atas tetap 4.5rem untuk desktop. */
-  font-size: clamp(3rem, 12.5vw, 4.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.05em;
-}
-
-.sapaan,
-.julukan {
-  display: block;
-}
-
-.sapaan {
-  font-size: 0.6em;
-  letter-spacing: -0.03em;
-  margin-bottom: 0.15em;
-}
-
-.julukan {
-  color: var(--tinta-3);
-}
-
-/* Wadah tanpa overflow: paku dan emoji perayaan boleh keluar dari lingkaran */
+/* Foto Tito: lingkaran polos di atas sapaan & judul. */
 .wadahFoto {
   position: relative;
   width: clamp(5.5rem, 18vw, 7rem);
   aspect-ratio: 1;
   max-width: 100%;
   margin: 0 auto clamp(1.25rem, 3vw, 1.75rem);
-}
-
-/* Foto = tombol coblos, kursornya paku (ujung paku = titik klik) */
-.foto {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
   border-radius: 50%;
-  background: var(--putih);
+  overflow: hidden;
   box-shadow: 0 0 0 1px var(--garis);
-  cursor: url("/images/paku-merah-kursor.png") 2 29, pointer;
-  transition: box-shadow 0.3s ease 0.15s;
+  background: var(--putih);
 }
 
-.wadahFoto[data-tercoblos="true"] .foto {
-  cursor: default;
-}
-
-.foto img {
+.foto {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -68,147 +27,19 @@
   transform: translateY(10%);
 }
 
-/* Foto sumbernya 80×80 px: diperbesar tanpa dihaluskan → efek pixelate. Memudar setelah dicoblos. */
-.foto .fotoPiksel {
-  image-rendering: pixelated;
-  transition: opacity 0.5s ease 0.15s;
-}
-
-.wadahFoto[data-tercoblos="true"] .fotoPiksel {
-  opacity: 0;
-}
-
-/*
- * Ujung paku (2.4,29.5 dari 32 pada ikon flat) diletakkan tepat di posisi klik.
- * Paku sekaligus tombol: diseret keluar lingkaran foto berarti dicabut.
- */
-.paku {
-  position: absolute;
-  width: 1.9rem;
-  height: 1.9rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: grab;
-  touch-action: none;
-  /* Empat drop-shadow putih rapat = garis tepi putih di sekeliling ikon, agar paku
-     tidak nyaru dengan foto; bayangan gelap terakhir memberi kesan timbul. */
-  filter:
-    drop-shadow(0.05rem 0 0 var(--putih)) drop-shadow(-0.05rem 0 0 var(--putih))
-    drop-shadow(0 0.05rem 0 var(--putih)) drop-shadow(0 -0.05rem 0 var(--putih))
-    drop-shadow(0 0.15rem 0.35rem rgba(0, 0, 0, 0.3));
-  transform: translate(-7.4%, -92.2%);
-  animation: tancap 0.25s cubic-bezier(0.3, 1.4, 0.6, 1);
-  transition: translate 0.2s ease;
-}
-
-/* Saat diseret paku mengikuti kursor tanpa jeda dan tampil di atas segalanya */
-.paku[data-seret="true"] {
-  z-index: 1;
-  cursor: grabbing;
-  transition: none;
-  animation: none;
-  filter:
-    drop-shadow(0.05rem 0 0 var(--putih)) drop-shadow(-0.05rem 0 0 var(--putih))
-    drop-shadow(0 0.05rem 0 var(--putih)) drop-shadow(0 -0.05rem 0 var(--putih))
-    drop-shadow(0 0.35rem 0.6rem rgba(0, 0, 0, 0.35));
-}
-
-.paku img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  -webkit-user-drag: none;
-  user-select: none;
-  transition: translate 0.2s ease;
-}
-
-/*
- * Sedikit tercabut saat disentuh, sebagai isyarat bisa ditarik. Yang digeser gambarnya,
- * bukan tombolnya: kalau kotak tombol ikut bergeser, kursor bisa lepas dari tombol →
- * hover mati → kembali ke posisi semula → hover aktif lagi, dan paku terlihat bergetar.
- */
-.paku:hover img,
-.paku:focus-visible img {
-  translate: 0.12rem -0.12rem;
-}
-
-@keyframes tancap {
-  from {
-    translate: 0.6rem -0.6rem;
-    opacity: 0;
-  }
-}
-
-.ledakan {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 1.25rem;
-  line-height: 1;
-  pointer-events: none;
-}
-
-.ledakan span {
-  position: absolute;
-  top: 0;
-  left: 0;
-  translate: -50% -50%;
-  opacity: 0;
-  animation: lempar 1.2s ease-out 0.15s forwards;
-}
-
-@keyframes lempar {
-  0% {
-    opacity: 1;
-    transform: translate(0, 0) scale(0.3);
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--x), var(--y)) scale(1.1) rotate(15deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .paku,
-  .centang {
-    animation: none;
-  }
-  .paku {
-    transition: none;
-  }
-  .ledakan {
-    display: none;
-  }
-  .foto .fotoPiksel {
-    transition: none;
-  }
-}
-
-.bawah {
-  display: grid;
-  justify-items: center;
-  gap: 1.75rem;
-  margin-top: clamp(1.25rem, 3vw, 2rem);
-}
-
-.paragraf {
-  max-width: 33rem;
-  margin-inline: auto;
-  font-size: clamp(1.05rem, 2.2vw, 1.175rem);
-  line-height: 1.6;
+.sapaan {
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  font-size: 1.05rem;
   color: var(--tinta-2);
-  text-wrap: balance;
 }
 
-/* Desktop: maksimal 3 baris */
-@media (min-width: 768px) {
-  .paragraf {
-    max-width: 60ch;
-  }
+.judul {
+  font-weight: 500;
+  font-size: clamp(2.4rem, 8vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
 }
 
 .aksi {
@@ -217,33 +48,19 @@
   align-items: center;
   gap: 0.85rem;
   width: 100%;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
 }
 
 .aksi > a {
   width: 100%;
 }
 
-.catatan {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--tinta-3);
-  text-align: center;
-}
-
-.catatan a {
-  color: var(--tinta);
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-color: var(--tinta-3);
-  text-underline-offset: 0.25em;
-  transition: text-decoration-color 0.2s;
-}
-
-.catatan a:hover {
-  text-decoration-color: var(--tinta);
-}
-
 @media (min-width: 560px) {
+  .aksi {
+    flex-direction: row;
+    justify-content: center;
+  }
+
   .aksi > a {
     width: auto;
   }

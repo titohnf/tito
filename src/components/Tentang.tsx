@@ -1,96 +1,39 @@
-import type { BabTentang } from "@/content/profil";
-import { site } from "@/config/site";
-import { sorotanSegmen } from "@/content/laporan-kerja";
-import { Sorotan as DeretSorotan } from "./Sorotan";
-import { Tombol } from "./Tombol";
+import { tentangSingkat } from "@/content/profil";
+import { FunFakta } from "./FunFakta";
+import { GaleriPolaroid } from "./GaleriPolaroid";
+import { Testimoni } from "./Testimoni";
 import styles from "./Tentang.module.css";
 
-type Sorotan = NonNullable<BabTentang["sorotan"]>[number];
-
-// TODO: isi `sorotan` di src/content/profil.ts — selama kosong, kartu ini yang tampil.
-// Lima kartu contoh supaya deretan yang bisa digeser kelihatan bentuknya.
-const placeholder: Sorotan[] = Array.from({ length: 5 }, (_, i) => ({
-  judul: `Judul sorotan ${i + 1}`,
-  teks: "Teks singkat 1–2 kalimat yang menjelaskan sorotan ini.",
-  href: "#",
-}));
+const fotoTentang = [
+  { src: "/images/tentang-foto-1.jpg", alt: "Tito memimpin diskusi tim dalam sebuah lokakarya" },
+  { src: "/images/tentang-foto-2.jpg", alt: "Tito bersama rekan-rekan kerja" },
+];
 
 /**
- * Kartu bab: yang ditulis manual di profil.ts dipakai lebih dulu; kalau kosong,
- * diambil dari rekam jejak dengan segmen yang sama supaya kartunya menuju
- * halaman detail yang sudah ada. Placeholder hanya kalau dua-duanya kosong.
+ * Segmen "Sedikit tentang saya" digabung dengan "Kata rekan kerja" — satu
+ * segmen, satu latar. Kolom kiri: paragraf lalu fun fact di bawahnya. Kolom
+ * kanan: foto gaya polaroid, sejajar dengan keduanya. Papan testimoni
+ * turun ke bawah, selebar segmen.
  */
-function kartuSorotan(bab: BabTentang) {
-  if (bab.sorotan?.length) return bab.sorotan;
-  const dariRekamJejak = sorotanSegmen(bab.id);
-  return dariRekamJejak.length ? dariRekamJejak : placeholder;
-}
-
-/**
- * Kata peran di label bab — "Perwakilan", "Pelayan", "Pendamping" — digarisbawahi.
- * Kata itu selalu sama dengan id babnya, jadi tidak perlu ditulis dua kali di
- * profil.ts; kalau suatu saat labelnya tidak memuat kata itu, labelnya tampil
- * apa adanya tanpa garis.
- */
-function labelBergaris(label: string, kunci: string) {
-  const i = label.toLowerCase().indexOf(kunci.toLowerCase());
-  if (i < 0) return label;
-  return (
-    <>
-      {label.slice(0, i)}
-      <span className={styles.kunci}>{label.slice(i, i + kunci.length)}</span>
-      {label.slice(i + kunci.length)}
-    </>
-  );
-}
-
-export function Tentang({ bab: daftarBab }: { bab: BabTentang[] }) {
+export function Tentang() {
   return (
     <section id="tentang" className={styles.tentang} aria-labelledby="tentang-judul">
       <div className="wadah">
-        <h2 id="tentang-judul" className="sr-only">
-          Tentang saya
-        </h2>
+        <div className={styles.baris}>
+          <div>
+            <p className={styles.label}>{tentangSingkat.judul}</p>
+            <h2 id="tentang-judul" className={styles.paragraf}>
+              {tentangSingkat.paragraf}
+            </h2>
+            <div className={styles.fakta}>
+              <FunFakta fakta={tentangSingkat.funFakta} />
+            </div>
+          </div>
 
-        <ol className={styles.daftar}>
-          {daftarBab.map((bab) => (
-            <li key={bab.id} id={bab.id} className={styles.bab}>
-              <div className={styles.kiri}>
-                <p className={styles.labelBab}>
-                  <span>{labelBergaris(bab.label, bab.id)}</span>
-                </p>
-                <h3 className={styles.judul}>{bab.judul}</h3>
+          <GaleriPolaroid foto={fotoTentang} />
+        </div>
 
-                <div className={styles.isi}>
-                  {bab.paragraf?.map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
-
-                  {bab.tautan && (
-                    <div className={styles.tautan}>
-                      <Tombol href={site.tautan[bab.tautan.href]} varian="teks">
-                        {bab.tautan.label} <span aria-hidden="true">→</span>
-                      </Tombol>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Bab yang sorotannya sudah terisi ditutup fun fact; yang masih
-                  placeholder ditutup tautan ke seluruh rekam jejak. */}
-              <DeretSorotan
-                kartu={kartuSorotan(bab)}
-                label={bab.label}
-                funFakta={bab.sorotan?.length ? bab.funFakta : undefined}
-                kartuFakta={bab.kartuFakta}
-                hrefSemua={
-                  bab.tanpaTautanUmum ? undefined : `${site.tautan.rekamJejak}?peran=${bab.id}`
-                }
-                cta={bab.cta}
-              />
-            </li>
-          ))}
-        </ol>
+        <Testimoni />
       </div>
     </section>
   );

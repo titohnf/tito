@@ -1,125 +1,44 @@
 .tentang {
-  /* Jarak yang sama dipakai Pencapaian (di atas) dan CtaInteraktif (di bawah),
-     jadi ritme antar segmen tetap seragam. */
   padding-block: clamp(3rem, 8vw, 5rem);
-  /* Tanpa garis pembatas atas/bawah: pemisah segmennya warna, bukan garis.
-     Semburat biru paling tipis, memudar ke putih di tepi atas dan bawah —
-     warnanya paling terasa di tengah segmen dan sudah putih lagi begitu sampai
-     di tepi, jadi peralihan ke segmen tetangga tidak terlihat. Kartu di
-     dalamnya tetap --putih, jadi kartunya justru lebih menonjol daripada waktu
-     latarnya ikut putih. */
-  background: linear-gradient(
-    var(--putih) 0%,
-    var(--biru-tipis) 40%,
-    var(--biru-tipis) 60%,
-    var(--putih) 100%
-  );
+  /* Gradasi biru ke putih, dari atas ke bawah segmen. */
+  background: linear-gradient(180deg, var(--biru-tipis) 0%, var(--putih) 100%);
 }
 
-.daftar {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.bab {
+/* Kolom kiri (paragraf + fun fact) sejajar dengan kolom kanan (foto
+   polaroid). Satu kolom di layar sempit — foto turun ke bawah teks. */
+.baris {
   display: grid;
-  /* Jarak judul bab ke deretan kartunya. 1.75rem — angka yang sama dipakai
-     segmen Kata Mereka (.trek di Testimoni) dan segmen Bantuan (.kartu),
-     jadi jarak kepala-ke-kartu seragam di seluruh beranda. */
-  gap: 1.75rem;
-  padding-block: clamp(1.5rem, 4.5vw, 3rem);
-  border-top: 1px solid var(--garis);
-  scroll-margin-top: 4.5rem;
+  gap: 2.5rem;
+  grid-template-columns: 1fr;
+  align-items: center;
 }
 
-/* Tanpa garis pembatas di atas blok pertama */
-.daftar > .bab:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-/* Blok terakhir tidak perlu padding bawah: jaraknya ke garis penutup sudah
-   diatur padding segmen, kalau ditumpuk jadi dua kali lipat jarak di atas. */
-.daftar > .bab:last-child {
-  padding-bottom: 0;
-}
-
-/* Label kecil di atas headline */
-.labelBab {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--tinta-2);
-}
-
-/* Kata peran di label — "Perwakilan", "Pelayan", "Pendamping" — digarisbawahi.
-   skip-ink dimatikan supaya garisnya satu tarikan penuh, tidak terputus di
-   huruf berekor. */
-.kunci {
-  color: var(--tinta);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-skip-ink: none;
-  text-underline-offset: 0.25em;
-}
-
-.judul {
-  margin-top: 0.45rem;
-  /* Semua headline dipatok selebar ini supaya jatuh dua baris dengan tepi
-     kanan yang senada. Tanpa text-wrap: pretty, baris pertama diisi penuh
-     dulu — kalau diseimbangkan, tiap judul berhenti di lebar yang beda-beda. */
-  max-width: 30ch;
-  font-weight: 500;
-  font-size: clamp(1.5rem, 5.4vw, 2.25rem);
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-}
-
-.isi {
-  max-width: 36rem;
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: var(--tinta-2);
-}
-
-.isi > p + p {
-  margin-top: 0.85rem;
-}
-
-/* Tanpa paragraf, blok pertama (fun fact/tautan) tidak perlu jarak ganda */
-.isi > :first-child {
-  margin-top: 0;
-}
-
-/* Bab tanpa paragraf & tanpa tautan tetap merender wadah ini. Kalau dibiarkan,
-   margin-top-nya menambah 1rem ke jarak judul→kartu dan bab itu jadi lebih
-   longgar dari bab lain (dan dari segmen Kata Mereka & Bantuan). */
-.isi:empty {
-  display: none;
-}
-
-.tautan {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-  color: var(--tinta);
-  font-weight: 500;
-}
-
-@media (min-width: 900px) {
-  /* Batas keras dua baris; di layar sempit teks dibiarkan mengalir penuh
-     supaya tidak ada kalimat yang terpotong. */
-  .judul {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    overflow: hidden;
+@media (min-width: 760px) {
+  .baris {
+    grid-template-columns: 1.5fr 1fr;
   }
+}
+
+.label {
+  margin-bottom: 1rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.paragraf {
+  max-width: 42rem;
+  font-weight: 500;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--tinta);
+}
+
+.fakta {
+  max-width: 28rem;
+  margin-top: 1.75rem;
 }

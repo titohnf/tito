@@ -16,14 +16,17 @@ export function TabSegmen({
   aktif,
   onPilih,
   jumlah,
+  labelOverride,
 }: {
   aktif: PilihanSegmen;
   onPilih: (p: PilihanSegmen) => void;
   jumlah: Record<PilihanSegmen, number>;
+  /** Ganti label chip tanpa mengubah value `Segmen`/`?peran=` di baliknya. */
+  labelOverride?: Record<Segmen, string>;
 }) {
   const tab: { id: PilihanSegmen; label: string }[] = [
     { id: "semua", label: "Semua" },
-    ...daftarSegmen.map((s) => ({ id: s as PilihanSegmen, label: labelSegmen[s] })),
+    ...daftarSegmen.map((s) => ({ id: s as PilihanSegmen, label: labelOverride?.[s] ?? labelSegmen[s] })),
   ];
 
   return (

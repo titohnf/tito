@@ -1,0 +1,54 @@
+/*
+ * Bingkai polaroid: kertas putih tebal (lebih tebal di bawah, ala kertas foto
+ * instan sungguhan), sedikit dimiringkan, bayangan lembut. Semua foto
+ * ditumpuk di posisi yang sama (position:absolute di dalam .polaroid yang
+ * position:relative), lalu yang aktif dibuat terlihat lewat opacity — jadi
+ * berpindah foto tidak mengubah tinggi bingkai.
+ */
+.polaroid {
+  position: relative;
+  width: 100%;
+  max-width: 16rem;
+  aspect-ratio: 4 / 5.3;
+  margin-inline: auto;
+  padding: 0.75rem 0.75rem 2.25rem;
+  background: var(--putih);
+  box-shadow: var(--bayang-naik);
+  rotate: -2.5deg;
+}
+
+.foto {
+  position: absolute;
+  inset: 0.75rem 0.75rem 2.25rem;
+  width: calc(100% - 1.5rem);
+  height: calc(100% - 3rem);
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.foto[data-aktif] {
+  opacity: 1;
+}
+
+/* Selotip: potongan kertas semi-tembus, sedikit miring ke arah berlawanan
+   dari kemiringan polaroidnya sendiri, seolah ditempel tangan di sudut atas. */
+.selotip {
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  z-index: 1;
+  width: 4.5rem;
+  height: 1.5rem;
+  background: color-mix(in srgb, var(--kuning-latar) 75%, transparent);
+  border: 1px solid color-mix(in srgb, var(--kuning-garis) 60%, transparent);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+  rotate: 4deg;
+  translate: -50% 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foto {
+    transition: none;
+  }
+}

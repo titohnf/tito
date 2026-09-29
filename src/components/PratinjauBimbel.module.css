@@ -1,0 +1,137 @@
+/*
+ * Panel dashboard mini yang disusun dari kotak CSS (bukan gambar/rekaman):
+ * bilah judul lalu tiga baris siswa, tiap baris progres belajarnya mengisi
+ * lalu status pembayarannya "centang" jadi lunas. Diulang terus (infinite)
+ * dengan jeda antar baris supaya terasa hidup, bukan statis.
+ */
+.panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.85rem;
+  background: var(--putih);
+}
+
+.bilah {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.bilah i {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tinta) 20%, transparent);
+}
+
+.baris {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: 0.7rem;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 0.5rem;
+  row-gap: 0.3rem;
+  align-items: center;
+}
+
+.avatar {
+  grid-column: 1;
+  grid-row: 1;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tinta) 16%, transparent);
+}
+
+.nama {
+  grid-column: 2;
+  grid-row: 1;
+  height: 0.4rem;
+  width: 55%;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tinta) 14%, transparent);
+}
+
+.status {
+  grid-column: 3;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  opacity: 0;
+  transform: scale(0.5);
+  color: var(--tinta-3);
+  animation: munculStatus 2.6s ease-in-out infinite;
+}
+
+.progres {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.isi {
+  display: block;
+  height: 100%;
+  width: 8%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6d3fd6, #2f62ab);
+  animation: isiProgres 2.6s ease-in-out infinite;
+}
+
+@keyframes isiProgres {
+  0% {
+    width: 8%;
+  }
+  55% {
+    width: 92%;
+  }
+  100% {
+    width: 92%;
+  }
+}
+
+@keyframes munculStatus {
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.5);
+    color: var(--tinta-3);
+  }
+  72% {
+    opacity: 1;
+    transform: scale(1.15);
+    color: var(--hijau);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--hijau);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isi {
+    width: 92%;
+    animation: none;
+  }
+
+  .status {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--hijau);
+    animation: none;
+  }
+}

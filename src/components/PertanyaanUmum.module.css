@@ -1,0 +1,42 @@
+.segmen {
+  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+}
+
+.judul {
+  max-width: 26ch;
+  margin-bottom: 1.75rem;
+  font-weight: 500;
+  font-size: clamp(1.75rem, 5.6vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.038em;
+}
+
+.daftar {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.item {
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--garis);
+}
+
+.item:last-child {
+  padding-bottom: 0;
+}
+
+.pertanyaan {
+  margin: 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: -0.015em;
+}
+
+.jawaban {
+  margin: 0.5rem 0 0;
+  max-width: 42rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--tinta-2);
+}

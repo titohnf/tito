@@ -110,6 +110,26 @@
   font-weight: 500;
 }
 
+.ngobrol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tinta);
+  color: var(--latar);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.ngobrol:hover {
+  background: #33332f;
+}
+
 /* Layar lebar: menu sebaris, tanpa hamburger */
 @media (min-width: 640px) {
   .hamburger {
@@ -131,5 +151,10 @@
 
   .tautan {
     padding-block: 0;
+  }
+
+  .ngobrol {
+    margin-top: 0;
+    margin-left: 0.5rem;
   }
 }

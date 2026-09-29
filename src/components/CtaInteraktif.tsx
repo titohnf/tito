@@ -31,9 +31,12 @@ export function CtaInteraktif() {
     <section id="ngobrol" className={styles.cta} aria-labelledby="ngobrol-judul">
       <div className="wadah">
         <div className={styles.panel}>
-          <h2 id="ngobrol-judul" className="label">
-            Ayo ngobrol
+          <h2 id="ngobrol-judul" className={styles.judulPenutup}>
+            Punya usaha atau ide yang butuh tempat di internet?
           </h2>
+          <p className={styles.subPenutup}>
+            Ceritakan saja. Saya bantu pikirkan langkah pertamanya.
+          </p>
 
           <form className={styles.kalimat} onSubmit={(e) => e.preventDefault()}>
             <span>Kamu </span>
@@ -102,7 +105,7 @@ export function CtaInteraktif() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Kirim lewat WhatsApp <span aria-hidden="true">↗</span>
+                    Ngobrol via WhatsApp <span aria-hidden="true">↗</span>
                   </a>
                   <p className={styles.catatan}>{catatanCta}</p>
                 </div>

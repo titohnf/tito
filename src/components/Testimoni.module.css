@@ -1,9 +1,7 @@
-/* Latar putih penuh selebar layar; isinya tetap ikut lebar .wadah di dalamnya.
-   Jarak atas-bawahnya sama dengan segmen Tentang — nilai yang dipakai berulang
-   sebagai jarak baku antar segmen di beranda. */
+/* Digabung ke dalam segmen Tentang (Tentang.module.css .tentang) — jadi
+   tanpa latar/padding-block sendiri lagi, cuma jarak ke baris di atasnya. */
 .testimoni {
-  padding-block: clamp(3rem, 8vw, 5rem);
-  background: var(--putih);
+  margin-top: clamp(2.5rem, 6vw, 4rem);
 }
 
 /*

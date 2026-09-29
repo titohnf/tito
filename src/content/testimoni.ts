@@ -18,7 +18,7 @@ export type Testimoni = {
 
 /** Kepala segmen: judul besar tanpa label mono di atasnya. */
 export const kepala = {
-  judul: "Kesan rekan-rekan yang pernah kerja bareng.",
+  judul: "Kata rekan kerja",
 };
 
 /** Nota kosong di ujung trek: pengunjung menulis, lalu notanya menempel di papan. */
@@ -35,13 +35,6 @@ export const notaKosong = {
 
 export const testimoni: Testimoni[] = [
   {
-    id: "can-do",
-    kutipan:
-      "Anaknya can-do attitude banget. Kadang gue yang taichi kerjaan eh anaknya ternyata semangat ngerjain hahaha.",
-    nama: "Tasha Dara",
-    peran: "Design Manager, INA Digital Edu",
-  },
-  {
     id: "diandelin",
     kutipan:
       "Bisa diandelin banget lah buat manage kerjaan sendiri, bisa bangun relationship sama stakeholder dan proaktif juga kalau ada blocker yang perlu diclarify",
@@ -49,16 +42,23 @@ export const testimoni: Testimoni[] = [
     peran: "Design Manager, INA Digital Edu",
   },
   {
-    id: "ngechallenge",
+    id: "kilat",
     kutipan:
-      "berani ngechallenge kalo diskusi design dan menyuarakan pendapatnya (ke product jg)",
+      "kerjanya kilatttt, alias tiba2 udah beres aja (kalo ditanya butuh berapa lama, jawabnya ‘sehari bisa nih’)",
     nama: "Tasha Stamboel",
     peran: "Researcher, INA Digital Edu",
   },
   {
-    id: "kilat",
+    id: "can-do",
     kutipan:
-      "kerjanya kilatttt, alias tiba2 udah beres aja (kalo ditanya butuh berapa lama, jawabnya ‘sehari bisa nih’)",
+      "Anaknya can-do attitude banget. Kadang gue yang taichi kerjaan eh anaknya ternyata semangat ngerjain hahaha.",
+    nama: "Tasha Dara",
+    peran: "Design Manager, INA Digital Edu",
+  },
+  {
+    id: "ngechallenge",
+    kutipan:
+      "berani ngechallenge kalo diskusi design dan menyuarakan pendapatnya (ke product jg)",
     nama: "Tasha Stamboel",
     peran: "Researcher, INA Digital Edu",
   },

@@ -1,0 +1,218 @@
+/* Full-bleed: lepas dari lebar .wadah induk (hero), selebar viewport penuh. */
+.wadah {
+  display: grid;
+  gap: 1rem;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  /* Kartu kiri/kanan digeser keluar lewat transform (lihat .item) — dipotong
+     di sini supaya tidak memunculkan scrollbar mendatar di halaman. */
+  overflow: hidden;
+}
+
+/*
+ * Panggung: semua kartu ditumpuk di sel grid yang sama (grid-area 1/1 lewat
+ * .item di bawah), bukan dibariskan lalu digulir. Tingginya otomatis
+ * mengikuti konten sel itu — sama untuk semua kartu karena transform (geser
+ * & skala di .item/.bingkai) tidak mengubah ukuran layout, cuma tampilannya
+ * — jadi tidak ada lompatan tinggi saat kartu aktif berganti.
+ */
+.panggung {
+  display: grid;
+  padding-block: 0.5rem;
+}
+
+/*
+ * Tiap kartu ditumpuk di sel yang sama lalu digeser lewat --delta (dihitung
+ * di MockupCarousel.tsx secara melingkar: -1 = tetangga kiri, 0 = aktif,
+ * 1 = tetangga kanan — bukan cuma indeks-1/indeks+1, supaya slide pertama &
+ * terakhir pun tetap kelihatan punya dua tetangga). Persentase di translateX
+ * dihitung dari lebar kartu itu sendiri (bukan panggung), jadi jaraknya tetap
+ * proporsional di semua ukuran layar tanpa perlu breakpoint terpisah.
+ */
+.item {
+  grid-area: 1 / 1;
+  place-self: center;
+}
+
+/*
+ * Bingkai ala jendela browser: bilah titik tiga di atas, "layar" di bawahnya.
+ * Jarak ke tetangga (74%) sengaja lebih lebar dari lebar kartu yang mengintip
+ * (skala 0.42) supaya ada celah kelihatan, bukan saling bertumpuk dengan
+ * kartu aktif di tengah.
+ */
+.bingkai {
+  width: min(calc(100vw - 2 * var(--tepi)), 68rem);
+  border-radius: 16px;
+  border: 6px solid var(--putih);
+  background: var(--panel);
+  box-shadow: var(--bayang);
+  overflow: hidden;
+  transform: translateX(calc(var(--delta) * 74%)) scale(0.42);
+  opacity: 0.4;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  /* Cuma kartu aktif yang interaktif (lihat .bingkai[data-aktif] .overlay di
+     bawah) — kartu kiri-kanan murni dekoratif, tidak bisa diklik. */
+  pointer-events: none;
+}
+
+.bingkai[data-aktif] {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bingkai {
+    transition: none;
+  }
+}
+
+.bilah {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--putih);
+  border-bottom: 1px solid var(--garis);
+}
+
+.bilah i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.bilah i:nth-child(1) {
+  background: #ff5f57;
+}
+
+.bilah i:nth-child(2) {
+  background: #febc2e;
+}
+
+.bilah i:nth-child(3) {
+  background: #28c840;
+}
+
+.layar {
+  position: relative;
+  aspect-ratio: 16 / 8;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+/*
+ * Situs asli ditampilkan lewat iframe berukuran tetap 1440x900 (setara
+ * viewport desktop), lalu diskalakan turun dengan transform supaya pas
+ * dengan lebar kartu yang sebenarnya — bukan screenshot statis, jadi animasi
+ * di hero situs aslinya tetap jalan. --skala dihitung di MockupCarousel.tsx
+ * lewat ResizeObserver (calc() CSS murni tidak bisa mengubah lebar container
+ * jadi rasio tak berdimensi yang dibutuhkan scale()). Tinggi kartu
+ * (aspect-ratio .layar) jauh lebih pendek dari 900px yang diskalakan,
+ * sehingga cuma bagian atas (hero) yang kelihatan, sisanya terpotong oleh
+ * overflow:hidden di .layar.
+ */
+.previewSkala {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1440px;
+  height: 900px;
+  transform: scale(var(--skala, 0.3));
+  transform-origin: top left;
+}
+
+.previewSkala iframe {
+  width: 1440px;
+  height: 900px;
+  border: 0;
+  display: block;
+  /* Dekoratif saja: pengunjung buka situsnya lewat tombol overlay, bukan
+     berinteraksi langsung dengan iframe yang sudah diperkecil ini. */
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--tinta) 55%, transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.layar:hover .overlay,
+.overlay:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tombolKunjungi {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  background: var(--putih);
+  color: var(--tinta);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.kontrol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.tombolPanah {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  border: 1px solid var(--garis);
+  border-radius: 50%;
+  background: var(--putih);
+  color: var(--tinta);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.tombolPanah:hover {
+  border-color: var(--tinta-3);
+}
+
+.titik {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.titikTombol {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--garis);
+  cursor: pointer;
+  transition: background 0.2s, width 0.2s;
+}
+
+.titikTombol:hover {
+  background: var(--tinta-3);
+}
+
+.titikTombol[data-aktif] {
+  width: 1.35rem;
+  border-radius: 999px;
+  background: var(--tinta);
+}

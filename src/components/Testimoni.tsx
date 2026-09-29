@@ -19,6 +19,14 @@ function acak<T>(daftar: T[]): T[] {
   return hasil;
 }
 
+/** Jumlah nota terdepan yang urutannya tetap (tidak ikut diacak). */
+const TERDEPAN = 2;
+
+/** Nota terdepan tetap di posisinya; sisanya diacak supaya urutan tampil bervariasi. */
+function acakSisanya<T>(daftar: T[]): T[] {
+  return [...daftar.slice(0, TERDEPAN), ...acak(daftar.slice(TERDEPAN))];
+}
+
 /** Pesan WhatsApp dari satu nota. */
 function pesanWhatsApp(kesan: Kesan) {
   return `Halo Tito, ini kesan saya:\n\n“${kesan.kutipan}”\n\n— ${kesan.nama || "(tanpa nama)"}`;
@@ -62,7 +70,7 @@ export function Testimoni() {
 
   useEffect(() => {
     setNotaSaya(bacaNotaSaya());
-    setUrutan(acak(testimoni));
+    setUrutan(acakSisanya(testimoni));
   }, []);
 
   const ukur = useCallback(() => {
@@ -139,8 +147,7 @@ export function Testimoni() {
   const adaPanah = posisi.bisaKiri || posisi.bisaKanan;
 
   return (
-    <section className={styles.testimoni} aria-labelledby="testimoni-judul">
-      <div className="wadah">
+    <div className={styles.testimoni}>
         <h2 id="testimoni-judul" className={styles.judul}>
           {kepala.judul}
         </h2>
@@ -222,8 +229,7 @@ export function Testimoni() {
             </button>
           </div>
         )}
-      </div>
-    </section>
+    </div>
   );
 }
 

@@ -1,12 +1,12 @@
 import { Kepala } from "@/components/Kepala";
 import { Hero } from "@/components/Hero";
-import { Pencapaian } from "@/components/Pencapaian";
-import { Tentang } from "@/components/Tentang";
-import { Testimoni } from "@/components/Testimoni";
+import { Mockup } from "@/components/Mockup";
 import { Bantuan } from "@/components/Bantuan";
+import { Portofolio } from "@/components/Portofolio";
+import { Tentang } from "@/components/Tentang";
+import { PertanyaanUmum } from "@/components/PertanyaanUmum";
 import { CtaInteraktif } from "@/components/CtaInteraktif";
 import { Kaki } from "@/components/Kaki";
-import { tentang } from "@/content/profil";
 import styles from "./page.module.css";
 
 export default function Beranda() {
@@ -16,11 +16,12 @@ export default function Beranda() {
       <main>
         <div className={styles.atas}>
           <Hero />
-          <Pencapaian />
         </div>
-        <Tentang bab={tentang} />
+        <Mockup />
         <Bantuan />
-        <Testimoni />
+        <Portofolio />
+        <Tentang />
+        <PertanyaanUmum />
         <CtaInteraktif />
       </main>
       <Kaki />

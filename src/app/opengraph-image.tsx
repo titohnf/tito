@@ -7,6 +7,5 @@ export const size = ukuranOg;
 export const contentType = "image/png";
 
 export default function OgImage() {
-  const { awal, kata, akhir } = hero.julukan;
-  return gambarOg(`${awal} ${kata[0]} ${akhir}`, hero.catatanTombol);
+  return gambarOg(hero.judul, hero.catatanTombol);
 }

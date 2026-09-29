@@ -18,21 +18,27 @@ const semua = peran.map((p) => p.id);
 
 export const kebutuhan: Kebutuhan[] = [
   {
-    id: "website",
-    label: "butuh website sederhana",
-    kalimat: "butuh website sederhana",
+    id: "website-baru",
+    label: "butuh website baru",
+    kalimat: "butuh website baru",
+    untuk: semua,
+  },
+  {
+    id: "benahi",
+    label: "ingin membenahi website yang sudah ada",
+    kalimat: "ingin membenahi website yang sudah ada",
     untuk: semua,
   },
   {
     id: "ide",
     label: "punya ide tapi bingung mulai dari mana",
     kalimat: "punya ide tapi bingung mulai dari mana",
-    untuk: ["usaha-kecil", "individu", "lainnya"],
+    untuk: semua,
   },
   {
-    id: "diskusi",
-    label: "butuh teman diskusi soal produk",
-    kalimat: "butuh teman diskusi soal produk",
+    id: "belajar",
+    label: "ingin belajar bikin website sendiri",
+    kalimat: "ingin belajar bikin website sendiri",
     untuk: semua,
   },
   {
@@ -73,108 +79,91 @@ export type Layanan = {
   detail: BagianLayanan[];
   /** Pesan pembuka WhatsApp dari layanan ini */
   pesan: string;
+  /** Tombol kedua di pop up, mis. mendaftar kelas. `pesan` = pembuka WhatsApp-nya. */
+  tombolDaftar?: { label: string; pesan: string };
   /**
    * Kartu lebar: turun ke barisnya sendiri selebar segmen, isinya ditata
    * mendatar dengan ilustrasi di kanan dan dua tombol di bawah teks.
    * Dipakai satu kartu saja — lebih dari satu dan barisnya jadi pola, bukan sorotan.
    */
   lebar?: boolean;
-  /** Tombol kedua di kartu lebar, mis. mendaftar kelas. `pesan` = pembuka WhatsApp-nya. */
-  tombolDaftar?: { label: string; pesan: string };
 };
 
 /**
- * Kepala segmen "Apa yang bisa saya bantu?" di beranda.
+ * Kepala segmen "Layanan" di beranda.
  * Kartunya sendiri diambil dari `layanan` di bawah.
  */
-export const kepalaBantuan = {
-  judul: "Apa yang bisa saya bantu?",
+export const kepalaLayanan = {
+  judul: "Layanan",
 };
 
 export const layanan: Layanan[] = [
   {
     id: "website",
-    judul: "Desain dan Pengembangan Web",
-    teks: "Dari ide sampai jadi, saya yang pegang penuh prosesnya.",
-    judulDetail: "Buat website untuk produk atau personal branding kamu",
+    judul: "Bikin & Benahi Website",
+    teks: "Website baru dari nol, atau benahi yang sudah ada biar nggak bikin pengunjung bingung. Saya yang pegang prosesnya.",
+    judulDetail: "Bikin & Benahi Website",
     detail: [
       {
-        judul: "Apa yang kamu dapat",
+        judul: "Yang kamu dapat",
         paragraf:
-          "Website sederhana yang bisa langsung dipakai — buat pajang produk, terima pesanan, atau sekadar biar keliatan lebih dipercaya orang yang baru kenal usaha kamu.",
+          "Belum punya website? Saya bikinkan dari nol — buat pajang produk, terima pesanan, atau sekadar biar keliatan lebih dipercaya. Sudah punya tapi kurang maksimal? Saya lihat dulu apa yang bikin pengunjung bingung atau nggak jadi order, lalu kasih rekomendasi yang jelas.",
       },
       {
-        judul: "Bagaimana prosesnya",
+        judul: "Prosesnya",
         langkah: [
-          "Ngobrol dulu soal usaha kamu dan apa yang kamu butuhin",
-          "Saya bikin draf awal buat dilihat dan direvisi bareng",
-          "Setelah oke, saya siapkan sampai bisa langsung dipakai",
+          "Ngobrol dulu soal usaha kamu dan situasi website kamu sekarang",
+          "Saya bikin draf baru, atau catat rekomendasi perbaikan",
+          "Kita revisi bareng sampai pas, lalu siap dipakai",
         ],
       },
       {
-        judul: "Yang perlu kamu siapin",
+        judul: "Yang perlu disiapkan",
         paragraf:
-          "Logo (kalau ada), foto produk, dan info dasar usaha kamu. Belum punya semua itu? Nggak apa-apa, kita bisa mulai dari yang ada dulu.",
+          "Bikin baru: logo (kalau ada), foto produk, dan info dasar usaha. Membenahi: link website atau media sosial usaha kamu yang sekarang.",
       },
     ],
-    pesan:
-      "Halo Tito, saya mau buat website untuk produk atau personal branding. Boleh ngobrol dulu?",
+    pesan: "Halo Tito, saya mau bikin atau benahi website usaha saya. Boleh ngobrol dulu?",
   },
   {
     id: "audit",
-    judul: "Audit dan Optimalisasi Web",
-    teks: "Saya bantu cari titik yang bikin orang bingung atau kurang tertarik, lalu kasih masukan konkret.",
-    judulDetail: "Bantu lihat ulang website atau usaha yang sudah jalan",
+    judul: "Buat Sistem Digital untuk Usaha",
+    teks: "Pencatatan masih manual atau berantakan di banyak tempat? Saya bantu susun jadi satu sistem yang rapi.",
+    judulDetail: "Buat Sistem Digital untuk Usaha",
     detail: [
       {
-        judul: "Apa yang kamu dapat",
+        judul: "Yang kamu dapat",
         paragraf:
-          "Bukan langsung redesign total — saya lihat dulu apa yang bikin orang bingung atau nggak jadi order, terus kasih rekomendasi konkret. Mau lanjut dieksekusi bareng saya atau nggak, itu terserah kamu.",
+          "Sistem yang pas buat kebutuhan usaha kamu — dari pencatatan manual atau spreadsheet yang berantakan jadi rapi, bisa dipantau, dan gampang dipakai sehari-hari. Bukan sistem generik yang penuh fitur nggak kepakai.",
       },
       {
-        judul: "Bagaimana prosesnya",
+        judul: "Prosesnya",
         langkah: [
-          "Kamu kirim link website/media sosial usaha kamu",
-          "Saya lihat dan catat titik-titik yang perlu diperbaiki",
-          "Kita ngobrol bareng soal temuan itu dan langkah selanjutnya",
+          "Ngobrol dulu soal alur kerja usaha kamu sekarang dan apa yang bikin ribet",
+          "Saya rancang sistemnya, mulai dari bagian paling penting dulu",
+          "Kita uji coba bareng sampai pas dipakai sehari-hari",
         ],
       },
-    ],
-    pesan:
-      "Halo Tito, saya mau minta bantuan lihat ulang website atau usaha yang sudah jalan. Boleh ngobrol dulu?",
-  },
-  {
-    id: "ngobrol",
-    judul: "Diskusi Ide atau Projek",
-    teks: "Belum harus jelas arahnya — mulai dari ngobrol dulu juga nggak apa-apa.",
-    judulDetail: "Ngobrol dulu soal ide atau usaha yang sedang kamu pikirkan",
-    detail: [
       {
-        judul: "Ini buat siapa",
-        paragraf:
-          'Kamu yang masih di tahap "kayaknya ini ide bagus, tapi belum tau harus mulai dari mana" — belum butuh website, belum butuh apa-apa yang konkret, cuma butuh teman diskusi.',
-      },
-      {
-        judul: "Yang terjadi kalau ngobrol",
-        paragraf:
-          "Nggak ada agenda tertentu. Kita ngobrol soal idenya, saya kasih pandangan dari sudut desain/produk, dan dari situ baru kelihatan apakah perlu lanjut ke langkah konkret atau cukup sampai situ dulu.",
+        judul: "Yang perlu disiapkan",
+        paragraf: "Ceritakan alur kerja usaha kamu sekarang, walau masih manual atau pakai spreadsheet.",
       },
     ],
-    pesan: "Halo Tito, saya mau ngobrol soal ide atau usaha yang sedang saya pikirkan. Boleh?",
+    pesan: "Halo Tito, saya mau bikin sistem digital untuk usaha saya. Boleh ngobrol dulu?",
   },
   {
     id: "ai",
-    judul: "Belajar Bikin Web Sendiri",
-    teks: "Saya temani sampai kamu bisa bikin dan rawat website sendiri pakai bantuan AI.",
-    judulDetail: "Belajar bikin website sendiri dengan bantuan AI",
+    judul: "Belajar Bikin Website Sendiri",
+    teks: "Saya temani sampai kamu bisa bikin dan merawat website sendiri dengan bantuan AI.",
+    judulDetail: "Belajar Bikin Website Sendiri",
     detail: [
       {
-        judul: "Apa yang kamu dapat",
+        judul: "Yang kamu dapat",
         paragraf:
           "Bukan saya yang bikinin, tapi kamu — saya yang nemenin. Kita pakai alat AI yang ada sekarang buat nyusun website kamu dari nol, sampai kamu ngerti cara ngubah dan ngerawatnya sendiri tanpa perlu nunggu siapa-siapa.",
       },
       {
-        judul: "Bagaimana prosesnya",
+        judul: "Prosesnya",
         langkah: [
           "Kita tentuin dulu website apa yang mau kamu bikin dan buat siapa",
           "Saya kenalin alatnya dan cara ngobrol sama AI biar hasilnya sesuai maksud kamu",
@@ -183,18 +172,18 @@ export const layanan: Layanan[] = [
         ],
       },
       {
-        judul: "Yang perlu kamu siapin",
+        judul: "Yang perlu disiapkan",
         paragraf:
           "Laptop dan waktu buat nyoba. Nggak perlu bisa ngoding — yang lebih kepakai justru kejelasan soal apa yang mau kamu sampaikan lewat website itu.",
       },
     ],
     pesan:
       "Halo Tito, saya mau belajar bikin website sendiri dengan bantuan AI. Boleh ngobrol dulu?",
-    lebar: true,
     tombolDaftar: {
       label: "Daftar Kelas",
       pesan: "Halo Tito, saya mau daftar kelas bikin website sendiri dengan AI. Boleh info jadwalnya?",
     },
+    lebar: true,
   },
 ];
 

@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { site } from "@/config/site";
+import { site, linkWhatsApp } from "@/config/site";
 import styles from "./Kepala.module.css";
 
 const menu = [
   { label: "Beranda", href: "/" },
+  { label: "Layanan", href: `/${site.tautan.layanan}` },
   { label: "Rekam Jejak", href: site.tautan.rekamJejak },
   { label: "Pembelajaran", href: site.tautan.pembelajaran },
 ];
@@ -66,6 +67,14 @@ export function Kepala() {
               {m.label}
             </Link>
           ))}
+          <a
+            href={linkWhatsApp()}
+            className={styles.ngobrol}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ngobrol
+          </a>
         </nav>
       </div>
     </header>

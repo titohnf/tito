@@ -4,23 +4,26 @@
 import type { Segmen } from "./segmen";
 
 export const hero = {
-  sapaan: "Halo, saya Tito",
-  // "Desainer [kata] Rakyat" — kata di tengah berganti otomatis
-  julukan: {
-    awal: "Desainer",
-    kata: ["Perwakilan", "Pelayan", "Pendamping"],
-    akhir: "Rakyat",
-    // Kata terkunci setelah foto hero "dicoblos"
-    kataPilihan: "Pilihan",
-  },
-  intervalGantiMs: 3000,
-  paragraf:
-    "Dari mendesain layanan publik hingga mendirikan yayasan, sekarang terbuka untuk mendiskusikan produk yang kamu kembangkan.",
-  tombolUtama: "Lihat apa yang bisa saya bantu",
-  // Tautan teks kecil di bawah tombol utama, langsung ke WhatsApp
-  tautanWhatsApp: "chat langsung di WhatsApp",
+  sapaan: "👋 Halo, saya Tito",
+  judul: "Saya bantu membuat website dan sistem untuk usaha kamu",
+  tombolUtama: "Ngobrol Dulu, Gratis",
+  pesanTombolUtama: "Halo Tito, saya mau ngobrol soal website usaha saya. Boleh?",
+  tombolSekunder: "Lihat Layanan",
   // Dipakai di gambar preview link (OG)
-  catatanTombol: "Ngobrol pertama gratis, tanpa komitmen.",
+  catatanTombol: "Ngobrol dulu, gratis.",
+};
+
+export const tentangSingkat = {
+  judul: "Tentang saya",
+  paragraf:
+    "9+ tahun dipercaya merancang web dan aplikasi pemerintah, saat ini aktif mengembangkan sistem untuk usaha dan komunitas.",
+  funFakta: [
+    "9+ tahun jadi tenaga ahli perancang di instansi pemerintah",
+    "Mendirikan yayasan sebelum umur 30",
+    "Membina 50+ anak binaan yayasan",
+    "Membangun sistem operasional bimbel sendiri",
+    "Belajar ngoding dibantu AI, tanpa tim",
+  ],
 };
 
 /**

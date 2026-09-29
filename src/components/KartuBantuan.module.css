@@ -64,141 +64,34 @@
   }
 }
 
-/* Pop up detail layanan */
-.dialog {
-  width: min(34rem, calc(100vw - 2rem));
-  padding: 0;
-  border: 1px solid var(--garis);
-  border-radius: var(--radius);
-  background: var(--putih);
-  color: var(--tinta);
-}
-
-.dialog::backdrop {
-  background: color-mix(in srgb, #000 45%, transparent);
-}
-
-.isiDialog {
-  position: relative;
+/*
+ * Daftar kartu layanan: satu kolom di HP, dua kolom dari 640px. Kartu lebar
+ * ("Belajar Bikin Website Sendiri") turun ke barisnya sendiri selebar penuh.
+ * Sengaja grid diam, bukan trek geser: beranda sudah punya beberapa deretan
+ * yang digeser berturut-turut, dan yang lain membuat semuanya terbaca sebagai
+ * pola yang sama.
+ */
+.daftar {
   display: grid;
-  gap: 1.1rem;
-  padding: 1.75rem;
-  /* pop up panjang tetap muat di layar pendek */
-  max-height: min(85vh, 44rem);
-  overflow-y: auto;
-}
-
-.tutup {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  display: grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid transparent;
-  border-radius: 50%;
-  background: none;
-  color: var(--tinta-3);
-  cursor: pointer;
-}
-
-.tutup:hover {
-  border-color: var(--garis);
-  color: var(--tinta);
-}
-
-.judulDialog {
-  max-width: 30ch;
-  padding-right: 2rem;
-  font-weight: 500;
-  font-size: 1.35rem;
-  line-height: 1.3;
-  letter-spacing: -0.025em;
-}
-
-.teksDialog {
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--tinta-2);
-}
-
-/* Tiap bagian isi pop up: judul kecil + paragraf atau daftar langkah */
-.bagian {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.judulBagian {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--tinta-3);
-}
-
-.langkah {
-  display: grid;
-  gap: 0.4rem;
+  gap: 0.75rem;
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--tinta-2);
-  counter-reset: langkah;
 }
 
-.langkah li {
-  display: flex;
-  gap: 0.75rem;
-  counter-increment: langkah;
-}
-
-.langkah li::before {
-  content: counter(langkah, decimal-leading-zero);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.7rem;
-  line-height: 1.9;
-  color: var(--tinta-3);
-}
-
-.aksiDialog {
-  margin-top: 0.5rem;
-}
-
-/*
- * Grid kartu layanan: tiga kartu sejajar, lalu kartu keempat (belajar bikin web
- * sendiri pakai AI) turun ke baris sendiri selebar penuh. Sengaja grid diam,
- * bukan trek geser: beranda sudah punya empat deretan yang digeser berturut-turut
- * (tiga bab Tentang + Kata Mereka), dan yang kelima membuat semuanya terbaca
- * sebagai pola yang sama.
- */
-
-/* Kartu lebar memakan selebar barisnya, di setiap lebar yang punya lebih dari
-   satu kolom. Di HP grid-nya sudah satu kolom, jadi tidak ada yang perlu diatur. */
 @media (min-width: 640px) {
-  .daftar > .sorot {
-    grid-column: 1 / -1;
-  }
-
-  /* Semua baris setinggi baris yang paling tinggi: kartu lebar di baris kedua
-     jadi persis setinggi tiga kartu di atasnya, tanpa angka tinggi yang dipatok
-     sendiri dan bisa melenceng begitu isinya berubah. Baru berlaku dari 640px,
-     karena di bawah itu tiap kartu punya barisnya sendiri dan menyamakan tinggi
-     justru membuat semuanya ikut setinggi yang terpanjang. */
   .daftar {
+    grid-template-columns: repeat(2, 1fr);
+    /* Semua baris setinggi baris yang paling tinggi: kartu lebar di baris
+       kedua jadi persis setinggi dua kartu di atasnya, tanpa angka tinggi
+       yang dipatok sendiri dan bisa melenceng begitu isinya berubah. */
     grid-auto-rows: 1fr;
   }
-}
 
-/* Di 640-1000px `.grid` bawaan memberi dua kolom, jadi kartu ketiga tertinggal
-   sendirian di barisnya begitu kartu lebar turun. Di rentang itu kartu ketiga
-   ikut dilebarkan penuh — barisnya jadi terbaca sebagai susunan yang memang
-   dirancang, bukan sisa. Aturan yang sama dulu dipakai waktu kartunya tiga. */
-@media (min-width: 640px) and (max-width: 999.98px) {
-  .daftar > li:nth-child(3) {
+  /* Kartu lebar memakan selebar barisnya, di setiap lebar yang punya lebih
+     dari satu kolom. Di HP grid-nya sudah satu kolom, jadi tidak ada yang
+     perlu diatur. */
+  .daftar > .sorot {
     grid-column: 1 / -1;
   }
 }
@@ -213,9 +106,19 @@
 .kartuLebar {
   display: grid;
   gap: 1.25rem;
-  min-height: 0;
+  /* Disamakan dengan tinggi dua kartu kolom di atasnya, supaya barisnya rapi.
+     overflow tidak disembunyikan: sikunya sengaja dibiarkan sedikit keluar
+     dari batas kartu. */
+  min-height: 18rem;
   padding: 1.5rem;
   cursor: auto;
+}
+
+@media (min-width: 760px) {
+  .kartuLebar {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+  }
 }
 
 .isiLebar {
@@ -258,19 +161,85 @@
   cursor: pointer;
 }
 
+/* Foto di panggung kartu lebar: sedikit lebih ramping dan rata tengah di
+   kolomnya sendiri (beda dengan .panggung dalam pop up, yang selalu ditengahkan
+   penuh terhadap lebar dialognya). */
+.kartuLebar .panggung {
+  max-width: 21rem;
+  margin: 0 auto;
+  justify-self: center;
+  align-self: end;
+}
+
+@media (min-width: 760px) {
+  .kartuLebar .panggung {
+    justify-self: end;
+    align-self: end;
+    transform: translate(1.75rem, 1rem);
+  }
+}
+
+/* Pop up detail layanan */
+.dialog {
+  width: min(34rem, calc(100vw - 2rem));
+  padding: 0;
+  border: 1px solid var(--garis);
+  border-radius: var(--radius);
+  background: var(--putih);
+  color: var(--tinta);
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, #000 45%, transparent);
+}
+
+.isiDialog {
+  position: relative;
+  display: grid;
+  gap: 1.1rem;
+  padding: 1.75rem;
+  /* pop up panjang tetap muat di layar pendek */
+  max-height: min(85vh, 44rem);
+  overflow-y: auto;
+}
+
+.tutup {
+  position: absolute;
+  z-index: 1;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--putih) 85%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  color: var(--tinta-3);
+  cursor: pointer;
+}
+
+.tutup:hover {
+  border-color: var(--garis);
+  color: var(--tinta);
+}
+
 /*
- * Panggung foto. Lebarnya ikut kartu, dan ornamennya diletakkan dalam persen
- * terhadap kotak ini — jadi semuanya ikut mengecil bareng fotonya, tanpa perlu
- * ukuran khusus per lebar layar.
+ * Ilustrasi kepala pop up "Belajar Bikin Website Sendiri": panggung foto berisi
+ * noda warna sebagai alas, panel kode & pratinjau web di belakang, dan
+ * gelembung/pita di depan. Ukurannya dalam persen terhadap panggung, jadi
+ * semuanya ikut mengecil bareng lebar pop up.
  */
 .panggung {
   position: relative;
   width: 100%;
-  max-width: 24rem;
-  justify-self: center;
+  max-width: 22rem;
+  margin: 0 auto 1.25rem;
 }
 
-.foto {
+.fotoIlustrasi {
   position: relative;
   z-index: 2;
   display: block;
@@ -280,30 +249,22 @@
 
 /*
  * Alas foto: noda ungu-biru bersudut tak beraturan, sewarna semburat segmennya.
- * Bentuknya dibuat dengan border-radius empat nilai + sumbu kedua, cara yang
- * sama dengan "blob" di ilustrasi pemasaran — lebih ringan daripada SVG dan
- * ikut melar sendiri mengikuti kotaknya.
+ * Warnanya diambil dari ujung terang gradien ikon 3D. Dua lapis: gradien
+ * ungu→biru sebagai warna dasar, dan sorot putih di kiri-atas supaya bidangnya
+ * terasa melengkung, bukan rata.
  */
 .noda {
   position: absolute;
   inset: 3% 8% 12%;
   z-index: 0;
   border-radius: 48% 52% 44% 56% / 54% 46% 54% 46%;
-  /*
-   * Warnanya diambil dari ujung terang gradien ikon 3D, bukan var(--ungu)/
-   * var(--biru) yang tua — di bidang selebar ini yang tua terbaca kelabu.
-   * Dua lapis: gradien ungu→biru sebagai warna dasar, dan sorot putih di
-   * kiri-atas supaya bidangnya terasa melengkung, bukan rata.
-   */
   background:
     radial-gradient(90% 70% at 24% 14%, rgba(255, 255, 255, 0.6), transparent 62%),
     linear-gradient(152deg, #c0a6ff, #a8c6f6 62%, #d6e5fb);
 }
 
-/*
- * Satu panel gelap: editor kode di belakang bahunya. Ukurannya dalam persen
- * terhadap panggung, jadi ikut mengecil bareng fotonya.
- */
+/* Panel gelap: editor kode di belakang bahunya. Ukurannya dalam persen
+   terhadap panggung, jadi ikut mengecil bareng fotonya. */
 .panel {
   position: absolute;
   z-index: 1;
@@ -311,23 +272,18 @@
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 9px;
   background: rgba(255, 255, 255, 0.62);
-  /* -webkit- masih perlu untuk Safari */
   -webkit-backdrop-filter: blur(10px) saturate(1.3);
   backdrop-filter: blur(10px) saturate(1.3);
   box-shadow: 0 10px 24px color-mix(in srgb, var(--tinta) 16%, transparent);
-  font-size: 0.46rem;
+  font-size: 0.42rem;
   line-height: 1.6;
   color: var(--tinta-2);
 }
 
 /*
  * Editor kode: panel terbesar dan satu-satunya yang menampilkan kode. Duduk di
- * belakang bahunya, menjorok ke kanan.
- *
- * Miringnya dibuat dengan perspektif sendiri (fungsi perspective() di dalam
- * transform, bukan properti di induknya): sisi kanannya mendekat ke mata, jadi
- * ia tampil lebih tinggi daripada sisi kiri — itu yang bikin panelnya terbaca
- * menghadap ke depan, bukan sejajar dinding.
+ * belakang bahunya, menjorok ke kanan. Miringnya dibuat dengan perspektif
+ * sendiri — sisi kanannya mendekat ke mata, jadi ia tampil menghadap depan.
  */
 .layar {
   right: -6%;
@@ -368,10 +324,7 @@
 .berkas {
   display: grid;
   gap: 0.22rem;
-  /* Selebar ini supaya kolom kodenya tetap mulai di kanan kepala orangnya:
-     setiap kali panelnya dilebarkan, yang melebar ke kiri adalah sisi yang
-     tertutup kepala — kolom berkas ini yang menahannya. */
-  width: 2.7rem;
+  width: 1.7rem;
   padding-top: 0.1rem;
 }
 
@@ -491,8 +444,6 @@
   width: 64%;
 }
 
-/* Tombol ajakan di hero — satu-satunya bidang berwarna penuh, sama seperti di
-   halaman beneran. */
 .teksHero b {
   width: 58%;
   height: 0.35rem;
@@ -562,8 +513,8 @@
 
 /*
  * Gelembung "AI": badan gradien biru-ungu dengan ekor kecil di kiri-bawah yang
- * menunjuk ke panel kode. Duduk di depan foto (z-index di atas .foto) — ia
- * penanda, bukan bagian dari adegan di belakang orangnya.
+ * menunjuk ke panel kode. Duduk di depan foto — ia penanda, bukan bagian dari
+ * adegan di belakang orangnya.
  */
 .bisik {
   position: absolute;
@@ -584,8 +535,7 @@
   color: #ffffff;
 }
 
-/* Ekor gelembung: segitiga sewarna ujung gradien di sisi itu, jadi sambungannya
-   ke badan gelembung tidak kelihatan. */
+/* Ekor gelembung: segitiga sewarna ujung gradien di sisi itu. */
 .bisik::after {
   content: "";
   position: absolute;
@@ -604,9 +554,9 @@
 }
 
 /*
- * Dua lencana ikon yang mengambang di sisi kanan foto, di depan orangnya
- * (z-index di atas .foto). Kartu putih kecil supaya ikon bergaris tipis tetap
- * terbaca di atas baju yang gelap.
+ * Dua lencana ikon yang mengambang di sisi kanan foto, di depan orangnya.
+ * Kartu putih kecil supaya ikon bergaris tipis tetap terbaca di atas baju
+ * yang gelap.
  */
 .lencana {
   position: absolute;
@@ -620,7 +570,6 @@
   box-shadow: 0 8px 18px color-mix(in srgb, var(--tinta) 18%, transparent);
 }
 
-/* Kode: ungu, sewarna gelembung AI. */
 .lencanaAtas {
   top: 32%;
   right: -4%;
@@ -647,85 +596,69 @@
   white-space: nowrap;
 }
 
-/* Centangnya hijau — warna "beres" di situs ini (lihat --hijau). */
 .janji svg {
   color: var(--hijau);
 }
 
-/*
- * Di bawah 760px panggungnya jadi selebar kartu, dan panel kode yang dipatok
- * dalam persen jadi terlalu sempit untuk barisnya: kodenya meluber keluar
- * panel, bahkan keluar kartu. Di lebar itu panelnya dilebarkan, hurufnya
- * dikecilkan, dan kolom berkasnya dipersempit.
- *
- * Susunan panelnya sendiri sama persis dengan desktop; yang diatur di sini cuma
- * ukuran huruf, lebar kolom berkas, dan jarak panggung ke tombol di atasnya.
- */
-@media (max-width: 759.98px) {
-  .panggung {
-    /* Panel kode dipasang menjorok ke atas (top negatif). Di HP panggungnya
-       bertumpuk di bawah tombol, bukan di sebelahnya, jadi jorokan itu perlu
-       diberi ruang — kalau tidak, panelnya naik ke belakang tombol
-       "Daftar Kelas". */
-    margin-top: 2.5rem;
-  }
-
-  .kode {
-    font-size: 0.4rem;
-  }
-
-  .berkas {
-    width: 1.6rem;
-  }
+.judulDialog {
+  max-width: 30ch;
+  padding-right: 2rem;
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
 }
 
-/*
- * Dari 760px fotonya pindah ke kanan teks — dan di sini tingginya yang jadi
- * patokan, bukan lebarnya.
- *
- * Fotonya dipasang absolut, setinggi ruang kartu. Kalau ia ikut mengalir
- * seperti biasa, dialah yang menentukan tinggi kartu — dan kartu lebar ini
- * selalu lebih jangkung daripada barisnya, berapa pun tinggi baris di atasnya.
- * Tinggi barisnya sendiri disamakan lewat grid-auto-rows: 1fr di .daftar.
- *
- * Lebar fotonya lahir dari tingginya lewat aspect-ratio (rasio asli berkasnya),
- * dan ruang untuk foto itu dipesan dengan padding-right di kartunya.
- */
-@media (min-width: 760px) {
-  .kartuLebar {
-    display: block;
-    padding: 1.75rem 2rem;
-  }
+.teksDialog {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--tinta-2);
+}
 
-  /* Ruang untuk foto: teks berhenti di 52% lebar kartu. */
-  .kartuLebar .isiLebar {
-    width: 52%;
-  }
+/* Tiap bagian isi pop up: judul kecil + paragraf atau daftar langkah */
+.bagian {
+  display: grid;
+  gap: 0.35rem;
+}
 
-  /*
-   * Turun melewati kaki kartu: sikunya menggantung keluar bidang, jadi fotonya
-   * terbaca duduk di depan kartu, bukan tertampung rapi di dalamnya. Kartunya
-   * tidak memotong isi (tidak ada overflow: hidden), jadi cukup menempelkan
-   * tepi bawahnya di luar kartu.
-   *
-   * Tingginya dipatok, bukan dibiarkan mengisi kartu dari atas ke bawah: di
-   * lebar layar yang bikin teks kartu kolom membungkus lebih banyak, kartunya
-   * ikut jangkung, dan foto yang mengikuti tinggi itu jadi melebar sampai
-   * menutupi teks di sebelahnya. 16.5rem adalah batas amannya; di kartu yang
-   * lebih pendek, tinggi kartu (+ jorokan ke bawah) yang dipakai.
-   */
-  .panggung {
-    position: absolute;
-    right: 2rem;
-    bottom: -0.75rem;
-    width: auto;
-    max-width: none;
-    height: min(16.5rem, calc(100% + 0.25rem));
-    aspect-ratio: 1009 / 751;
-  }
+.judulBagian {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
 
-  .foto {
-    width: 100%;
-    height: 100%;
-  }
+.langkah {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--tinta-2);
+  counter-reset: langkah;
+}
+
+.langkah li {
+  display: flex;
+  gap: 0.75rem;
+  counter-increment: langkah;
+}
+
+.langkah li::before {
+  content: counter(langkah, decimal-leading-zero);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  line-height: 1.9;
+  color: var(--tinta-3);
+}
+
+.aksiDialog {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }

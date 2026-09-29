@@ -24,8 +24,10 @@ const ikon: Record<string, (p: { className?: string }) => React.ReactElement> = 
 };
 
 /**
- * Empat kartu layanan di bab Pendamping (segmen Tentang) dan halaman /bantuan.
- * Diklik membuka pop up berisi detail layanan — isinya masih placeholder.
+ * Kartu layanan di beranda: dua kartu kolom (bikin/benahi website, sistem
+ * digital) lalu kartu "Belajar Bikin Website Sendiri" turun ke barisnya
+ * sendiri selebar segmen dengan panggung foto. Diklik membuka pop up berisi
+ * detail layanan.
  */
 export function KartuBantuan() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -38,7 +40,7 @@ export function KartuBantuan() {
 
   return (
     <>
-      <ul className={`${kartu.grid} ${kartu.grid3} ${styles.daftar}`}>
+      <ul className={styles.daftar}>
         {layanan.map((l) => {
           const Ikon = ikon[l.id] ?? IkonWeb;
 
@@ -85,15 +87,6 @@ export function KartuBantuan() {
                   <div className={styles.panggung}>
                     <span className={styles.noda} aria-hidden="true" />
 
-                    {/*
-                     * Satu panel gelap: editor kode di belakang bahunya.
-                     * Disusun dari kotak CSS, bukan gambar — isinya teks, jadi
-                     * tetap tajam di layar mana pun dan gampang diubah.
-                     *
-                     * <b>/<u>/<i>/<s> di dalamnya cuma kait warna (kata kunci,
-                     * nama tag, teks dalam kutip, nomor baris), bukan penekanan
-                     * — seluruh panelnya aria-hidden.
-                     */}
                     {/* Pratinjau web kecil yang mengambang di atas tutup laptop:
                         hasil dari kode di panel belakangnya. Isinya blok warna,
                         bukan teks — di ukuran sekecil ini huruf tidak terbaca.
@@ -137,6 +130,12 @@ export function KartuBantuan() {
                       </span>
                     </span>
 
+                    {/* Satu panel gelap: editor kode di belakang bahunya.
+                        Disusun dari kotak CSS, bukan gambar — isinya teks, jadi
+                        tetap tajam di layar mana pun dan gampang diubah.
+                        <b>/<u>/<i>/<s> di dalamnya cuma kait warna (kata kunci,
+                        nama tag, teks dalam kutip, nomor baris), bukan
+                        penekanan — seluruh panelnya aria-hidden. */}
                     <span className={`${styles.panel} ${styles.layar}`} aria-hidden="true">
                       <span className={styles.bilahLayar}>
                         <i />
@@ -156,53 +155,55 @@ export function KartuBantuan() {
                           <i />
                           <i />
                         </span>
-                      <code className={styles.kode}>
-                        <span>
-                          <s>1</s>
-                          <b>export default</b>
-                        </span>
-                        <span>
-                          <s>2</s>
-                          <b>function</b> <u>Halaman</u>() {"{"}
-                        </span>
-                        <span>
-                          <s>3</s>
-                          {"\u00a0\u00a0"}<b>return</b> (
-                        </span>
-                        <span>
-                          <s>4</s>
-                          {"\u00a0\u00a0\u00a0\u00a0"}&lt;<u>Hero</u>
-                        </span>
-                        <span>
-                          <s>5</s>
-                          {"\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0"}judul=<i>&quot;Toko Bu Ani&quot;</i>
-                        </span>
-                        <span>
-                          <s>6</s>
-                          {"\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0"}pesan=<i>&quot;Pesan di sini&quot;</i>
-                        </span>
-                        <span>
-                          <s>7</s>
-                          {"\u00a0\u00a0\u00a0\u00a0"}/&gt;
-                        </span>
-                        <span>
-                          <s>8</s>
-                          {"\u00a0\u00a0\u00a0\u00a0"}&lt;<u>DaftarProduk</u> /&gt;
-                        </span>
-                        <span>
-                          <s>9</s>
-                          {"\u00a0\u00a0\u00a0\u00a0"}&lt;<u>TombolWA</u> /&gt;
-                        </span>
-                        <span>
-                          <s>10</s>
-                          {"\u00a0\u00a0"})
-                        </span>
-                        <span>
-                          <s>11</s>
-                          {"}"}
-                        </span>
-                      </code>
-
+                        <code className={styles.kode}>
+                          <span>
+                            <s>1</s>
+                            <b>export default</b>
+                          </span>
+                          <span>
+                            <s>2</s>
+                            <b>function</b> <u>Halaman</u>() {"{"}
+                          </span>
+                          <span>
+                            <s>3</s>
+                            {"  "}
+                            <b>return</b> (
+                          </span>
+                          <span>
+                            <s>4</s>
+                            {"    "}&lt;<u>Hero</u>
+                          </span>
+                          <span>
+                            <s>5</s>
+                            {"      "}judul=
+                            <i>&quot;Toko Bu Ani&quot;</i>
+                          </span>
+                          <span>
+                            <s>6</s>
+                            {"      "}pesan=
+                            <i>&quot;Pesan di sini&quot;</i>
+                          </span>
+                          <span>
+                            <s>7</s>
+                            {"    "}/&gt;
+                          </span>
+                          <span>
+                            <s>8</s>
+                            {"    "}&lt;<u>DaftarProduk</u> /&gt;
+                          </span>
+                          <span>
+                            <s>9</s>
+                            {"    "}&lt;<u>TombolWA</u> /&gt;
+                          </span>
+                          <span>
+                            <s>10</s>
+                            {"  "})
+                          </span>
+                          <span>
+                            <s>11</s>
+                            {"}"}
+                          </span>
+                        </code>
                       </span>
                     </span>
 
@@ -219,10 +220,9 @@ export function KartuBantuan() {
                       AI
                     </span>
 
-                    {/* Sisi kanan foto: satu lencana ikon kode (lucide-react,
-                        pustaka ikon sumber terbuka yang sudah dipakai situs ini)
-                        dan satu pita janji. Pitanya tidak aria-hidden — beda
-                        dengan ornamen lain, kalimatnya membawa arti. */}
+                    {/* Sisi kanan foto: satu lencana ikon kode dan satu pita
+                        janji. Pitanya tidak aria-hidden — beda dengan ornamen
+                        lain, kalimatnya membawa arti. */}
                     <span className={`${styles.lencana} ${styles.lencanaAtas}`} aria-hidden="true">
                       <Code2 size={20} strokeWidth={2} />
                     </span>
@@ -237,9 +237,8 @@ export function KartuBantuan() {
                       width={1009}
                       height={751}
                       sizes="(min-width: 760px) 23rem, 24rem"
-                      className={styles.foto}
+                      className={styles.fotoIlustrasi}
                     />
-
                   </div>
                 </div>
               </li>
@@ -305,6 +304,11 @@ export function KartuBantuan() {
               <Tombol href={linkWhatsApp(aktif.pesan)} eksternal>
                 Ngobrol Sekarang <span aria-hidden="true">→</span>
               </Tombol>
+              {aktif.tombolDaftar && (
+                <Tombol href={linkWhatsApp(aktif.tombolDaftar.pesan)} varian="garis" eksternal>
+                  {aktif.tombolDaftar.label} <span aria-hidden="true">→</span>
+                </Tombol>
+              )}
             </div>
           </div>
         )}

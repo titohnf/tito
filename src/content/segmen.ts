@@ -19,3 +19,14 @@ export const labelSegmenPanjang: Record<Segmen, string> = {
 };
 
 export const daftarSegmen = Object.keys(labelSegmen) as Segmen[];
+
+/**
+ * Label filter kategori khusus /rekam-jejak — supaya tidak bernuansa persona
+ * "Perwakilan/Pelayan/Pendamping". `labelSegmen`/`labelSegmenPanjang` di atas
+ * tetap dipakai apa adanya di kartu & halaman detail.
+ */
+export const labelSegmenFilter: Record<Segmen, string> = {
+  perwakilan: "Proyek Pemerintah",
+  pelayan: "Yayasan & Program",
+  pendamping: "Usaha Kecil & Freelance",
+};

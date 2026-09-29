@@ -86,8 +86,24 @@
   color: var(--tinta);
 }
 
+.judulPenutup {
+  max-width: 26ch;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 5vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.subPenutup {
+  margin-top: 0.6rem;
+  max-width: 32rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--tinta-2);
+}
+
 .kalimat {
-  margin-top: 1.25rem;
+  margin-top: 2rem;
   max-width: 54rem;
   font-weight: 500;
   font-size: clamp(1.6rem, 5vw, 2.75rem);
