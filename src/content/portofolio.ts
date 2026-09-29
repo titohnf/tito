@@ -39,7 +39,7 @@ export const portofolio: KelompokPortofolio[] = [
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar sistem beneran (data dummy, bukan siswa asli).
         video: "/videos/bimbel-tera-preview.mp4",
-        poster: "/videos/bimbel-tera-poster.png",
+        poster: "/videos/bimbel-tera-poster.jpg",
       },
       {
         judul: "Belajar Mandiri per Topik",
@@ -47,7 +47,7 @@ export const portofolio: KelompokPortofolio[] = [
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar portal keluarga beneran (akun & siswa dummy, bukan siswa asli), ukuran mobile.
         video: "/videos/belajar-mandiri-preview.mp4",
-        poster: "/videos/belajar-mandiri-poster.png",
+        poster: "/videos/belajar-mandiri-poster.jpg",
         mobile: true,
       },
     ],

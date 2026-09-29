@@ -68,10 +68,14 @@ export function Testimoni() {
   // Urutan diacak di klien, bukan saat render: kalau diacak di render, hasil
   // server dan klien berbeda dan React menolak hidrasinya.
   const [urutan, setUrutan] = useState<Kesan[]>(testimoni);
+  // Papan disembunyikan (tetap makan tempat) sampai diacak, supaya nota tidak
+  // berpindah di depan mata pengunjung — perpindahan itu terhitung layout shift.
+  const [siap, setSiap] = useState(false);
 
   useEffect(() => {
     setNotaSaya(bacaNotaSaya());
     setUrutan(acakSisanya(testimoni));
+    setSiap(true);
   }, []);
 
   const ukur = useCallback(() => {
@@ -153,7 +157,7 @@ export function Testimoni() {
           {kepala.judul}
         </h2>
 
-        <ul ref={trekRef} className={styles.trek}>
+        <ul ref={trekRef} className={styles.trek} data-siap={siap}>
           {urutan.map((t, i) => (
             // Warna & kemiringan tiap nota diputar lewat data-nota (0-4), jadi
             // urutannya tetap rapi walau daftarnya ditambah/dikurangi.

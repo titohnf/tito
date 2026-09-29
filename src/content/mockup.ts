@@ -23,7 +23,7 @@ export const mockup: Mockup[] = [
     judul: "Tera Foundation",
     href: "https://www.terafoundation.or.id",
     video: "/videos/mockup-tera-foundation.mp4",
-    poster: "/videos/mockup-tera-foundation-poster.png",
+    poster: "/videos/mockup-tera-foundation-poster.jpg",
   },
   { id: "komunitas-tera", judul: "Komunitas Tera", href: "https://komunitas.tera.or.id" },
 ];

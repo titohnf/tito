@@ -82,6 +82,21 @@
   scrollbar-width: none;
 }
 
+.trek {
+  transition: opacity 0.2s;
+}
+
+.trek[data-siap="false"] {
+  opacity: 0;
+}
+
+/* Tanpa JavaScript urutannya tidak pernah diacak, jadi tidak perlu disembunyikan */
+@media (scripting: none) {
+  .trek[data-siap="false"] {
+    opacity: 1;
+  }
+}
+
 .trek::-webkit-scrollbar {
   display: none;
 }
