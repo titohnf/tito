@@ -6,6 +6,8 @@ export const alt = site.judulSeo;
 export const size = ukuranOg;
 export const contentType = "image/png";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return daftarTulisan().map((t) => ({ slug: t.slug }));
 }
