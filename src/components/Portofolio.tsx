@@ -1,54 +1,19 @@
 import Image from "next/image";
-import { portofolio } from "@/content/portofolio";
+import { portofolio, type KartuPortofolio } from "@/content/portofolio";
 import { site } from "@/config/site";
+import { GeseranPortofolio } from "./GeseranPortofolio";
+import { KontrolVideo } from "./KontrolVideo";
 import { PratinjauBimbel } from "./PratinjauBimbel";
 import { Tombol } from "./Tombol";
 import { VideoPopup } from "./VideoPopup";
 import kartuStyles from "./KartuGrid.module.css";
 import styles from "./Portofolio.module.css";
 
-/** Portofolio di beranda: kelompok kartu, memakai gaya kartu rekam jejak. */
-export function Portofolio() {
+function KartuItem({ k, tinggiTetap }: { k: KartuPortofolio; tinggiTetap: boolean }) {
+  const warnaKartu = tinggiTetap ? styles.kartuBiru : styles.kartuWarna;
+  const duaKartu = tinggiTetap;
   return (
-    <section className={styles.segmen} aria-labelledby="portofolio-judul">
-      <div className="wadah">
-        <div className={styles.kepala}>
-          <div>
-            <p className={styles.label}>Rekam Jejak</p>
-            <h2 id="portofolio-judul" className={styles.judul}>
-              Membangun sistem Bimbel
-            </h2>
-          </div>
-          {/* Tombol ke halaman Rekam Jejak disembunyikan dulu selama halamannya belum siap.
-              Buka komentar ini begitu kontennya ada:
-          <Tombol href={site.tautan.rekamJejak} varian="garis">
-            Lihat seluruh rekam jejak <span aria-hidden="true">→</span>
-          </Tombol>
-          */}
-        </div>
-        <p className={styles.subjudul}>
-          Dari progres siswa hingga status pembayaran, semua tercatat dengan jelas.
-        </p>
-
-        <div className={styles.kelompokDaftar}>
-          {portofolio.map((kelompok) => (
-            <div key={kelompok.judul} className={styles.kelompok}>
-              {kelompok.deskripsi && <p className={styles.deskripsiKelompok}>{kelompok.deskripsi}</p>}
-
-              <ul
-                className={
-                  kelompok.kartu.length === 1
-                    ? styles.satu
-                    : kelompok.kartu.length === 2
-                      ? styles.dua
-                      : `${kartuStyles.grid} ${kartuStyles.grid3}`
-                }
-              >
-                {kelompok.kartu.map((k) => {
-                  const duaKartu = kelompok.kartu.length === 2;
-                  const warnaKartu = duaKartu ? styles.kartuBiru : styles.kartuWarna;
-                  return (
-                  <li key={k.judul} className={styles.itemKartu}>
+                  <div className={`${styles.itemKartu} ${k.mobile ? styles.itemMobile : ""}`}>
                     <div
                       className={`${kartuStyles.kartu} ${warnaKartu} ${duaKartu ? styles.kartuTinggiTetap : ""}`}
                     >
@@ -90,15 +55,57 @@ export function Portofolio() {
                         </div>
                       </div>
                       <h3
-                        className={`${kartuStyles.namaKartu} ${styles.judulKartu} ${duaKartu ? styles.judulKartuOverlay : ""}`}
+                        className={`${kartuStyles.namaKartu} ${styles.judulKartu} ${duaKartu ? styles.judulKartuOverlay : ""} ${k.video ? styles.judulBerkontrol : ""}`}
                       >
                         {k.judul}
+                        {k.deskripsi && <span className={styles.deskripsiKartu}>{k.deskripsi}</span>}
                       </h3>
+                      {k.video && <KontrolVideo judul={k.judul} />}
                     </div>
-                  </li>
-                  );
-                })}
-              </ul>
+                  </div>
+  );
+}
+
+/** Portofolio di beranda: kelompok kartu, memakai gaya kartu rekam jejak. */
+export function Portofolio() {
+  return (
+    <section className={styles.segmen} aria-labelledby="portofolio-judul">
+      <div className="wadah">
+        <div className={styles.kepala}>
+          <div>
+            <p className={styles.label}>Rekam Jejak</p>
+            <h2 id="portofolio-judul" className={styles.judul}>
+              Membangun sistem Bimbel
+            </h2>
+          </div>
+          <Tombol href="/rekam-jejak/bimbel-tera" varian="garis">
+            Baca Ceritanya <span aria-hidden="true">→</span>
+          </Tombol>
+        </div>
+        <p className={styles.perusahaan}>PT. Sinergi Cendikia Indonesia</p>
+
+        <div className={styles.kelompokDaftar}>
+          {portofolio.map((kelompok) => (
+            <div key={kelompok.judul} className={styles.kelompok}>
+              {kelompok.deskripsi && <p className={styles.deskripsiKelompok}>{kelompok.deskripsi}</p>}
+
+              {kelompok.kartu.length <= 2 ? (
+                <ul className={kelompok.kartu.length === 1 ? styles.satu : styles.dua}>
+                  {kelompok.kartu.map((k) => (
+                    <li key={k.judul}>
+                      <KartuItem k={k} tinggiTetap={kelompok.kartu.length === 2} />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <GeseranPortofolio>
+                  {kelompok.kartu.map((k) => (
+                    <li key={k.judul} className={k.mobile ? styles.slideMobile : styles.slide}>
+                      <KartuItem k={k} tinggiTetap />
+                    </li>
+                  ))}
+                </GeseranPortofolio>
+              )}
             </div>
           ))}
         </div>

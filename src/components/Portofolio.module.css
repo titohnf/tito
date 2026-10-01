@@ -1,5 +1,8 @@
 .segmen {
   padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  /* Baris geser melebar sampai tepi layar; jangan sampai memunculkan
+     scroll horizontal di halaman. */
+  overflow-x: clip;
 }
 
 /* Label kecil di atas judul, sama gaya dengan segmen Layanan/Tentang. */
@@ -33,12 +36,18 @@
   letter-spacing: -0.038em;
 }
 
-.subjudul {
-  max-width: 34ch;
-  margin-top: 0.6rem;
+/* Pil nama perusahaan di bawah judul segmen. */
+.perusahaan {
+  display: inline-block;
+  margin-top: 0.9rem;
   margin-bottom: 2rem;
-  font-size: 1.05rem;
-  line-height: 1.5;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--garis);
+  border-radius: 999px;
+  background: var(--panel);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
   color: var(--tinta-2);
 }
 
@@ -102,6 +111,128 @@
   }
 }
 
+/* Tiga kartu atau lebih: semua kartu berderet dalam satu baris, ukurannya
+   tetap seperti kartu biasa. Barisnya dibiarkan melebar sampai tepi kanan
+   layar (bukan berhenti di tepi kolom), jadi kartu di kanan terpotong layar
+   sebagai petunjuk bisa digeser. Panah menggeser satu kartu. */
+.geseran {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.jalur {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  /* Barisnya melebar ke kedua tepi layar; padding kiri (sebesar jarak
+     tepi layar ke kolom isi) menjaga kartu pertama tetap sejajar dengan
+     kolom, dan kartu yang tergeser ke kiri tetap kelihatan, bukan terpotong
+     di tepi kolom. Padding kanan sama besar: kartu terakhir berhenti di
+     tepi kanan kolom isi, dengan jarak ke tepi layar seperti di awal. */
+  margin-inline: calc((100% - 100vw) / 2);
+  /* overflow-x:auto ikut memotong sumbu vertikal, jadi bayangan kartu
+     terpotong di bawah. Padding atas-bawah memberi ruang untuk bayangan,
+     margin negatif membatalkannya supaya jarak ke elemen lain tak berubah. */
+  margin-block: -1.5rem;
+  padding: 1.5rem calc((100vw - 100%) / 2);
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  align-items: flex-start;
+}
+
+.jalur::-webkit-scrollbar {
+  display: none;
+}
+
+/* Kartu aktif (lihat GeseranPortofolio): sedikit lebih besar dengan bayangan
+   tipis yang sedikit melebar, supaya jelas mana yang sedang diputar. */
+.slide[data-aktif] .itemKartu > div,
+.slideMobile[data-aktif] .itemKartu > div {
+  transform: scale(1.02);
+  box-shadow: var(--bayang-naik);
+  /* Kartu aktif: gradien biru-ke-ungu yang sama dengan latar segmen Mockup
+     (Mockup.module.css); kartu lain biru muda (lihat di bawah). */
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--biru) 24%, var(--putih)),
+    color-mix(in srgb, var(--ungu) 20%, var(--putih))
+  );
+}
+
+.slide .itemKartu > div,
+.slideMobile .itemKartu > div {
+  background: color-mix(in srgb, var(--biru) 7%, var(--putih));
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide .itemKartu > div,
+  .slideMobile .itemKartu > div {
+    transition: none;
+  }
+}
+
+.slide {
+  flex: 0 0 min(40rem, 82vw);
+  min-width: 0;
+}
+
+.slideMobile {
+  flex: 0 0 min(22rem, 80vw);
+  min-width: 0;
+}
+
+/* Layar sempit: tiap kartu berhenti di tengah layar, dengan kartu sebelum dan
+   sesudahnya menyembul di kiri-kanan. Padding sisi (9vw) membuat kartu
+   pertama dan terakhir pun bisa berada di tengah; snap mandatory supaya
+   geseran selalu berhenti di tengah kartu. */
+@media (max-width: 639px) {
+  .jalur {
+    padding-inline: 9vw;
+    scroll-snap-type: x mandatory;
+  }
+
+  .slide,
+  .slideMobile {
+    scroll-snap-align: center;
+  }
+}
+
+.panah {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.tombolPanah {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--garis);
+  border-radius: 50%;
+  background: var(--putih);
+  color: var(--tinta);
+  cursor: pointer;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+
+.tombolPanah:hover:not(:disabled) {
+  border-color: var(--tinta-3);
+}
+
+.tombolPanah:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 /* Sama seperti latar segmen Mockup (Mockup.module.css) — gradien biru-ke-ungu,
    bukan warna rata — supaya senada dengan segmen di bawah Hero itu. Dipakai
    kalau cuma satu kartu (bukan `.dua`) — begitu ada dua kartu sejajar,
@@ -133,9 +264,25 @@
   overflow: hidden;
 }
 
-@media (min-width: 640px) {
-  .kartuTinggiTetap {
-    height: 29rem;
+/* Kartu HP tingginya tetap di semua lebar layar: bilah judul menimpa bagian
+   bawah kartu, jadi tanpa tinggi tetap ia menutupi layar HP-nya. */
+.itemMobile > .kartuTinggiTetap {
+  height: 30rem;
+}
+
+.kartuTinggiTetap {
+  height: 30rem;
+}
+
+/* Layar sempit: kartu web setinggi kartu HP (30rem) supaya barisnya rata dan
+   tidak ada ruang kosong di bawah kartu. Mockup web yang lebih pendek
+   (16:9 di lebar sempit) ditaruh di tengah ruang di atas bilah judul;
+   padding bawah (1.25rem + tinggi bilah) membuat "tengah" itu tidak
+   terhitung sampai ke bawah bilah. */
+@media (max-width: 639px) {
+  .itemKartu:not(.itemMobile) > .kartuTinggiTetap {
+    padding-bottom: 5.6rem;
+    justify-content: center;
   }
 }
 
@@ -157,11 +304,84 @@
 .judulKartu {
   display: block;
   margin: auto -1.25rem -1.25rem;
-  padding: 1.1rem 1.5rem;
+  padding: 1.5rem 1.5rem;
   border-radius: 0 0 var(--radius) var(--radius);
   background: var(--putih);
   color: var(--tinta);
   font-size: 1.02rem;
+}
+
+/* Ruang di kanan judul untuk tombol putar/jeda video. */
+.judulBerkontrol {
+  padding-right: 4rem;
+}
+
+/* Tombol putar/jeda: lingkaran kecil biru di pojok kanan bawah bilah
+   judul (z-index 3, di atas bilahnya), berisi ikon biru terisi. */
+.kontrolVideo {
+  position: absolute;
+  right: 1.25rem;
+  /* Sejajar dengan tengah bilah judul (padding atas-bawah 1.5rem). */
+  bottom: 1.15rem;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--biru) 10%, var(--putih));
+  color: var(--biru);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.kontrolVideo:hover {
+  background: color-mix(in srgb, var(--biru) 18%, var(--putih));
+}
+
+/* Penjelasan di bilah judul: tersembunyi (tinggi 0) sampai kartu di-hover atau
+   difokus, lalu bilahnya memanjang ke atas (maksimal dua baris). Tetap ada di
+   DOM, jadi terbaca pembaca layar. */
+.deskripsiKartu {
+  display: -webkit-box;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--tinta-2);
+  transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease;
+}
+
+.itemKartu:hover .deskripsiKartu,
+.itemKartu:focus-within .deskripsiKartu {
+  max-height: 2.7rem;
+  margin-top: 0.35rem;
+  opacity: 1;
+}
+
+/* Kartu HP sempit: penjelasan cukup satu baris. */
+.itemMobile .deskripsiKartu {
+  -webkit-line-clamp: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.itemMobile:hover .deskripsiKartu,
+.itemMobile:focus-within .deskripsiKartu {
+  max-height: 1.4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deskripsiKartu {
+    transition: none;
+  }
 }
 
 /* Judulnya menutupi (bukan menyambung setelah) bagian bawah mockup yang
@@ -176,6 +396,8 @@
   bottom: 0;
   z-index: 2;
   margin: 0;
+  /* Bayangan tipis ke atas: memisahkan bilah judul dari mockup di atasnya. */
+  box-shadow: 0 -4px 14px -4px rgb(18 18 17 / 0.14);
 }
 
 /*
@@ -287,8 +509,16 @@
    browser dan bikin gambarnya gepeng). Rasio 9:16 — sengaja dibesarkan
    sampai bagian bawahnya keluar dari batas kartu (overflow, bukan bug). */
 .layarMobile {
+  /* Rasio 9:16 seperti rekamannya dan tinggi layar HP sungguhan: tingginya
+     sengaja melebihi kartu, jadi bagian bawah HP terpotong/tertutup bilah
+     judul (kesannya HP-nya masih memanjang ke bawah). */
   width: 15.75rem;
   height: 28rem;
+  /* Tombol "Perbesar" di dasar layar ini ada di bawah bilah judul, jadi
+     dinaikkan sebesar selisihnya supaya sejajar dengan tombol di kartu web
+     (sekitar 23.5rem dari atas kartu): 28rem + 1.88rem (atas layar) - 24.06rem
+     (dasar layar web) = 5.82rem. */
+  --sesuai-petunjuk: 5.82rem;
   /* Tanpa ini, ujung gif-nya persegi walau bingkai di luarnya (.bingkaiMobile)
      sudah membulat — .layar sudah overflow:hidden, tinggal dikasih radius
      yang sama supaya ujung gambarnya ikut mengikuti lengkung bingkainya. */

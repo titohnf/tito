@@ -36,7 +36,9 @@ export function VideoPopup({ src, poster, judul, mobile }: Props) {
         onClick={() => setTerbuka(true)}
         aria-label={`Perbesar video: ${judul}`}
       >
-        <video className={styles.video} src={src} poster={poster} autoPlay loop muted playsInline />
+        {/* Tanpa autoPlay: yang menentukan kapan video di kartu diputar adalah
+            GeseranPortofolio (hanya kartu aktif), supaya tidak semua bergerak sekaligus. */}
+        <video className={styles.video} src={src} poster={poster} preload="metadata" loop muted playsInline />
         <span className={styles.petunjuk} aria-hidden="true">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
@@ -51,22 +53,27 @@ export function VideoPopup({ src, poster, judul, mobile }: Props) {
         aria-label={judul}
         onClose={() => setTerbuka(false)}
         onClick={(e) => {
-          // Klik di area gelap (bukan di video) menutup popup.
+          // Klik di area gelap (di luar kartu popup) menutup popup.
           if (e.target === e.currentTarget) setTerbuka(false);
         }}
       >
         {terbuka && (
           <div className={styles.isi}>
-            <video
-              className={styles.videoBesar}
-              src={src}
-              poster={poster}
-              autoPlay
-              loop
-              muted
-              playsInline
-              controls
-            />
+            <div className={styles.kepala}>
+              <h2 className={styles.judul}>{judul}</h2>
+            </div>
+            <div className={styles.layarBesar}>
+              <video
+                className={styles.videoBesar}
+                src={src}
+                poster={poster}
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls
+              />
+            </div>
             <button type="button" className={styles.tutup} onClick={() => setTerbuka(false)} aria-label="Tutup">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                 <path d="M6 6l12 12M18 6L6 18" />

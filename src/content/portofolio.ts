@@ -7,6 +7,8 @@ export type KartuPortofolio = {
   judul: string;
   teks: string;
   href: string;
+  /** Penjelasan singkat di bawah judul kartu. */
+  deskripsi?: string;
   gambar?: string;
   /** Bingkai diam: tampil di `gambar` (gif) sampai di-hover, atau jadi `poster` <video> sebelum videonya termuat. */
   poster?: string;
@@ -34,7 +36,8 @@ export const portofolio: KelompokPortofolio[] = [
     judul: "Contoh nyata untuk usaha kecil",
     kartu: [
       {
-        judul: "Profil Siswa & Status Tagihan",
+        judul: "Dasbor tutor dan orang tua",
+        deskripsi: "Dari progres siswa hingga status pembayaran, semua tercatat dengan jelas.",
         teks: "Dari pencatatan manual jadi serba digital, dibangun dari nol untuk bimbel keluarga sendiri. Bukan klien berbayar, tapi cara kerjanya sama.",
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar sistem beneran (data dummy, bukan siswa asli).
@@ -42,12 +45,32 @@ export const portofolio: KelompokPortofolio[] = [
         poster: "/videos/bimbel-tera-poster.jpg",
       },
       {
-        judul: "Belajar Mandiri per Topik",
+        judul: "Aplikasi belajar siswa",
+        deskripsi: "Siswa dapat belajar mandiri di rumah",
         teks: "Dari portal keluarga, anak bisa memilih mapel dan topik lalu membaca materinya sendiri, kapan saja tanpa perlu nunggu tutor.",
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar portal keluarga beneran (akun & siswa dummy, bukan siswa asli), ukuran mobile.
         video: "/videos/belajar-mandiri-preview.mp4",
         poster: "/videos/belajar-mandiri-poster.jpg",
+        mobile: true,
+      },
+      {
+        judul: "Website Bimbel Tera",
+        deskripsi: "Menampilkan informasi seputar bimbel",
+        teks: "Website bimbel yang dibangun sendiri, dari beranda sampai bagian bawah.",
+        href: "https://bimbeltera.com",
+        // Rekaman scroll beranda bimbeltera.com (situs asli, bukan data siswa).
+        video: "/videos/bimbeltera-scroll.webm",
+        poster: "/videos/bimbeltera-scroll-poster.jpg",
+      },
+      {
+        judul: "Aplikasi latihan soal",
+        deskripsi: "Desain soal interaktif sesuai kebutuhan",
+        teks: "Tes berhitung, dari nilai tempat. Tiap soal dijawab langsung di HP.",
+        href: "/rekam-jejak/bimbel-tera",
+        // Rekaman layar soal 1–5 Tes Fondasi Digital (halaman soal dijalankan lokal, bukan data siswa asli).
+        video: "/videos/tes-fondasi-preview.webm",
+        poster: "/videos/tes-fondasi-poster.jpg",
         mobile: true,
       },
     ],
