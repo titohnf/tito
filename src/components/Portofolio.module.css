@@ -15,7 +15,7 @@
 /* Label kecil di atas judul, sama gaya dengan segmen Layanan/Tentang. */
 .label {
   margin-bottom: 1rem;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -37,7 +37,7 @@
 
 .judul {
   max-width: 26ch;
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: clamp(1.75rem, 5.6vw, 2.5rem);
   line-height: 1.12;
   letter-spacing: -0.038em;
@@ -58,7 +58,7 @@
   border: 1px solid var(--garis);
   border-radius: 999px;
   background: var(--panel);
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.8rem;
   letter-spacing: 0.04em;
   color: var(--tinta);
@@ -72,7 +72,7 @@
 
 .judulKelompok {
   margin-bottom: 0.4rem;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -326,6 +326,7 @@
   background: var(--putih);
   color: var(--tinta);
   font-size: 1.02rem;
+  font-weight: var(--bobot-judul);
 }
 
 /* Ruang di kanan judul untuk tombol putar/jeda video. */
@@ -420,10 +421,10 @@
 /* Label kecil (tahun, tim) di atas judul kartu. */
 .labelKartu {
   display: block;
-  margin-bottom: 0;
+  margin-bottom: 0.25rem;
   font-size: 0.8rem;
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.3;
   color: var(--tinta-2);
 }
 
@@ -439,7 +440,7 @@
   -webkit-line-clamp: 2;
   font-size: 0.9rem;
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.3;
   color: var(--tinta-2);
   transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease;
 }
@@ -447,7 +448,7 @@
 .itemKartu:hover .deskripsiKartu,
 .itemKartu:focus-within .deskripsiKartu {
   max-height: 2.7rem;
-  margin-top: 0.35rem;
+  margin-top: 0.25rem;
   opacity: 1;
 }
 

@@ -5,7 +5,7 @@
 
 .judulBagian {
   margin-bottom: 1rem;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -70,7 +70,7 @@
 .judulTahap {
   margin-bottom: 0.5rem;
   color: var(--tinta);
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: 1.2rem;
   letter-spacing: -0.02em;
 }

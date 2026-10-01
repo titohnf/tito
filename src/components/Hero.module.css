@@ -36,11 +36,52 @@
 }
 
 .judul {
-  font-weight: 500;
-  font-size: clamp(2.4rem, 8vw, 3.75rem);
-  line-height: 1.05;
-  letter-spacing: -0.05em;
+  /* Lebih tebal dari judul lain (--bobot-judul): judul utama halaman. */
+  font-weight: 700;
+  font-size: clamp(2rem, 9vw, 4.25rem);
+  /* Jarak huruf dan baris dilonggarkan dari -0.05em / 1.05: pada bobot 700
+     huruf-huruf yang terlalu rapat saling menempel dan sulit dibaca. */
+  line-height: 1.12;
+  letter-spacing: -0.035em;
   text-wrap: balance;
+}
+
+/* Penjelasan singkat di bawah judul. */
+.deskripsi {
+  max-width: 48rem;
+  margin: clamp(1.25rem, 3.2vw, 1.75rem) auto 0;
+  font-size: clamp(1.2rem, 3.4vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.55;
+  /* Jarak huruf dirapatkan sedikit (jauh di bawah judul yang -0.035em) dan
+     warna hampir sehitam judul, supaya paragraf tetap mudah dibaca. */
+  letter-spacing: -0.01em;
+  color: color-mix(in srgb, var(--tinta) 90%, var(--putih));
+  text-wrap: balance;
+}
+
+/* Emoji di belakang sapaan melambai sekali di awal (setelah halaman tampil),
+   lalu diam. Tidak bergerak kalau pengunjung minta gerakan dikurangi. */
+.lambai {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: lambai 2.2s ease-in-out 0.5s 1 both;
+}
+
+@keyframes lambai {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(16deg); }
+  22% { transform: rotate(-10deg); }
+  34% { transform: rotate(16deg); }
+  46% { transform: rotate(-8deg); }
+  58% { transform: rotate(12deg); }
+  72%, 100% { transform: rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lambai {
+    animation: none;
+  }
 }
 
 .aksi {
@@ -49,11 +90,16 @@
   align-items: center;
   gap: 0.85rem;
   width: 100%;
-  margin-top: clamp(1.25rem, 3vw, 2rem);
+  margin-top: clamp(2.1rem, 4.6vw, 3.1rem);
 }
 
 .aksi > a {
   width: 100%;
+  /* Tombol hero lebih besar dari tombol biasa. */
+  min-height: 3.5rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 12px;
+  font-size: 1.125rem;
 }
 
 @media (min-width: 560px) {

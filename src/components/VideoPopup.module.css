@@ -25,6 +25,7 @@
 
 /* Petunjuk kecil di pojok kanan bawah video: muncul saat kartu di-hover / difokus. */
 .petunjuk {
+  font-family: inherit;
   position: absolute;
   right: 0.6rem;
   bottom: calc(0.6rem + var(--sesuai-petunjuk, 0rem));
@@ -120,7 +121,7 @@
 .judul {
   margin: 0;
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   line-height: 1.25;
   letter-spacing: -0.02em;
   color: var(--tinta);

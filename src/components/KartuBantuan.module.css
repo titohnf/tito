@@ -319,7 +319,7 @@
 
 .kode {
   display: grid;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   white-space: pre;
 }
 
@@ -606,7 +606,7 @@
 .judulDialog {
   max-width: 30ch;
   padding-right: 2rem;
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: 1.35rem;
   line-height: 1.3;
   letter-spacing: -0.025em;
@@ -632,7 +632,7 @@
 }
 
 .judulBagian {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.72rem;
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -660,7 +660,7 @@
 
 .langkah li::before {
   content: counter(langkah, decimal-leading-zero);
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.7rem;
   line-height: 1.9;
   color: var(--tinta-3);

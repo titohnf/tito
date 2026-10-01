@@ -33,7 +33,7 @@
 }
 
 .kelompok {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.64rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;

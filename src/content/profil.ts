@@ -4,8 +4,10 @@
 import type { Segmen } from "./segmen";
 
 export const hero = {
-  sapaan: "👋 Halo, saya Tito",
-  judul: "Saya bantu membuat website dan sistem untuk usaha kamu",
+  sapaan: "Halo, saya Tito Hanafi",
+  judul: "Desainer Produk & Pengembang Sistem",
+  deskripsi:
+    "Saya membantu pemilik usaha mengubah proses manual yang melelahkan menjadi sistem yang simpel dan mudah digunakan.",
   tombolUtama: "Ngobrol Dulu, Gratis",
   pesanTombolUtama: "Halo Tito, saya mau ngobrol soal website atau sistem untuk usaha saya. Boleh ngobrol dulu?",
   tombolSekunder: "Lihat Layanan",

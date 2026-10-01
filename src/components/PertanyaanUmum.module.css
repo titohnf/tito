@@ -12,7 +12,7 @@
   max-width: 26ch;
   margin: 0 auto 2rem;
   text-align: center;
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: clamp(1.75rem, 5.6vw, 2.5rem);
   line-height: 1.12;
   letter-spacing: -0.038em;

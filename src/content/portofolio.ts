@@ -117,7 +117,7 @@ export const segmenPortofolio: SegmenPortofolio[] = [
           {
             label: "2025",
             judul: "Rumah Pendidikan",
-            deskripsi: "Kemendikdasmen",
+            deskripsi: "Design Manager INA Digital Edu",
             href: "/rekam-jejak/rumah-pendidikan",
             gambar: "/images/rumah-pendidikan-kartu.png",
             logo: "/images/rumah-pendidikan-logo.webp",
@@ -127,7 +127,7 @@ export const segmenPortofolio: SegmenPortofolio[] = [
           {
             label: "2024",
             judul: "INAku",
-            deskripsi: "Peruri",
+            deskripsi: "Lead UX Designer INA Digital",
             href: "/rekam-jejak/inaku",
             gambar: "/images/inaku-kartu.png",
             logo: "/images/inaku-logo.webp",
@@ -137,7 +137,7 @@ export const segmenPortofolio: SegmenPortofolio[] = [
           {
             label: "2020",
             judul: "Jakarta Kini (JAKI)",
-            deskripsi: "Pemprov DKI Jakarta",
+            deskripsi: "Lead UI/UX Designer JSC",
             href: "/rekam-jejak/redesain-jaki",
             gambar: "/images/jaki-kartu.png",
             logo: "/images/jaki-logo.webp",

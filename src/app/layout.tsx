@@ -1,20 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PelacakWA } from "@/components/PelacakWA";
 import "./globals.css";
 
-const sans = Geist({
+const sans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const mono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
   display: "swap",
 });
 
@@ -69,7 +63,7 @@ const dataTerstruktur = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="id" className={sans.variable}>
       <body>
         <script
           type="application/ld+json"

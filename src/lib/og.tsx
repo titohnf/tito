@@ -17,11 +17,10 @@ async function muatFont(family: string, teks: string) {
 export async function gambarOg(judul: string, bawah: string) {
   const atas = "TITO HANAFI";
 
-  let fonts: { name: string; data: ArrayBuffer; weight: 400 | 500 }[] = [];
+  let fonts: { name: string; data: ArrayBuffer; weight: 400 | 500 | 600 }[] = [];
   try {
     fonts = [
-      { name: "Geist", data: await muatFont("Geist:wght@500", judul + bawah), weight: 500 },
-      { name: "Geist Mono", data: await muatFont("Geist+Mono:wght@400", atas), weight: 400 },
+      { name: "Inter", data: await muatFont("Inter:wght@600", judul + bawah + atas), weight: 600 },
     ];
   } catch {
     // fallback ke font bawaan kalau Google Fonts tidak bisa diakses saat build
@@ -39,10 +38,10 @@ export async function gambarOg(judul: string, bawah: string) {
           padding: "72px 80px",
           background: "#FAFAF8",
           color: "#121211",
-          fontFamily: "Geist",
+          fontFamily: "Inter",
         }}
       >
-        <div style={{ display: "flex", fontFamily: "Geist Mono", fontSize: 24, letterSpacing: 2, color: "#9C9B95" }}>
+        <div style={{ display: "flex", fontFamily: "Inter", fontSize: 24, letterSpacing: 2, color: "#9C9B95" }}>
           {atas}
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 64, lineHeight: 1.1, letterSpacing: -2.5 }}>

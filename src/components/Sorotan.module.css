@@ -178,7 +178,7 @@
   inset: 0;
   display: grid;
   place-items: center;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.66rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -211,7 +211,7 @@
 }
 
 .labelGambar {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.05em;
   color: color-mix(in srgb, #fff 72%, transparent);
@@ -219,7 +219,7 @@
 
 .judulGambar {
   max-width: 52ch;
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   line-height: 1.3;
   letter-spacing: -0.025em;
@@ -279,7 +279,7 @@
 
 .judulSemua {
   color: var(--tinta);
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: 1.2rem;
   line-height: 1.3;
   letter-spacing: -0.025em;
@@ -396,7 +396,7 @@
   max-width: 24ch;
   margin-top: 0.85rem;
   color: var(--tinta);
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   /* sama persis dengan judul kartu sorotan lain */
   font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   line-height: 1.3;

@@ -88,7 +88,7 @@
 
 .judulPenutup {
   max-width: 26ch;
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: clamp(1.6rem, 5vw, 2.25rem);
   line-height: 1.15;
   letter-spacing: -0.035em;

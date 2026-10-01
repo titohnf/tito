@@ -12,7 +12,7 @@
   border: 1px solid var(--garis);
   border-radius: 999px;
   background: var(--panel);
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.65rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;

@@ -1,4 +1,6 @@
 :root {
+  /* Tebal semua judul (judul segmen, judul kartu, dsb.). */
+  --bobot-judul: 600;
   /* Padding atas/bawah segmen beranda; dua segmen berurutan berjarak 2x.
      --jarak-segmen: segmen berlatar putih polos (Rekam Jejak dan banner), yang
      tanpa tepi warna terasa lebih renggang kalau dibuat sama besar.
@@ -138,7 +140,7 @@ img {
 
 /* Label kecil bergaya mono, dipakai di seluruh halaman */
 .label {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.04em;

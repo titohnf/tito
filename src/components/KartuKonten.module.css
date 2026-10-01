@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.25rem 0.6rem;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -72,7 +72,7 @@
 }
 
 .judulTulisan {
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   font-size: clamp(1.35rem, 3vw, 1.75rem);
   line-height: 1.2;
   letter-spacing: -0.035em;
@@ -182,13 +182,13 @@
   background: rgb(18 18 17 / 0.8);
   color: var(--putih);
   border-radius: 4px;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.7rem;
 }
 
 .judulVideo {
   font-size: 1.05rem;
-  font-weight: 500;
+  font-weight: var(--bobot-judul);
   line-height: 1.35;
   letter-spacing: -0.02em;
 }

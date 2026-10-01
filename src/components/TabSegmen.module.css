@@ -39,7 +39,7 @@
 }
 
 .jumlah {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 0.68rem;
   font-weight: 400;
   line-height: 1.4;

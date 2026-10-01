@@ -20,11 +20,18 @@ export function Hero() {
         />
       </div>
 
-      <p className={styles.sapaan}>{hero.sapaan}</p>
+      <p className={styles.sapaan}>
+        {hero.sapaan}{" "}
+        <span className={styles.lambai} aria-hidden="true">
+          👋
+        </span>
+      </p>
 
       <h1 id="hero-judul" className={styles.judul}>
         {hero.judul}
       </h1>
+
+      <p className={styles.deskripsi}>{hero.deskripsi}</p>
 
       <div className={styles.aksi}>
         <Tombol href={linkWhatsApp(hero.pesanTombolUtama)} eksternal>
