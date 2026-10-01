@@ -45,6 +45,23 @@ export function GeseranPortofolio({ children }: { children: React.ReactNode }) {
     if (!j) return 0;
     const kartu = Array.from(j.children) as HTMLElement[];
     if (pilihRef.current !== null) return Math.min(pilihRef.current, kartu.length - 1);
+    if (window.matchMedia("(max-width: 639px)").matches) {
+      // Layar sempit: kartu aktif = yang paling dekat ke tengah layar. Ambang
+      // keterlihatan bisa meleset saat geseran/snap belum selesai, sehingga
+      // klik panah terasa tidak berpindah kartu.
+      const tengah = window.innerWidth / 2;
+      let terdekat = 0;
+      let jarak = Infinity;
+      kartu.forEach((k, i) => {
+        const r = k.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - tengah);
+        if (d < jarak) {
+          jarak = d;
+          terdekat = i;
+        }
+      });
+      return terdekat;
+    }
     if (j.scrollLeft + j.clientWidth >= j.scrollWidth - 4 && j.scrollLeft > 4) return kartu.length - 1;
     const i = kartu.findIndex((k) => {
       const r = k.getBoundingClientRect();
@@ -122,8 +139,11 @@ export function GeseranPortofolio({ children }: { children: React.ReactNode }) {
     pilihRef.current = tujuan;
     if (window.matchMedia("(max-width: 639px)").matches) {
       // Layar sempit: kartu tujuan dibawa ke tengah layar.
+      // Posisi absolut (bukan selisih dari posisi saat ini) supaya klik beruntun
+      // di tengah animasi tetap menuju kartu yang benar.
       const r = (j.children[tujuan] as HTMLElement).getBoundingClientRect();
-      j.scrollBy({ left: r.left + r.width / 2 - window.innerWidth / 2, behavior: "smooth" });
+      const kiri = j.scrollLeft + r.left + r.width / 2 - window.innerWidth / 2;
+      j.scrollTo({ left: kiri, behavior: "smooth" });
     } else {
       const maks = j.scrollWidth - j.clientWidth;
       j.scrollTo({ left: (tujuan / (n - 1)) * maks, behavior: "smooth" });

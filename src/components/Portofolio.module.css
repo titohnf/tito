@@ -169,14 +169,14 @@
      (lihat di bawah). */
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--biru) 42%, var(--putih)),
-    color-mix(in srgb, var(--ungu) 36%, var(--putih))
+    color-mix(in srgb, var(--biru) 62%, var(--putih)),
+    color-mix(in srgb, var(--ungu) 56%, var(--putih))
   );
 }
 
 .slide .itemKartu > div,
 .slideMobile .itemKartu > div {
-  background: color-mix(in srgb, var(--biru) 19%, var(--putih));
+  background: color-mix(in srgb, var(--biru) 36%, var(--putih));
   /* Warna latar tidak ikut bertransisi: gradien kartu aktif tidak bisa
      dianimasikan, dan transisi background-color membuat perpindahannya
      terlihat memudar lewat putih. Warnanya berganti seketika. */
@@ -193,16 +193,21 @@
 }
 
 /* Tema merah (segmen super app pemerintah): kartu yang tidak aktif berlatar
-   gradien merah ke putih, seperti bendera; kartu aktif merah solid. */
+   merah muda rata dengan kepucatan sama seperti biru muda kartu biasa;
+   kartu aktif bergradasi merah ke pink (kecerahan disetel sebanding dengan
+   gradien biru-ungu kartu aktif). */
 .temaMerah .slide:not([data-aktif]) .itemKartu > div,
 .temaMerah .slideMobile:not([data-aktif]) .itemKartu > div {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--merah) 24%, var(--putih)), var(--putih));
+  background: color-mix(in srgb, var(--merah) 36%, var(--putih));
 }
 
 .temaMerah .slide[data-aktif] .itemKartu > div,
 .temaMerah .slideMobile[data-aktif] .itemKartu > div {
-  /* Merah lembut: --merah dicampur putih, bukan merah pekat. */
-  background: color-mix(in srgb, var(--merah) 62%, var(--putih));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--merah) 55%, var(--putih)),
+    color-mix(in srgb, #e64980 70%, var(--putih))
+  );
 }
 
 .slide {

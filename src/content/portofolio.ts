@@ -103,15 +103,9 @@ const kelompokBimbel: KelompokPortofolio[] = [
 
 export const segmenPortofolio: SegmenPortofolio[] = [
   {
-    id: "bimbel",
-    label: "Rekam Jejak",
-    judul: "📚 Membangun sistem Bimbel",
-    pil: ["PT. Sinergi Cendikia Indonesia"],
-    kelompok: kelompokBimbel,
-  },
-  {
     id: "super-app",
-    judul: "🇮🇩 Mendesain super app pemerintah",
+    label: "Rekam Jejak",
+    judul: "Mendesain super app pemerintah 🇮🇩",
     tema: "merah",
     pil: ["Pemprov DKI Jakarta", "Peruri", "Kemendikdasmen"],
     kelompok: [
@@ -153,5 +147,11 @@ export const segmenPortofolio: SegmenPortofolio[] = [
         ],
       },
     ],
+  },
+  {
+    id: "bimbel",
+    judul: "Membangun sistem bimbel 📚",
+    pil: ["PT. Sinergi Cendikia Indonesia"],
+    kelompok: kelompokBimbel,
   },
 ];
