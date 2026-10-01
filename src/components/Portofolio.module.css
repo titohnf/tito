@@ -5,6 +5,11 @@
   overflow-x: clip;
 }
 
+/* Segmen berurutan: jarak antar segmen cukup satu padding, bukan dua. */
+.segmen + .segmen {
+  padding-top: 0;
+}
+
 /* Label kecil di atas judul, sama gaya dengan segmen Layanan/Tentang. */
 .label {
   margin-bottom: 1rem;
@@ -36,11 +41,17 @@
   letter-spacing: -0.038em;
 }
 
-/* Pil nama perusahaan di bawah judul segmen. */
+/* Deretan pil (perusahaan/instansi) di bawah judul segmen. */
+.daftarPil {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.9rem 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
 .perusahaan {
-  display: inline-block;
-  margin-top: 0.9rem;
-  margin-bottom: 2rem;
   padding: 0.3rem 0.85rem;
   border: 1px solid var(--garis);
   border-radius: 999px;
@@ -48,7 +59,7 @@
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.8rem;
   letter-spacing: 0.04em;
-  color: var(--tinta-2);
+  color: var(--tinta);
 }
 
 .kelompokDaftar {
@@ -153,22 +164,25 @@
 .slideMobile[data-aktif] .itemKartu > div {
   transform: scale(1.02);
   box-shadow: var(--bayang-naik);
-  /* Kartu aktif: gradien biru-ke-ungu yang sama dengan latar segmen Mockup
-     (Mockup.module.css); kartu lain biru muda (lihat di bawah). */
+  /* Kartu aktif: gradien biru-ke-ungu seperti latar segmen Mockup
+     (Mockup.module.css) tapi lebih pekat; kartu lain biru muda
+     (lihat di bawah). */
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--biru) 24%, var(--putih)),
-    color-mix(in srgb, var(--ungu) 20%, var(--putih))
+    color-mix(in srgb, var(--biru) 42%, var(--putih)),
+    color-mix(in srgb, var(--ungu) 36%, var(--putih))
   );
 }
 
 .slide .itemKartu > div,
 .slideMobile .itemKartu > div {
-  background: color-mix(in srgb, var(--biru) 7%, var(--putih));
+  background: color-mix(in srgb, var(--biru) 19%, var(--putih));
+  /* Warna latar tidak ikut bertransisi: gradien kartu aktif tidak bisa
+     dianimasikan, dan transisi background-color membuat perpindahannya
+     terlihat memudar lewat putih. Warnanya berganti seketika. */
   transition:
     box-shadow 0.3s ease,
-    transform 0.3s ease,
-    background-color 0.3s ease;
+    transform 0.3s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -176,6 +190,19 @@
   .slideMobile .itemKartu > div {
     transition: none;
   }
+}
+
+/* Tema merah (segmen super app pemerintah): kartu yang tidak aktif berlatar
+   gradien merah ke putih, seperti bendera; kartu aktif merah solid. */
+.temaMerah .slide:not([data-aktif]) .itemKartu > div,
+.temaMerah .slideMobile:not([data-aktif]) .itemKartu > div {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--merah) 24%, var(--putih)), var(--putih));
+}
+
+.temaMerah .slide[data-aktif] .itemKartu > div,
+.temaMerah .slideMobile[data-aktif] .itemKartu > div {
+  /* Merah lembut: --merah dicampur putih, bukan merah pekat. */
+  background: color-mix(in srgb, var(--merah) 62%, var(--putih));
 }
 
 .slide {
@@ -316,6 +343,27 @@
   padding-right: 4rem;
 }
 
+/* Logo aplikasi di kiri judul: ikon kotak yang menempel di sisi atas bilah
+   (bilah memanjang ke atas saat hover, logonya ikut naik bersama teksnya). */
+.judulLogo {
+  padding-left: 4.6rem;
+}
+
+.logoKartu {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+/* Ruang di kanan judul untuk ikon globe. */
+.judulWeb {
+  padding-right: 4rem;
+}
+
 /* Tombol putar/jeda: lingkaran kecil biru di pojok kanan bawah bilah
    judul (z-index 3, di atas bilahnya), berisi ikon biru terisi. */
 .kontrolVideo {
@@ -339,6 +387,54 @@
 
 .kontrolVideo:hover {
   background: color-mix(in srgb, var(--biru) 18%, var(--putih));
+}
+
+/* Seluruh kartu menjadi tautan ke situsnya (tab baru): <a> menutupi kartu,
+   dan ikon globe di pojok kanan bawah bilah judul hanya penanda. Di atas
+   bilah judul (z-index 3). */
+.linkKartu {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  cursor: pointer;
+}
+
+.linkKartu:focus-visible {
+  outline: 3px solid var(--biru);
+  outline-offset: -3px;
+}
+
+/* Ikon globe: lingkaran kecil biru muda di dalam bilah judul, rata tengah
+   secara vertikal terhadap bilahnya (tetap di tengah saat bilah memanjang
+   ke atas karena deskripsi muncul). */
+.ikonWeb {
+  position: absolute;
+  top: 50%;
+  right: 1.25rem;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--biru) 10%, var(--putih));
+  color: var(--biru);
+  transition: background-color 0.2s;
+}
+
+.itemKartu:hover .ikonWeb {
+  background: color-mix(in srgb, var(--biru) 18%, var(--putih));
+}
+
+/* Label kecil (tahun, tim) di atas judul kartu. */
+.labelKartu {
+  display: block;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--tinta-2);
 }
 
 /* Penjelasan di bilah judul: tersembunyi (tinggi 0) sampai kartu di-hover atau

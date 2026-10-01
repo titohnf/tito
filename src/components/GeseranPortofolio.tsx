@@ -20,6 +20,8 @@ const BATAS_TERLIHAT = 0.6;
  *     trackpad, sentuh);
  *  3. kalau barisnya sudah mentok di kanan, kartu terakhir;
  *  4. selain itu, kartu paling kiri yang cukup terlihat.
+ * Kalau semua kartu sudah muat di layar (tidak perlu digeser), tidak ada panah
+ * dan tidak ada kartu aktif bawaan; hanya kartu yang di-hover yang aktif.
  * Kartu yang tidak aktif kembali ke keadaan awal: video berhenti dan kembali
  * ke bingkai pertama (poster), dan jeda dari pengunjung ikut dilupakan.
  * Seluruh video berhenti kalau barisnya keluar layar, dan tidak pernah
@@ -32,6 +34,10 @@ export function GeseranPortofolio({ children }: { children: React.ReactNode }) {
   const terlihatRef = useRef(true);
   const [aktif, setAktif] = useState(0);
   const [jumlah, setJumlah] = useState(0);
+  // Semua kartu sudah muat di layar (tanpa perlu digeser): panah disembunyikan
+  // dan tidak ada kartu aktif bawaan, kartu baru aktif saat di-hover.
+  // null = belum diukur.
+  const [muat, setMuat] = useState<boolean | null>(null);
 
   // Kartu aktif tanpa memperhitungkan hover (dipakai juga oleh panah).
   const hitungAktif = useCallback(() => {
@@ -54,7 +60,12 @@ export function GeseranPortofolio({ children }: { children: React.ReactNode }) {
     if (!j) return;
     const kartu = Array.from(j.children) as HTMLElement[];
     const dasar = hitungAktif();
-    const idx = hoverRef.current ?? dasar;
+    // Muat = tepi kanan kartu terakhir (dihitung seperti saat belum digeser)
+    // masih di dalam layar. Padding kanan barisnya sengaja tidak dihitung.
+    const ujung = kartu[kartu.length - 1].getBoundingClientRect().right - j.getBoundingClientRect().left + j.scrollLeft;
+    const semuaMuat = ujung <= j.clientWidth - 16;
+    setMuat(semuaMuat);
+    const idx = hoverRef.current ?? (semuaMuat ? -1 : dasar);
     setAktif(dasar);
     setJumlah(kartu.length);
     const kurangiGerak = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -147,26 +158,28 @@ export function GeseranPortofolio({ children }: { children: React.ReactNode }) {
       >
         {children}
       </ul>
-      <div className={styles.panah}>
-        <button
-          type="button"
-          className={styles.tombolPanah}
-          onClick={() => geser(-1)}
-          disabled={aktif <= 0}
-          aria-label="Sebelumnya"
-        >
-          <ArrowLeft size={18} strokeWidth={2} aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className={styles.tombolPanah}
-          onClick={() => geser(1)}
-          disabled={aktif >= jumlah - 1}
-          aria-label="Berikutnya"
-        >
-          <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
-        </button>
-      </div>
+      {muat === false && (
+        <div className={styles.panah}>
+          <button
+            type="button"
+            className={styles.tombolPanah}
+            onClick={() => geser(-1)}
+            disabled={aktif <= 0}
+            aria-label="Sebelumnya"
+          >
+            <ArrowLeft size={18} strokeWidth={2} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className={styles.tombolPanah}
+            onClick={() => geser(1)}
+            disabled={aktif >= jumlah - 1}
+            aria-label="Berikutnya"
+          >
+            <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

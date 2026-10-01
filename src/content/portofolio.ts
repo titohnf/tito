@@ -4,9 +4,15 @@
  * bisa beda dari logika `segmen` yang dipakai /rekam-jejak.
  */
 export type KartuPortofolio = {
+  /** Label kecil di atas judul kartu, mis. tahun ("2020"). */
+  label?: string;
   judul: string;
-  teks: string;
+  teks?: string;
   href: string;
+  /** Logo aplikasi: ikon kotak kecil di kiri judul kartu. */
+  logo?: string;
+  /** Alamat situs: tombol "Kunjungi web" di kanan bilah judul (dibuka di tab baru). */
+  web?: string;
   /** Penjelasan singkat di bawah judul kartu. */
   deskripsi?: string;
   gambar?: string;
@@ -31,7 +37,25 @@ export type KelompokPortofolio = {
   kartu: KartuPortofolio[];
 };
 
-export const portofolio: KelompokPortofolio[] = [
+/**
+ * Satu segmen Rekam Jejak di beranda: judul, deretan pil (instansi/perusahaan)
+ * di bawahnya, tombol opsional di kanan judul, lalu kartu-kartunya.
+ */
+export type SegmenPortofolio = {
+  id: string;
+  /** Label kecil di atas judul; cukup di segmen pertama, segmen berikutnya masih bagian dari label yang sama. */
+  label?: string;
+  judul: string;
+  /** Tema warna latar kartu yang tidak aktif: bawaan biru muda, atau gradien merah ke putih. */
+  tema?: "merah";
+  /** Pil di bawah judul, mis. nama perusahaan atau instansi. */
+  pil: string[];
+  /** Tombol opsional sejajar judul (dibuka di tab baru). */
+  tombol?: { label: string; href: string };
+  kelompok: KelompokPortofolio[];
+};
+
+const kelompokBimbel: KelompokPortofolio[] = [
   {
     judul: "Contoh nyata untuk usaha kecil",
     kartu: [
@@ -72,6 +96,61 @@ export const portofolio: KelompokPortofolio[] = [
         video: "/videos/tes-fondasi-preview.webm",
         poster: "/videos/tes-fondasi-poster.jpg",
         mobile: true,
+      },
+    ],
+  },
+];
+
+export const segmenPortofolio: SegmenPortofolio[] = [
+  {
+    id: "bimbel",
+    label: "Rekam Jejak",
+    judul: "📚 Membangun sistem Bimbel",
+    pil: ["PT. Sinergi Cendikia Indonesia"],
+    kelompok: kelompokBimbel,
+  },
+  {
+    id: "super-app",
+    judul: "🇮🇩 Mendesain super app pemerintah",
+    tema: "merah",
+    pil: ["Pemprov DKI Jakarta", "Peruri", "Kemendikdasmen"],
+    kelompok: [
+      {
+        judul: "Super app pemerintah",
+        kartu: [
+          // Tangkapan layar aplikasi (rasio potret). Boleh diganti `video` + `poster`
+          // kalau nanti ada rekaman layarnya.
+          {
+            label: "2020",
+            judul: "Jakarta Kini (JAKI)",
+            deskripsi: "Pemprov DKI Jakarta",
+            href: "/rekam-jejak/redesain-jaki",
+            gambar: "/images/jaki-kartu.png",
+            logo: "/images/jaki-logo.webp",
+            web: "https://jaki.jakarta.go.id/",
+            mobile: true,
+          },
+          {
+            label: "2024",
+            judul: "INAku",
+            deskripsi: "Peruri",
+            href: "/rekam-jejak/inaku",
+            gambar: "/images/inaku-kartu.png",
+            logo: "/images/inaku-logo.webp",
+            web: "https://inaku.go.id/",
+            mobile: true,
+          },
+          {
+            label: "2025",
+            judul: "Rumah Pendidikan",
+            deskripsi: "Kemendikdasmen",
+            href: "/rekam-jejak/rumah-pendidikan",
+            gambar: "/images/rumah-pendidikan-kartu.png",
+            logo: "/images/rumah-pendidikan-logo.webp",
+            web: "https://rumah.pendidikan.go.id/",
+            mobile: true,
+          },
+        ],
       },
     ],
   },
