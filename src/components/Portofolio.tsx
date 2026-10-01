@@ -89,8 +89,8 @@ function KartuItem({ k, tinggiTetap }: { k: KartuPortofolio; tinggiTetap: boolea
 export function Portofolio() {
   return (
     <>
-      {segmenPortofolio.map((segmen) => (
-        <section key={segmen.id} className={`${styles.segmen} ${segmen.tema === "merah" ? styles.temaMerah : ""}`} aria-labelledby={`portofolio-${segmen.id}`}>
+      {segmenPortofolio.map((segmen, i) => (
+        <section key={segmen.id} className={`${styles.segmen} ${i === 0 ? styles.segmenAwal : ""} ${segmen.tema === "merah" ? styles.temaMerah : ""}`} aria-labelledby={`portofolio-${segmen.id}`}>
           <div className="wadah">
             <div className={styles.kepala}>
               <div>

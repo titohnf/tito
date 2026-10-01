@@ -1,13 +1,14 @@
 .segmen {
-  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  padding-block: var(--jarak-segmen);
   /* Baris geser melebar sampai tepi layar; jangan sampai memunculkan
      scroll horizontal di halaman. */
   overflow-x: clip;
 }
 
-/* Segmen berurutan: jarak antar segmen cukup satu padding, bukan dua. */
-.segmen + .segmen {
-  padding-top: 0;
+/* Segmen pertama berbatasan dengan pita Layanan: jaraknya disamakan dengan
+   jarak antar pita lain (--jarak-pita), bukan jarak antar segmen putih. */
+.segmenAwal {
+  padding-top: var(--jarak-pita);
 }
 
 /* Label kecil di atas judul, sama gaya dengan segmen Layanan/Tentang. */

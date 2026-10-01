@@ -11,7 +11,7 @@
   /* Semburat di bawah duduk di z-index -1: isolate supaya "di bawah" berhenti
      di pita ini, bukan tembus ke latar halaman di belakangnya. */
   isolation: isolate;
-  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  padding-block: var(--jarak-pita);
   background: var(--biru-tipis);
   /* Tujuan tombol utama di hero (#layanan): beri ruang supaya judulnya tidak
      tertutup kepala halaman yang menempel di atas. Sama dengan segmen Ayo Ngobrol. */

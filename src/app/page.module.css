@@ -3,8 +3,9 @@
   background: var(--putih);
 }
 
-/* Banner ajakan diskusi di bawah Rekam Jejak: jarak bawah lebih longgar
-   supaya tidak menempel ke segmen Tentang. */
+/* Banner ajakan diskusi di bawah Rekam Jejak: jarak bawah disamakan dengan
+   padding atas pita Tentang, supaya jarak ke pita sama seperti antar pita lain. */
 .banner {
-  padding-bottom: clamp(2.5rem, 7vw, 4.5rem);
+  padding-top: var(--jarak-segmen);
+  padding-bottom: var(--jarak-pita);
 }

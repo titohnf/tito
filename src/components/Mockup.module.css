@@ -7,7 +7,7 @@
  * dipakai di hero & segmen Layanan.
  */
 .mockup {
-  padding-block: clamp(2rem, 6vw, 3.5rem);
+  padding-block: var(--jarak-pita);
   background: linear-gradient(
     135deg,
     color-mix(in srgb, var(--biru) 24%, var(--putih)),

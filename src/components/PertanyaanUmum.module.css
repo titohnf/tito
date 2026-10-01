@@ -1,6 +1,6 @@
 /* Latar gradasi biru muda di atas yang memudar ke putih di bawah */
 .segmen {
-  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  padding-block: var(--jarak-pita);
   background: linear-gradient(
     to bottom,
     color-mix(in srgb, var(--biru) 4%, var(--putih)),

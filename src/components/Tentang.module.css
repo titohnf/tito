@@ -1,5 +1,5 @@
 .tentang {
-  padding-block: clamp(3rem, 8vw, 5rem);
+  padding-block: var(--jarak-pita);
   /* Gradasi biru ke putih, dari atas ke bawah segmen. Birunya diambil dari
      --biru langsung (bukan --biru-tipis yang nyaris putih), supaya benar-benar
      terbaca sebagai bidang biru. */

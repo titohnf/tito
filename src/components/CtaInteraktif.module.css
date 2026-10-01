@@ -6,7 +6,7 @@
  */
 .cta {
   /* Atas disamakan dengan jarak di sisi lain garis pembatas segmen Tentang */
-  padding-block: clamp(3rem, 8vw, 5rem);
+  padding-block: var(--jarak-pita);
   background: var(--gelap);
   scroll-margin-top: 4rem;
   position: relative;
