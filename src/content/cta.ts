@@ -68,7 +68,13 @@ export function susunPesan(p: Peran, k: Kebutuhan) {
  * Terpisah dari `kebutuhan` di atas: yang itu jadi pilihan di CTA interaktif,
  * yang ini kartu dengan copy sendiri.
  */
-export type BagianLayanan = { judul: string; paragraf?: string; langkah?: string[] };
+export type BagianLayanan = {
+  judul: string;
+  paragraf?: string;
+  langkah?: string[];
+  /** Teks kecil di bawah isi bagian, mis. catatan syarat atau keterbatasan. */
+  catatan?: string;
+};
 
 export type Layanan = {
   id: string;
@@ -181,40 +187,36 @@ export const layanan: Layanan[] = [
   {
     id: "ai",
     judul: "Belajar Bikin Website Sendiri",
-    harga: "Mulai Rp 750 ribu",
+    harga: "Rp150.000/pertemuan",
     teks: "Saya temani sampai kamu bisa bikin dan merawat website sendiri dengan bantuan AI.",
     judulDetail: "Belajar Bikin Website Sendiri",
     detail: [
       {
-        judul: "Yang kamu dapat",
+        judul: "Tentang kelas",
         paragraf:
-          "Bukan saya yang bikinin, tapi kamu — saya yang nemenin. Kita pakai alat AI yang ada sekarang buat nyusun website kamu dari nol, sampai kamu ngerti cara ngubah dan ngerawatnya sendiri tanpa perlu nunggu siapa-siapa.",
+          "Kelas kecil (maksimal 5 orang per batch, minimal 3 orang agar kelas berjalan), 4 kali pertemuan, 1–1,5 jam per pertemuan. Di akhir kelas, kamu punya website sendiri yang kamu bangun pakai AI — bukan cuma teori.",
       },
       {
-        judul: "Prosesnya",
+        judul: "Harga",
+        paragraf: "Rp150.000 per pertemuan per orang. Untuk 4 pertemuan: Rp600.000/orang.",
+        catatan: "Kelas berjalan kalau pendaftar minimal 3 orang per batch.",
+      },
+      {
+        judul: "Materi per pertemuan",
         langkah: [
-          "Kita tentuin dulu website apa yang mau kamu bikin dan buat siapa",
-          "Saya kenalin alatnya dan cara ngobrol sama AI biar hasilnya sesuai maksud kamu",
-          "Kita kerjain bareng sambil jalan, kamu yang pegang kemudinya",
-          "Terakhir, saya kasih cara ngerawat dan ngembanginnya sendiri",
+          "Kenalan Tools & Mulai Halaman Pertama — kenalan sama alat AI coding, tentukan ide/usaha yang mau dijadikan website, langsung praktik bikin halaman Beranda.",
+          "Isi Konten Asli — tambah halaman Produk/Tentang/Kontak, belajar kasih instruksi yang jelas ke AI, mulai masukin teks dan foto usaha masing-masing.",
+          "Rapiin Tampilan — dasar bikin tampilan enak dilihat dan bagus di HP, tambah fitur sederhana (tombol WhatsApp, form kontak).",
+          "Online & Belajar Rawat Sendiri — cara publish website, dasar merawat/update sendiri, evaluasi hasil akhir bareng.",
         ],
-      },
-      {
-        judul: "Yang perlu disiapkan",
-        paragraf:
-          "Laptop dan waktu buat nyoba. Nggak perlu bisa ngoding — yang lebih kepakai justru kejelasan soal apa yang mau kamu sampaikan lewat website itu.",
-      },
-      {
-        judul: "Biaya",
-        paragraf:
-          "Biaya kelas mulai Rp 750 ribu per orang. Jadwal dan formatnya saya kabari lewat WhatsApp.",
       },
     ],
     pesan:
       "Halo Tito, saya mau belajar bikin website sendiri dengan bantuan AI. Boleh ngobrol dulu?",
     tombolDaftar: {
       label: "Daftar Kelas",
-      pesan: "Halo Tito, saya mau daftar kelas bikin website sendiri dengan AI. Boleh info jadwalnya?",
+      pesan:
+        "Halo Tito, saya mau daftar Kelas Belajar Bikin Website Sendiri. Boleh info jadwal batch berikutnya?",
     },
     lebar: true,
   },

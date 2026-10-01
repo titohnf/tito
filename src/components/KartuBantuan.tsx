@@ -299,6 +299,7 @@ export function KartuBantuan() {
                     ))}
                   </ol>
                 )}
+                {bagian.catatan && <p className={styles.catatan}>{bagian.catatan}</p>}
               </section>
             ))}
 

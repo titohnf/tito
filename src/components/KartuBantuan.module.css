@@ -618,6 +618,13 @@
   color: var(--tinta-2);
 }
 
+/* Catatan kecil di bawah isi bagian (syarat, keterbatasan) */
+.catatan {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+
 /* Tiap bagian isi pop up: judul kecil + paragraf atau daftar langkah */
 .bagian {
   display: grid;

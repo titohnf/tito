@@ -13,7 +13,7 @@ export const faq: Faq[] = [
   {
     pertanyaan: "Berapa biayanya?",
     jawaban:
-      "Website sederhana mulai Rp 2,5 juta, sistem digital mulai Rp 5 juta, dan kelas belajar bikin website mulai Rp 750 ribu. Angka pastinya tergantung kebutuhanmu; saya kabari setelah kita ngobrol, tanpa kewajiban lanjut.",
+      "Website sederhana mulai Rp 2,5 juta, sistem digital mulai Rp 5 juta, dan kelas belajar bikin website Rp150.000 per pertemuan (4 pertemuan). Angka pastinya tergantung kebutuhanmu; saya kabari setelah kita ngobrol, tanpa kewajiban lanjut.",
   },
   {
     pertanyaan: "Berapa lama pengerjaannya?",
