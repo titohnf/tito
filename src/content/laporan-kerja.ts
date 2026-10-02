@@ -64,7 +64,7 @@ export type LaporanKerja = {
   judul: string;
   /** Instansi/tim, tampil kecil di bawah judul. */
   tim?: string;
-  /** Gambar kartu (16:9); path di /public, mis. "/images/jaki-kartu.png". Kosong = placeholder. */
+  /** Gambar kartu (16:9); path di /public, mis. "/images/jaki-kartu.webp". Kosong = placeholder. */
   gambar?: string;
   pencapaian?: string;
   /** Tautan manual (mis. ke situs luar). Diabaikan kalau `detail` ada. */
@@ -144,7 +144,7 @@ export const laporanKerja: LaporanKerja[] = [
     segmen: ["perwakilan"],
     judul: "Redesain JAKI, Super App Jakarta",
     tim: "Jakarta Smart City",
-    // TODO: taruh gambar kartu di /public/images, mis. gambar: "/images/jaki-kartu.png"
+    // TODO: taruh gambar kartu di /public/images, mis. gambar: "/images/jaki-kartu.webp"
     gambar: "",
     pencapaian:
       "Memimpin redesain berbasis data yang membawa JAKI menang Champion WSIS Prizes 2021.",

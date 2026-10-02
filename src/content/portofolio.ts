@@ -66,7 +66,7 @@ const kelompokBimbel: KelompokPortofolio[] = [
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar sistem beneran (data dummy, bukan siswa asli).
         video: "/videos/bimbel-tera-preview.mp4",
-        poster: "/videos/bimbel-tera-poster.jpg",
+        poster: "/videos/bimbel-tera-poster.webp",
       },
       {
         judul: "Aplikasi belajar siswa",
@@ -75,7 +75,7 @@ const kelompokBimbel: KelompokPortofolio[] = [
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar portal keluarga beneran (akun & siswa dummy, bukan siswa asli), ukuran mobile.
         video: "/videos/belajar-mandiri-preview.mp4",
-        poster: "/videos/belajar-mandiri-poster.jpg",
+        poster: "/videos/belajar-mandiri-poster.webp",
         mobile: true,
       },
       {
@@ -85,7 +85,7 @@ const kelompokBimbel: KelompokPortofolio[] = [
         href: "https://bimbeltera.com",
         // Rekaman scroll beranda bimbeltera.com (situs asli, bukan data siswa).
         video: "/videos/bimbeltera-scroll.webm",
-        poster: "/videos/bimbeltera-scroll-poster.jpg",
+        poster: "/videos/bimbeltera-scroll-poster.webp",
       },
       {
         judul: "Aplikasi latihan soal",
@@ -94,7 +94,7 @@ const kelompokBimbel: KelompokPortofolio[] = [
         href: "/rekam-jejak/bimbel-tera",
         // Rekaman layar soal 1–5 Tes Fondasi Digital (halaman soal dijalankan lokal, bukan data siswa asli).
         video: "/videos/tes-fondasi-preview.webm",
-        poster: "/videos/tes-fondasi-poster.jpg",
+        poster: "/videos/tes-fondasi-poster.webp",
         mobile: true,
       },
     ],
@@ -119,7 +119,7 @@ export const segmenPortofolio: SegmenPortofolio[] = [
             judul: "Rumah Pendidikan",
             deskripsi: "Design Manager INA Digital Edu",
             href: "/rekam-jejak/rumah-pendidikan",
-            gambar: "/images/rumah-pendidikan-kartu.png",
+            gambar: "/images/rumah-pendidikan-kartu.webp",
             logo: "/images/rumah-pendidikan-logo.webp",
             web: "https://rumah.pendidikan.go.id/",
             mobile: true,
@@ -129,7 +129,7 @@ export const segmenPortofolio: SegmenPortofolio[] = [
             judul: "INAku",
             deskripsi: "Lead UX Designer INA Digital",
             href: "/rekam-jejak/inaku",
-            gambar: "/images/inaku-kartu.png",
+            gambar: "/images/inaku-kartu.webp",
             logo: "/images/inaku-logo.webp",
             web: "https://inaku.go.id/",
             mobile: true,
@@ -139,7 +139,7 @@ export const segmenPortofolio: SegmenPortofolio[] = [
             judul: "Jakarta Kini (JAKI)",
             deskripsi: "Lead UI/UX Designer JSC",
             href: "/rekam-jejak/redesain-jaki",
-            gambar: "/images/jaki-kartu.png",
+            gambar: "/images/jaki-kartu.webp",
             logo: "/images/jaki-logo.webp",
             web: "https://jaki.jakarta.go.id/",
             mobile: true,

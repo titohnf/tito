@@ -5,10 +5,10 @@ import { Testimoni } from "./Testimoni";
 import styles from "./Tentang.module.css";
 
 const fotoTentang = [
-  { src: "/images/tentang-foto-1.jpg", alt: "Tito memimpin diskusi tim dalam sebuah lokakarya" },
-  { src: "/images/tentang-foto-2.jpg", alt: "Tito bersama rekan-rekan kerja" },
-  { src: "/images/tentang-foto-3.jpg", alt: "Tito berswafoto bersama murid-murid bimbel di depan papan tulis" },
-  { src: "/images/tentang-foto-4.jpg", alt: "Tito berdiskusi sambil membuka laptop bersama dua rekan di ruang belajar" },
+  { src: "/images/tentang-foto-1.webp", alt: "Tito memimpin diskusi tim dalam sebuah lokakarya" },
+  { src: "/images/tentang-foto-2.webp", alt: "Tito bersama rekan-rekan kerja" },
+  { src: "/images/tentang-foto-3.webp", alt: "Tito berswafoto bersama murid-murid bimbel di depan papan tulis" },
+  { src: "/images/tentang-foto-4.webp", alt: "Tito berdiskusi sambil membuka laptop bersama dua rekan di ruang belajar" },
 ];
 
 /**

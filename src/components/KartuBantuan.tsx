@@ -233,7 +233,7 @@ export function KartuBantuan() {
                     </span>
 
                     <Image
-                      src="/images/kelas-ai.png"
+                      src="/images/kelas-ai.webp"
                       alt="Seseorang mengerjakan websitenya sendiri di laptop"
                       width={1009}
                       height={751}

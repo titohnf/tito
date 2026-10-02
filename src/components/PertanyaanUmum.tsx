@@ -11,8 +11,24 @@ export function PertanyaanUmum() {
   const daftar = faqTampil();
   if (daftar.length === 0) return null;
 
+  const dataTerstruktur = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: daftar.map((f) => ({
+      "@type": "Question",
+      name: f.pertanyaan,
+      acceptedAnswer: { "@type": "Answer", text: f.jawaban },
+    })),
+  };
+
   return (
     <section className={styles.segmen} aria-labelledby="faq-judul">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(dataTerstruktur).replace(/</g, "\\u003c"),
+        }}
+      />
       <div className="wadah">
         <h2 id="faq-judul" className={styles.judul}>
           Pertanyaan yang sering muncul

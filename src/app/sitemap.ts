@@ -5,10 +5,12 @@ import { laporanTayang } from "@/content/laporan-kerja";
 
 // Halaman /rekam-jejak dan /pembelajaran belum dimasukkan karena masih "sedang dikembangkan".
 export default function sitemap(): MetadataRoute.Sitemap {
+  const sekarang = new Date();
   return [
-    { url: site.url, changeFrequency: "monthly", priority: 1 },
+    { url: site.url, lastModified: sekarang, changeFrequency: "monthly", priority: 1 },
     ...laporanTayang().map((l) => ({
       url: `${site.url}/rekam-jejak/${l.detail.slug}`,
+      lastModified: sekarang,
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),

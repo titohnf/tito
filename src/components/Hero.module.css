@@ -30,7 +30,7 @@
 .sapaan {
   margin-bottom: 0.9rem;
   font-weight: 600;
-  font-size: clamp(1.2rem, 3.6vw, 1.5rem);
+  font-size: clamp(1.2rem, 3.6vw, 1.75rem);
   letter-spacing: -0.02em;
   color: var(--tinta);
 }
@@ -38,7 +38,7 @@
 .judul {
   /* Lebih tebal dari judul lain (--bobot-judul): judul utama halaman. */
   font-weight: 700;
-  font-size: clamp(2rem, 9vw, 4.25rem);
+  font-size: clamp(2rem, 9vw, 5.25rem);
   /* Jarak huruf dan baris dilonggarkan dari -0.05em / 1.05: pada bobot 700
      huruf-huruf yang terlalu rapat saling menempel dan sulit dibaca. */
   line-height: 1.12;
@@ -50,14 +50,96 @@
 .deskripsi {
   max-width: 48rem;
   margin: clamp(1.25rem, 3.2vw, 1.75rem) auto 0;
-  font-size: clamp(1.2rem, 3.4vw, 1.5rem);
+  font-size: clamp(1.1rem, 3.4vw, 1.5rem);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.5;
   /* Jarak huruf dirapatkan sedikit (jauh di bawah judul yang -0.035em) dan
      warna hampir sehitam judul, supaya paragraf tetap mudah dibaca. */
   letter-spacing: -0.01em;
   color: color-mix(in srgb, var(--tinta) 90%, var(--putih));
   text-wrap: balance;
+}
+
+.tebal {
+  font-weight: 600;
+}
+
+/* Penekanan kalimat tampil bergantian setelah sapaan melambai: lingkaran merah
+   digambar, lalu garis kuning tersapu, lalu centang muncul. Lingkaran berupa
+   <svg> sungguhan supaya garisnya bisa "ditulis" (stroke-dashoffset). */
+.lingkar {
+  position: relative;
+  display: inline-block;
+}
+
+.coretan {
+  position: absolute;
+  inset: -0.22em -0.36em -0.1em;
+  width: calc(100% + 0.72em);
+  height: calc(100% + 0.32em);
+  overflow: visible;
+  pointer-events: none;
+  /* Miring sedikit; ujungnya berhenti di luar garis awal supaya tidak bertumpuk. */
+  transform: rotate(-2deg);
+}
+
+.coretan path {
+  fill: none;
+  stroke: var(--merah);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  animation: gambar 0.8s cubic-bezier(0.45, 0, 0.25, 1) 1s both;
+}
+
+@keyframes gambar {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Goresan kuas kuning di bawah kata kunci (bukan menutup tulisan). Direntangkan
+   mengikuti lebar kata dan disapu dari kiri ke kanan lewat clip-path. */
+.sorot {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.sorot::after {
+  content: "";
+  position: absolute;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: -0.2em;
+  height: 0.5em;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath fill='%23ffd84d' d='M1 7C5 3 16 5 30 3.5S58 5 74 2.5s21 1 25 4.5l-1.5 2c1 1.500 0 2.500-2 3C82 13 66 10.500 50 11.500S20 11.500 8 11C4 10 2 9 1 7Z'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  animation: sapu 0.6s ease-out 1.9s both;
+}
+
+@keyframes sapu {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* Centang hijau digambar dengan satu goresan, seperti dicontreng tangan. */
+.centang {
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.2em;
+  overflow: visible;
+}
+
+.centang path {
+  fill: none;
+  stroke: var(--hijau);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  animation: gambar 0.5s cubic-bezier(0.45, 0, 0.25, 1) 2.5s both;
 }
 
 /* Emoji di belakang sapaan melambai sekali di awal (setelah halaman tampil),
@@ -79,9 +161,36 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lambai {
+  .lambai,
+  .coretan path,
+  .sorot::after,
+  .centang path,
+  .bukti {
     animation: none;
   }
+}
+
+/* Bukti singkat di bawah tombol, berupa teks polos (tanpa kotak) supaya tidak terbaca
+   sebagai tombol. Muncul belakangan, setelah coretan deskripsi selesai digambar.
+   Hanya opacity/transform agar tempatnya sudah tercadangkan. */
+.bukti {
+  margin-top: 1.1rem;
+  font-size: clamp(0.875rem, 2.4vw, 1.0625rem);
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--tinta-2);
+  animation: muncul 0.6s ease-out 3s both;
+}
+
+@keyframes muncul {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.bukti strong {
+  font-weight: 700;
+  color: var(--tinta);
 }
 
 .aksi {
@@ -102,7 +211,17 @@
   font-size: 1.125rem;
 }
 
+/* Tombol kedua (Lihat Layanan) hanya tampil mulai layar tablet/web; di mobile
+   cukup satu ajakan utama. Menu Layanan tetap ada di header. */
+.aksi > a:nth-child(2) {
+  display: none;
+}
+
 @media (min-width: 560px) {
+  .aksi > a:nth-child(2) {
+    display: inline-flex;
+  }
+
   .aksi {
     flex-direction: row;
     justify-content: center;

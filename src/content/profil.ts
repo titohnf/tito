@@ -6,8 +6,20 @@ import type { Segmen } from "./segmen";
 export const hero = {
   sapaan: "Halo, saya Tito Hanafi",
   judul: "Desainer Produk & Pengembang Sistem",
-  deskripsi:
-    "Saya membantu pemilik usaha mengubah proses manual yang melelahkan menjadi sistem yang simpel dan mudah digunakan.",
+  // `pemilik` ditebalkan, `lingkar` dicoret lingkaran merah (dan ditebalkan),
+  // `sorot` digarisbawahi kuas kuning
+  deskripsi: {
+    awal: "Saya membantu ",
+    pemilik: "pemilik usaha",
+    sebelum: " mengubah proses manual yang ",
+    lingkar: "melelahkan",
+    tengah: " menjadi sistem digital yang ",
+    sorot: "mudah digunakan",
+    // Spasi tak terputus supaya centang (digambar di Hero.tsx) tidak turun sendirian ke baris baru
+    akhir: "\u00A0",
+  },
+  // Baris bukti di bawah tombol hero; angkanya sama dengan segmen Tentang
+  bukti: { angka: "9+ tahun", teks: " dipercaya merancang aplikasi pemerintah" },
   tombolUtama: "Ngobrol Dulu, Gratis",
   pesanTombolUtama: "Halo Tito, saya mau ngobrol soal website atau sistem untuk usaha saya. Boleh ngobrol dulu?",
   tombolSekunder: "Lihat Layanan",
@@ -110,7 +122,7 @@ export const tentang: BabTentang[] = [
         label: "Mendirikan Tera Foundation",
         judul: "Bebaskan anak marjinal untuk bermimpi",
         href: "/rekam-jejak/tera",
-        gambar: "/images/tera-kelas-bimbel-2.jpg",
+        gambar: "/images/tera-kelas-bimbel-2.webp",
         lebar: 2,
       },
     ],

@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: site.judulSeo, template: `%s — ${site.nama}` },
   description: site.deskripsiSeo,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "id_ID",
@@ -50,13 +51,26 @@ const dataTerstruktur = {
     {
       "@type": "ProfessionalService",
       "@id": `${site.url}/#layanan`,
-      name: `${site.nama} — Jasa Website untuk Usaha Kecil`,
+      name: `${site.nama} — Desainer Produk & Pengembang Sistem`,
       url: site.url,
       description: site.deskripsiSeo,
       inLanguage: "id-ID",
       areaServed: { "@type": "Country", name: "Indonesia" },
       founder: { "@id": `${site.url}/#tito` },
       telephone: `+${site.whatsapp}`,
+      makesOffer: [
+        { name: "Bikin & benahi website", harga: 2500000 },
+        { name: "Sistem digital untuk usaha", harga: 5000000 },
+        { name: "Kelas belajar bikin website (per pertemuan)", harga: 150000 },
+      ].map((o) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: o.name },
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          priceCurrency: "IDR",
+          minPrice: o.harga,
+        },
+      })),
     },
   ],
 };

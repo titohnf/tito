@@ -41,7 +41,6 @@ export function GaleriPolaroid({ foto }: { foto: FotoPolaroid[] }) {
           sizes="(min-width: 760px) 16rem, 60vw"
           className={styles.foto}
           data-aktif={i === aktif || undefined}
-          priority={i === 0}
         />
       ))}
     </div>

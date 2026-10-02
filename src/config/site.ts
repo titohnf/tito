@@ -8,16 +8,17 @@ export const site = {
     process.env.NEXT_PUBLIC_SITE_URL ??
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "http://localhost:3000"),
+      : process.env.NODE_ENV === "production"
+        ? "https://www.titohanafi.com"
+        : "http://localhost:3000"),
 
   // Untuk preview link (WhatsApp, Instagram, dsb.)
-  judulSeo: "Tito Hanafi — Jasa Website untuk Usaha Kecil",
+  judulSeo: "Tito Hanafi — Desainer Produk & Pengembang Sistem",
   deskripsiSeo:
     "Saya bantu usaha kecil punya website yang rapi dan gampang dipakai pelanggan. 9 tahun mendesain layanan digital pemerintah. Ngobrol dulu, gratis.",
 
   // Nomor WhatsApp, format internasional tanpa + dan spasi (0812-1219-4626).
   whatsapp: "6281212194626",
-  // TODO: ganti dengan email asli
   email: "titohnf@gmail.com",
 
   // Ganti nama file setiap kali foto diganti, supaya cache gambar ikut diperbarui

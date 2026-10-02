@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: tulisan.judul,
     description: tulisan.pengantar,
+    alternates: { canonical: `/tulisan/${slug}` },
     openGraph: {
       type: "article",
       title: tulisan.judul,

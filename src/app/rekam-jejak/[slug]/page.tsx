@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: proyek.judul,
     description: proyek.pencapaian || undefined,
+    alternates: { canonical: `/rekam-jejak/${slug}` },
     openGraph: { title: proyek.judul, description: proyek.pencapaian || undefined },
   };
 }
