@@ -13,7 +13,7 @@ export function Bantuan() {
       <div className="wadah">
         <p className={styles.label}>Layanan</p>
         <h2 id="layanan-judul" className={styles.judul}>
-          Mau dibuatin dari awal, atau belajar bikin sendiri? Saya ajarin sampai bisa.
+          Dibuatkan dari awal, atau belajar bikin sendiri? Saya bantu dua-duanya.
         </h2>
 
         <div className={styles.kartu}>

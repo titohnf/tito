@@ -13,9 +13,9 @@ export const site = {
         : "http://localhost:3000"),
 
   // Untuk preview link (WhatsApp, Instagram, dsb.)
-  judulSeo: "Tito Hanafi — Desainer Produk & Pengembang Sistem",
+  judulSeo: "Tito Hanafi — Jasa Pembuatan Website & Sistem Digital",
   deskripsiSeo:
-    "Saya bantu usaha kecil punya website yang rapi dan gampang dipakai pelanggan. 9 tahun mendesain layanan digital pemerintah. Ngobrol dulu, gratis.",
+    "Jasa pembuatan website dan sistem untuk bisnis, organisasi, komunitas, dan branding. 9+ tahun merancang aplikasi pemerintah. Ngobrol dulu, gratis.",
 
   // Nomor WhatsApp, format internasional tanpa + dan spasi (0812-1219-4626).
   whatsapp: "6281212194626",

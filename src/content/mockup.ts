@@ -18,12 +18,6 @@ export type Mockup = {
 
 export const mockup: Mockup[] = [
   { id: "bimbel-tera", judul: "Bimbel Tera", href: "https://bimbeltera.com" },
-  {
-    id: "tera-foundation",
-    judul: "Tera Foundation",
-    href: "https://www.terafoundation.or.id",
-    video: "/videos/mockup-tera-foundation.mp4",
-    poster: "/videos/mockup-tera-foundation-poster.webp",
-  },
+  { id: "tera-foundation", judul: "Tera Foundation", href: "https://www.terafoundation.or.id" },
   { id: "komunitas-tera", judul: "Komunitas Tera", href: "https://komunitas.tera.or.id" },
 ];

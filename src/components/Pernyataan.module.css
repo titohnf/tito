@@ -1,0 +1,60 @@
+.pernyataan {
+  padding-block: var(--jarak-pita);
+  text-align: center;
+}
+
+.label {
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.kalimat {
+  max-width: 32ch;
+  margin-inline: auto;
+  font-weight: var(--bobot-judul);
+  font-size: clamp(1.45rem, 6vw, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: var(--tinta);
+}
+
+/* Kotak ikon kecil yang duduk sebaris dengan teks. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  margin-block: -0.2em;
+  border-radius: 0.38em;
+  vertical-align: middle;
+}
+
+.chip svg {
+  width: 0.85em;
+  height: 0.85em;
+}
+
+.ide {
+  background: color-mix(in srgb, var(--ungu) 22%, var(--putih));
+  color: var(--ungu);
+}
+
+.jaminan {
+  background: color-mix(in srgb, var(--hijau) 20%, var(--putih));
+  color: var(--hijau);
+}
+
+.isi {
+  max-width: 52ch;
+  margin: clamp(1.25rem, 3vw, 1.75rem) auto 0;
+  font-size: clamp(1rem, 2.4vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--tinta-2);
+  text-wrap: pretty;
+}

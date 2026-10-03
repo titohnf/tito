@@ -113,7 +113,7 @@ export const layanan: Layanan[] = [
     id: "website",
     judul: "Bikin & Benahi Website",
     harga: "Mulai Rp 2,5 juta",
-    teks: "Website baru dari nol, atau benahi yang sudah ada biar nggak bikin pengunjung bingung. Saya yang pegang prosesnya.",
+    teks: "Website baru dari nol, atau benahi yang sudah ada supaya pengunjung paham dan mau order. Saya yang pegang prosesnya.",
     judulDetail: "Bikin & Benahi Website",
     detail: [
       {
@@ -151,7 +151,7 @@ export const layanan: Layanan[] = [
     id: "audit",
     judul: "Buat Sistem Digital untuk Usaha",
     harga: "Mulai Rp 5 juta",
-    teks: "Pencatatan masih manual atau berantakan di banyak tempat? Saya bantu susun jadi satu sistem yang rapi.",
+    teks: "Masih catat manual, atau data tersebar di banyak tempat? Saya satukan jadi satu sistem yang rapi dan gampang dipakai.",
     judulDetail: "Buat Sistem Digital untuk Usaha",
     detail: [
       {
@@ -188,7 +188,7 @@ export const layanan: Layanan[] = [
     id: "ai",
     judul: "Belajar Bikin Website Sendiri",
     harga: "Rp150.000/pertemuan",
-    teks: "Saya temani sampai kamu bisa bikin dan merawat website sendiri dengan bantuan AI.",
+    teks: "Dalam 4 pertemuan, kamu punya website sendiri dan tahu cara merawatnya, dibantu AI. Kelas kecil, maksimal 5 orang.",
     judulDetail: "Belajar Bikin Website Sendiri",
     detail: [
       {

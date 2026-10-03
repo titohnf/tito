@@ -5,24 +5,22 @@ import type { Segmen } from "./segmen";
 
 export const hero = {
   sapaan: "Halo, saya Tito Hanafi",
-  judul: "Desainer Produk & Pengembang Sistem",
-  // `pemilik` ditebalkan, `lingkar` dicoret lingkaran merah (dan ditebalkan),
-  // `sorot` digarisbawahi kuas kuning
+  judul: "Desainer & Pengembang Sistem",
+  // Kalimat utama (H1). Di web mengalir tiga baris; di mobile dipecah per potongan
+  // (lihat `.pecah` di Hero.module.css). Potongan `...Pudar` dibuat pudar supaya inti
+  // kalimatnya menonjol. `kata` diketik bergantian di kotak mengikuti persona pengunjung.
+  // Jabatan (`judul`) jadi baris kecil di atasnya dan tetap dipakai untuk SEO / gambar
+  // preview link.
   deskripsi: {
-    awal: "Saya membantu ",
-    pemilik: "pemilik usaha",
-    sebelum: " mengubah proses manual yang ",
-    lingkar: "melelahkan",
-    tengah: " menjadi sistem digital yang ",
-    sorot: "mudah digunakan",
-    // Spasi tak terputus supaya centang (digambar di Hero.tsx) tidak turun sendirian ke baris baru
-    akhir: "\u00A0",
+    baris1: "Saya membuat web",
+    baris2: "dan sistem untuk",
+    baris3: "kebutuhan usaha Anda",
   },
-  // Baris bukti di bawah tombol hero; angkanya sama dengan segmen Tentang
+  // Baris bukti di atas tombol hero; angkanya sama dengan segmen Tentang
   bukti: { angka: "9+ tahun", teks: " dipercaya merancang aplikasi pemerintah" },
   tombolUtama: "Ngobrol Dulu, Gratis",
   pesanTombolUtama: "Halo Tito, saya mau ngobrol soal website atau sistem untuk usaha saya. Boleh ngobrol dulu?",
-  tombolSekunder: "Lihat Layanan",
+  tombolSekunder: "Lihat Rekam Jejak",
   // Dipakai di gambar preview link (OG)
   catatanTombol: "Ngobrol dulu, gratis.",
 };
@@ -165,3 +163,21 @@ export const membangunTera = {
   paragraf:
     "Menjalankan Tera membuat saya sadar desain saja tidak cukup. Saya mulai membangun sistem sendiri dengan bantuan AI, dari sistem operasional bimbel sampai website Tera. Sebagian sudah jalan, sebagian masih coba-coba.",
 };
+
+/**
+ * Segmen kedua di beranda: judul besar (H2) memuat kata kunci utama, paragraf di bawahnya
+ * menjelaskan siapa, untuk siapa, dan jaminannya. Teks biasa = string; { ikon } = kotak ikon
+ * kecil di sela kata. Klaimnya sama dengan yang ada di kartu Layanan dan segmen Tentang.
+ */
+export const pernyataan = {
+  label: "Kenapa bekerja dengan saya",
+  potongan: [
+    "Jasa pembuatan",
+    { ikon: "ide" },
+    "website dan sistem digital yang rapi dan gampang dipakai, dengan",
+    { ikon: "jaminan" },
+    "perbaikan gratis 30 hari setelah jadi.",
+  ],
+  paragraf:
+    "Saya Tito Hanafi, desainer dan pengembang sistem dengan 9+ tahun merancang aplikasi pemerintah. Untuk bisnis, organisasi, atau komunitas, saya yang pegang prosesnya dari rancangan sampai siap dipakai, jadi kamu bisa fokus mengembangkan usaha.",
+} as const;

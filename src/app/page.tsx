@@ -1,6 +1,6 @@
 import { Kepala } from "@/components/Kepala";
 import { Hero } from "@/components/Hero";
-import { Mockup } from "@/components/Mockup";
+import { Pernyataan } from "@/components/Pernyataan";
 import { Bantuan } from "@/components/Bantuan";
 import { Portofolio } from "@/components/Portofolio";
 import { BannerDiskusi } from "@/components/BannerDiskusi";
@@ -18,7 +18,7 @@ export default function Beranda() {
         <div className={styles.atas}>
           <Hero />
         </div>
-        <Mockup />
+        <Pernyataan />
         <Bantuan />
         <Portofolio />
         <div className={`wadah ${styles.banner}`}>
