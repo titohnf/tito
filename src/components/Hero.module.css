@@ -42,3 +42,10 @@
   letter-spacing: -0.035em;
   text-wrap: balance;
 }
+
+/* HP: huruf dibesarkan sedikit; judul boleh jadi tiga baris (diseimbangkan). */
+@media (max-width: 639px) {
+  .judul {
+    font-size: clamp(1.35rem, 6vw, 2rem);
+  }
+}
