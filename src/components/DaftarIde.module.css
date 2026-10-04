@@ -1,0 +1,238 @@
+.ide {
+  --pulpen: var(--biru);
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Satu container untuk seluruh papan; kolom berwarna di dalamnya dipisah celah tipis.
+   Tiga kolom di web, ditumpuk di layar sempit. */
+.papan {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--garis);
+  border-radius: 20px;
+  background: var(--putih);
+}
+
+@media (min-width: 760px) {
+  .papan {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0.75rem;
+  }
+}
+
+.kolom {
+  --warna: var(--tinta-3);
+  min-width: 0;
+  padding: 0.75rem;
+  border-radius: 14px;
+  /* Tiap kolom berlatar warna statusnya sendiri, samar. */
+  background: color-mix(in srgb, var(--warna) 9%, var(--putih));
+  transition: background-color 0.15s;
+}
+
+.menunggu {
+  --warna: #8b8a83;
+}
+
+.proses {
+  --warna: #e08a17;
+}
+
+.selesai {
+  --warna: var(--hijau);
+}
+
+/* Kolom yang sedang disasar saat menyeret. */
+.disasar {
+  background: color-mix(in srgb, var(--warna) 20%, var(--putih));
+}
+
+/* Kepala kolom: titik status, nama, dan jumlah ide dalam pil kecil. */
+.judulKolom {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 0.75rem;
+  padding: 0.15rem 0.35rem;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--tinta);
+}
+
+.titik {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--warna);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--warna) 20%, transparent);
+}
+
+.jumlah {
+  margin-left: auto;
+  min-width: 1.5rem;
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--warna) 14%, var(--putih));
+  color: var(--tinta-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Tinggi daftar mengikuti isinya, maksimal setara 5 kartu; kalau lebih, daftar bisa di-scroll. Padding
+   kecil memberi ruang untuk bayangan kartu yang kalau tidak terpotong area scroll. */
+.daftar {
+  --tinggi-kartu: 4.4rem;
+  --jarak-kartu: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--jarak-kartu);
+  max-height: calc(5 * var(--tinggi-kartu) + 4 * var(--jarak-kartu) + 8px);
+  margin: -4px;
+  padding: 4px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--garis) transparent;
+  list-style: none;
+}
+
+/* Pengganti kartu yang sedang diseret, supaya kartu lain tidak bergeser. */
+.lubang {
+  flex: none;
+  height: var(--tinggi-kartu);
+  border: 1px dashed color-mix(in srgb, var(--warna) 45%, transparent);
+  border-radius: 12px;
+}
+
+/* Kartu ide: putih bersih dengan garis status tipis di kiri. */
+.catatan {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  height: var(--tinggi-kartu);
+  padding: 0 0.6rem 0 1rem;
+  overflow: hidden;
+  border: 1px solid var(--garis);
+  border-radius: 12px;
+  background: var(--putih);
+  box-shadow: var(--bayang);
+  color: var(--tinta);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+.catatan::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--warna);
+}
+
+.catatan:hover {
+  border-color: color-mix(in srgb, var(--warna) 40%, var(--garis));
+  box-shadow: var(--bayang-naik);
+}
+
+.catatan:focus-visible {
+  outline: 2px solid var(--pulpen);
+  outline-offset: 2px;
+}
+
+.sedangDiseret {
+  z-index: 30;
+  cursor: grabbing;
+  box-shadow:
+    0 2px 4px rgb(18 18 17 / 0.08),
+    0 18px 30px -8px rgb(18 18 17 / 0.28);
+  /* Mengikuti penunjuk tanpa jeda. */
+  transition: none;
+}
+
+.teks,
+.tautan {
+  flex: 1;
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.tautan {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tautan:hover {
+  color: var(--hijau);
+}
+
+/* Tanda tautan: kecil, sejajar dengan akhir teks. */
+.panah {
+  display: inline-block;
+  margin-left: 0.25rem;
+  vertical-align: -0.12em;
+  opacity: 0.6;
+}
+
+/* Pegangan di kanan; muncul samar, lebih jelas saat kartu di-hover. Di layar sentuh
+   hanya dari sini kartu bisa diseret. */
+.pegangan {
+  display: grid;
+  place-items: center;
+  flex: none;
+  margin-left: auto;
+  padding: 0.25rem 0.15rem;
+  color: var(--tinta-3);
+  opacity: 0.55;
+  touch-action: none;
+  cursor: grab;
+  transition: opacity 0.15s;
+}
+
+.catatan:hover .pegangan {
+  opacity: 1;
+}
+
+.kosong {
+  margin: 0;
+  padding: 0.9rem 0.5rem;
+  border: 1px dashed var(--garis);
+  border-radius: 12px;
+  color: var(--tinta-3);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Tanggal update terakhir di pojok kanan bawah container. */
+.diperbarui {
+  grid-column: 1 / -1;
+  margin: 0.5rem 0.75rem 0.25rem;
+  font-size: 0.8125rem;
+  text-align: right;
+  color: var(--tinta-3);
+}

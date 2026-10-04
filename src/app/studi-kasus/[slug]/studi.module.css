@@ -1,0 +1,50 @@
+.ringkas {
+  max-width: 40rem;
+  font-size: clamp(1.1rem, 2.6vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--tinta);
+}
+
+.teks {
+  max-width: 40rem;
+  margin-top: 1rem;
+  color: var(--tinta-2);
+}
+
+.layar {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--bayang);
+}
+
+.layar video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.layarMobile {
+  width: min(20rem, 100%);
+}
+
+.bagian {
+  max-width: 40rem;
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.judulBagian {
+  margin-bottom: 1rem;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.menyusul {
+  color: var(--tinta-3);
+  font-style: italic;
+}

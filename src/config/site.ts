@@ -13,9 +13,12 @@ export const site = {
         : "http://localhost:3000"),
 
   // Untuk preview link (WhatsApp, Instagram, dsb.)
-  judulSeo: "Tito Hanafi — Jasa Pembuatan Website & Sistem Digital",
+  judulSeo: "Tito Hanafi — Desainer Produk, 9+ Tahun di Pemerintahan",
   deskripsiSeo:
-    "Jasa pembuatan website dan sistem untuk bisnis, organisasi, komunitas, dan branding. 9+ tahun merancang aplikasi pemerintah. Ngobrol dulu, gratis.",
+    "Desainer produk dengan 9+ tahun merancang aplikasi pemerintah (JAKI, Rumah Pendidikan). Sekarang membangun sistem sendiri pakai AI. Lihat studi kasus atau unduh resume.",
+
+  // File CV (PDF) di /public. Ganti file-nya, nama tautannya tetap.
+  resume: "/resume-tito-hanafi.pdf",
 
   // Nomor WhatsApp, format internasional tanpa + dan spasi (0812-1219-4626).
   whatsapp: "6281212194626",
@@ -37,12 +40,7 @@ export const site = {
   tipeKontenAktif: ["tulisan"] as ("tulisan" | "pemikiran" | "video")[],
 
   tautan: {
-    // Segmen "Layanan" di beranda.
-    // Dari halaman lain, tautannya perlu diawali "/" — lihat pemakaian `ngobrol`.
-    layanan: "#layanan",
-    rekamJejak: "/rekam-jejak",
-    pembelajaran: "/pembelajaran",
-    tera: "/rekam-jejak/tera",
+    // Dari halaman lain, tautan ke bagian beranda perlu diawali "/" — lihat pemakaian `ngobrol`.
     ngobrol: "#ngobrol",
   },
 } as const;

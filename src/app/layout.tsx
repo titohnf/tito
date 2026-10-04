@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Patrick_Hand } from "next/font/google";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -9,6 +9,14 @@ import "./globals.css";
 const sans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+// Tulisan tangan untuk segmen Daftar ide (kertas catatan di bawah hero).
+const tulis = Patrick_Hand({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-tulis",
   display: "swap",
 });
 
@@ -46,38 +54,15 @@ const dataTerstruktur = {
       name: site.nama,
       url: site.url,
       image: `${site.url}${site.fotoAsli}`,
-      jobTitle: "Desainer dan pengembang website",
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": `${site.url}/#layanan`,
-      name: `${site.nama} — Desainer Produk & Pengembang Sistem`,
-      url: site.url,
+      jobTitle: "Desainer produk",
       description: site.deskripsiSeo,
-      inLanguage: "id-ID",
-      areaServed: { "@type": "Country", name: "Indonesia" },
-      founder: { "@id": `${site.url}/#tito` },
-      telephone: `+${site.whatsapp}`,
-      makesOffer: [
-        { name: "Bikin & benahi website", harga: 2500000 },
-        { name: "Sistem digital untuk usaha", harga: 5000000 },
-        { name: "Kelas belajar bikin website (per pertemuan)", harga: 150000 },
-      ].map((o) => ({
-        "@type": "Offer",
-        itemOffered: { "@type": "Service", name: o.name },
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          priceCurrency: "IDR",
-          minPrice: o.harga,
-        },
-      })),
     },
   ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={sans.variable}>
+    <html lang="id" className={`${sans.variable} ${tulis.variable}`}>
       <body>
         <script
           type="application/ld+json"

@@ -1,232 +1,44 @@
+/* Hero rata tengah: foto, sapaan, dan judul. Papan Daftar ide ada tepat di bawahnya. */
 .hero {
   text-align: center;
   padding-top: clamp(2.75rem, 6vw, 4.25rem);
-  padding-bottom: 0;
+  background: var(--putih);
 }
 
-/* Tombol, bukti, dan carousel satu area: latar putih di tepi atas (setinggi tombol)
-   lalu memudar ke gradien biru-ke-ungu di bawahnya. */
-.bawah {
-  display: flow-root;
+/* Papan Daftar ide dibuat lebih lebar dari kolom konten biasa supaya catatannya besar
+   dan teksnya terbaca. */
+.papan {
+  max-width: min(88rem, 100%);
+  padding-top: clamp(2rem, 5vw, 3rem);
   padding-bottom: var(--jarak-pita);
-  background:
-    linear-gradient(to bottom, var(--putih), transparent 85%),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--biru) 24%, var(--putih)),
-      color-mix(in srgb, var(--ungu) 20%, var(--putih))
-    );
+  background: var(--putih);
 }
 
-.mockup {
-  margin-top: clamp(2.25rem, 5vw, 3.75rem);
+.foto {
+  display: block;
+  width: clamp(4.5rem, 14vw, 6rem);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .sapaan {
-  margin-bottom: 0.9rem;
-  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.05rem, 3vw, 1.35rem);
   font-weight: 600;
-  font-size: clamp(1.05rem, 3vw, 1.4rem);
-  letter-spacing: -0.02em;
-  color: var(--tinta);
-}
-
-.judul {
-  /* Bobot sama dengan judul segmen lain (token --bobot-judul di globals.css). */
-  font-weight: var(--bobot-judul);
-  font-size: clamp(1.6rem, 4.8vw, 2.7rem);
-  /* Jarak huruf dan baris dilonggarkan dari -0.05em / 1.05: pada bobot 700
-     huruf-huruf yang terlalu rapat saling menempel dan sulit dibaca. */
-  line-height: 1.25;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
-}
-
-/* Kata pembuka/sambung ("Saya membantu", "dan", "dengan"). Semua teks judul hitam dan
-   satu bobot; satu-satunya yang disorot adalah kata persona yang diketik (lihat
-   KataBergilir.module.css). */
-.pudar {
-  color: var(--tinta);
-}
-
-/* Setiap baris judul berdiri sendiri; di layar sempit tetap boleh turun baris. */
-.baris {
-  display: block;
-}
-
-/* Dua versi teks: panjang untuk web, singkat untuk mobile (lihat media query di bawah). */
-.hanyaMobile {
-  display: none;
-}
-
-/* Potongan kalimat: di web mengalir menyatu dalam barisnya, di mobile dipecah. */
-.pecah {
-  display: inline;
-}
-
-/* Emoji di belakang sapaan melambai sekali di awal (setelah halaman tampil),
-   lalu diam. Tidak bergerak kalau pengunjung minta gerakan dikurangi. */
-.lambai {
-  display: inline-block;
-  transform-origin: 70% 70%;
-  animation: lambai 2.2s ease-in-out 0.5s 1 both;
-}
-
-@keyframes lambai {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(16deg); }
-  22% { transform: rotate(-10deg); }
-  34% { transform: rotate(16deg); }
-  46% { transform: rotate(-8deg); }
-  58% { transform: rotate(12deg); }
-  72%, 100% { transform: rotate(0deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lambai {
-    animation: none;
-  }
-}
-
-/* Bukti singkat di bawah tombol, berupa teks polos (tanpa kotak) supaya tidak terbaca
-   sebagai tombol. Tampil statis sejak awal, tanpa menunggu animasi. */
-.bukti {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  text-align: left;
-  gap: 0.5rem;
-  margin-top: 1.1rem;
-  font-size: clamp(0.875rem, 2.4vw, 1.0625rem);
-  font-weight: 500;
   line-height: 1.3;
   color: var(--tinta-2);
 }
 
-/* Ikon centang bulat hijau (gaya outline) di depan baris bukti. */
-.centangBukti {
-  flex: none;
-  width: 1.25em;
-  height: 1.25em;
-  /* Sejajar dengan baris pertama teks yang line-height-nya 1.3 */
-  margin-top: 0.02em;
-}
-
-.centangBukti circle,
-.centangBukti path {
-  fill: none;
-  stroke: var(--hijau);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.centangBukti circle {
-  stroke-width: 1.6;
-}
-
-.centangBukti path {
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.bukti strong {
-  font-weight: 700;
-  color: var(--tinta);
-}
-
-.aksi {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.85rem;
-  width: 100%;
-  margin-top: clamp(1.5rem, 3vw, 2rem);
-}
-
-.aksi > a {
-  width: 100%;
-  /* Tombol hero lebih besar dari tombol biasa. */
-  min-height: 3.5rem;
-  padding: 0.9rem 1.6rem;
-  border-radius: 12px;
-  font-size: 1.125rem;
-}
-
-/* Tombol kedua (garis): gaya sama di mobile dan web, garis tipis tapi terlihat. */
-.aksi > a:nth-child(2) {
-  border: 1px solid color-mix(in srgb, var(--tinta) 35%, var(--putih));
-  color: var(--tinta);
-}
-
-@media (min-width: 560px) {
-  /* Web: jarak ke judul sedikit lebih lega. */
-  .bukti {
-    margin-top: 1.5rem;
-  }
-
-  .aksi {
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .aksi > a {
-    width: auto;
-  }
-}
-
-/* Layar kecil: kalimat mengalir apa adanya (bukan tiga baris paksa) supaya tidak
-   bergerigi, foto sedikit diperkecil, dan tombol kedua dibuat ringan agar hero
-   tidak terasa penuh. Tombol utama tetap satu-satunya yang tebal. */
-@media (max-width: 559px) {
-  /* Bukti 9+ tahun cukup satu baris: huruf mengecil mengikuti lebar layar. */
-  .bukti {
-    font-size: clamp(0.7rem, 3.3vw, 0.9rem);
-    white-space: nowrap;
-  }
-
-  .sapaan {
-    font-size: 1rem;
-  }
-
-  /* Baris pendek-pendek: huruf dibesarkan, jarak baris dan huruf dilonggarkan, dan kata
-     pudar dinaikkan ke bobot sedang supaya tidak terlalu tipis di sebelah yang tebal. */
-  .judul {
-    font-size: clamp(1.45rem, 7.2vw, 1.95rem);
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-  }
-
-  /* Tiap potongan kalimat jadi satu baris sendiri:
-     Saya membantu / mewujudkan ide / dan menyelesaikan / masalah [kotak] /
-     dengan solusi digital 💡 / yang mudah digunakan */
-  .pecah {
-    display: block;
-  }
-
-  /* Kata yang berganti punya baris sendiri, jadi tidak pernah pindah baris saat diketik. */
-  .barisKata {
-    white-space: nowrap;
-  }
-
-  .hanyaWeb {
-    display: none;
-  }
-
-  .hanyaMobile {
-    display: inline;
-  }
-
-  .aksi {
-    margin-top: 1.5rem;
-    gap: 0.6rem;
-  }
-
-  /* Tombol hero di layar kecil: lebih ramping dari ukuran web. */
-  .aksi > a {
-    min-height: 2.75rem;
-    padding: 0.6rem 1.25rem;
-    border-radius: 10px;
-    font-size: 0.9375rem;
-  }
+.judul {
+  margin-inline: auto;
+  /* Bobot sama dengan judul segmen lain (token --bobot-judul di globals.css). */
+  font-weight: var(--bobot-judul);
+  /* Dua baris di semua lebar layar: huruf mengecil mengikuti lebar, teks diseimbangkan. */
+  font-size: clamp(1rem, 4.7vw, 2.9rem);
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }

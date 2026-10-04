@@ -1,28 +1,47 @@
 /**
  * Copy untuk Hero & Tentang Saya. Edit teks di sini tanpa menyentuh komponen.
  */
-import type { Segmen } from "./segmen";
 
 export const hero = {
-  sapaan: "Halo, saya Tito Hanafi",
-  judul: "Desainer & Pengembang Sistem",
-  // Kalimat utama (H1). Di web mengalir tiga baris; di mobile dipecah per potongan
-  // (lihat `.pecah` di Hero.module.css). Potongan `...Pudar` dibuat pudar supaya inti
-  // kalimatnya menonjol. `kata` diketik bergantian di kotak mengikuti persona pengunjung.
-  // Jabatan (`judul`) jadi baris kecil di atasnya dan tetap dipakai untuk SEO / gambar
-  // preview link.
-  deskripsi: {
-    baris1: "Saya membuat web",
-    baris2: "dan sistem untuk",
-    baris3: "kebutuhan usaha Anda",
-  },
-  // Baris bukti di atas tombol hero; angkanya sama dengan segmen Tentang
-  bukti: { angka: "9+ tahun", teks: " dipercaya merancang aplikasi pemerintah" },
-  tombolUtama: "Ngobrol Dulu, Gratis",
-  pesanTombolUtama: "Halo Tito, saya mau ngobrol soal website atau sistem untuk usaha saya. Boleh ngobrol dulu?",
-  tombolSekunder: "Lihat Rekam Jejak",
+  sapaan: "Hi, saya Tito Hanafi 👋",
+  judul: "Desainer Produk, 9+ Tahun di Pemerintahan",
+  // Kalimat utama (H1). Jabatan (`judul`) dipakai untuk SEO / gambar preview link.
+  judulUtama:
+    "Desainer yang menggunakan AI untuk mewujudkan ide dan mimpinya",
   // Dipakai di gambar preview link (OG)
-  catatanTombol: "Ngobrol dulu, gratis.",
+  catatanTombol: "Kini membangun sistem sendiri pakai AI.",
+};
+
+/** Segmen pengantar tepat di bawah hero. */
+export const pernyataan = {
+  judul: "Studi kasus",
+} as const;
+
+export type StatusIde = "menunggu" | "proses" | "selesai";
+
+export type Ide = {
+  teks: string;
+  status: StatusIde;
+  /** Tautan ke hasilnya; hanya dipakai untuk ide yang sudah selesai. */
+  tautan?: string;
+};
+
+/** Daftar ide di kolom kanan hero. Dikelompokkan per status; urutan di sini = urutan
+ * tampil di dalam kelompoknya. Data masih dummy. */
+export const daftarIde: { judul: string; diperbarui: string; butir: Ide[] } = {
+  judul: "Daftar ide",
+  /** Tanggal update terakhir papan, tampil di pojok kanan bawah. */
+  diperbarui: "4 Oktober 2026",
+  butir: [
+    { teks: "Membuat website pribadi", status: "selesai", tautan: "/" },
+    { teks: "Membuat website usaha", status: "selesai", tautan: "/rekam-jejak" },
+    { teks: "Membuat website komunitas", status: "proses" },
+    { teks: "Membuat aplikasi fondasi matematika", status: "proses" },
+    { teks: "Membuat dashboard bimbel", status: "proses" },
+    { teks: "Membuat aplikasi penguasaan materi matematika", status: "menunggu" },
+    { teks: "Membuat tools pembuatan soal", status: "menunggu" },
+    { teks: "Membuat sistem pencatatan keuangan", status: "menunggu" },
+  ],
 };
 
 export const tentangSingkat = {
@@ -38,56 +57,6 @@ export const tentangSingkat = {
   ],
 };
 
-/**
- * Data pencapaian yang berjalan di bawah hero. Urutan di sini = urutan tampil.
- * Diambil dari cerita di segmen Tentang — pastikan tetap sinkron kalau ceritanya berubah.
- */
-export const pencapaian: { kelompok: string; angka: string; keterangan: string }[] = [
-  { kelompok: "Mengabdi", angka: "9+", keterangan: "tahun jadi tenaga ahli" },
-  { kelompok: "Membina", angka: "50+", keterangan: "anak binaan yayasan" },
-  { kelompok: "Menginisiasi", angka: "5", keterangan: "program berdampak" },
-  { kelompok: "Mendampingi", angka: "3", keterangan: "sesi konsultasi" },
-];
-
-export type BabTentang = {
-  id: Segmen; // sekaligus anchor di beranda & nilai ?peran= di /rekam-jejak dan /pembelajaran
-  label: string; // label kecil, mis. "Sebagai Desainer Perwakilan Rakyat"
-  judul: string; // headline besar
-  paragraf?: string[];
-  // Daftar fun fact bab ini. Jadi kartu penutup deretan sorotan (menggantikan
-  // kartu "Lihat seluruh rekam jejak") dan dipakai lagi di halaman detail sorotan.
-  funFakta?: string[];
-  /**
-   * Ganti judul kartu penutup fun fact di deretan sorotan bab ini.
-   * Bawaan: "Fakta menarik" dengan ikon percikan; "dampak" memakai ikon garis naik.
-   */
-  kartuFakta?: { judul: string; ikon?: "dampak" };
-  tautan?: { label: string; href: "bantuan" | "rekamJejak" | "tera" };
-  /** Sembunyikan kartu penutup "Lihat seluruh rekam jejak" di deretan sorotan bab ini. */
-  tanpaTautanUmum?: boolean;
-  /**
-   * Blok ajakan ngobrol yang menutup deretan sorotan bab ini (menggantikan kartu
-   * sorotan terakhir). Tombolnya selalu menuju WhatsApp dengan `pesanUmum`.
-   */
-  cta?: { judul: string; teks?: string; tombol: string };
-  // Kartu di kolom kanan (gambar + label + judul). Kosong = 3 placeholder.
-  // gambar: path di /public, mis. "/images/kominfo.jpg"
-  sorotan?: {
-    label?: string;
-    judul: string;
-    teks?: string;
-    href: string;
-    gambar?: string;
-    /** 2 = kartu dilebarkan jadi dua kolom di trek sorotan (mulai layar tablet). */
-    lebar?: 2;
-    /**
-     * Tata letak kartu lebar. Default: teks ditumpuk di atas gambar.
-     * "samping" = gambar penuh di kiri, teks di kanan (landscape).
-     */
-    tata?: "samping";
-  }[];
-};
-
 /** Fun fact bab Pelayan; dipakai ulang di halaman detail /rekam-jejak/tera. */
 export const faktaPelayan = [
   "Mendirikan yayasan sebelum umur 30",
@@ -95,65 +64,6 @@ export const faktaPelayan = [
   "Menginisiasi kelas siap kerja anak",
   "Wakil gubernur BEM Fakultas",
   "Juri karya tulis inovasi & leadership",
-];
-
-export const tentang: BabTentang[] = [
-  {
-    id: "perwakilan",
-    label: "Sebagai Desainer Perwakilan Rakyat",
-    judul: "Menerjemahkan visi besar ke dalam rancangan sederhana untuk semua warga.",
-    funFakta: [
-      "Menginisiasi UI/UX mini course di JSC",
-      "Memimpin 7 desainer produk di JSC",
-      'Fitur vaksin viral karena "Eren Yeager"',
-      "2 aplikasi meraih penghargaan global",
-      'Mendesain 3 "super app" di 4 instansi',
-    ],
-  },
-  {
-    id: "pelayan",
-    label: "Sebagai Desainer Pelayan Rakyat",
-    judul: "Mengambil peran walaupun jauh dari kesempurnaan.",
-    funFakta: faktaPelayan,
-    sorotan: [
-      {
-        label: "Mendirikan Tera Foundation",
-        judul: "Bebaskan anak marjinal untuk bermimpi",
-        href: "/rekam-jejak/tera",
-        gambar: "/images/tera-kelas-bimbel-2.webp",
-        lebar: 2,
-      },
-    ],
-  },
-  {
-    id: "pendamping",
-    label: "Sebagai Desainer Pendamping Rakyat",
-    judul: "Memberi nilai tambah untuk ide dan usaha yang kamu kembangkan.",
-    tanpaTautanUmum: true,
-    // Di bab ini daftarnya bicara soal hasil pendampingan, bukan fakta ringan.
-    kartuFakta: { judul: "Dampak", ikon: "dampak" },
-    // TODO: cek ulang & rapikan — draf ini disusun dari materi yang sudah ada di
-    // repo (dua usaha kampus di /tulisan, cerita membangun sistem Tera, dan
-    // angka "Mendampingi 3 sesi konsultasi" di daftar pencapaian).
-    funFakta: [
-      "Sempat bikin dua usaha waktu kuliah",
-      "Bangun sistem operasional bimbel sendiri",
-      "Belajar ngoding dibantu AI, tanpa tim",
-      "Sudah 3 sesi konsultasi pendampingan",
-      "Ngobrol pertama gratis, tanpa komitmen",
-    ],
-    // Satu kartu lebar bergaya kartu Tera (teks di atas gambar), lalu ditutup
-    // kartu fun fact di slot terakhir.
-    // TODO: tambahkan `gambar` kalau fotonya sudah ada.
-    sorotan: [
-      {
-        label: "Membangun Sistem Bimbel",
-        judul: "Dari pencatatan manual jadi serba digital",
-        href: "/rekam-jejak/bimbel-tera",
-        lebar: 2,
-      },
-    ],
-  },
 ];
 
 /** Pembuka cerita Tera; jadi bagian "Konteks" di /rekam-jejak/tera. */
@@ -164,20 +74,3 @@ export const membangunTera = {
     "Menjalankan Tera membuat saya sadar desain saja tidak cukup. Saya mulai membangun sistem sendiri dengan bantuan AI, dari sistem operasional bimbel sampai website Tera. Sebagian sudah jalan, sebagian masih coba-coba.",
 };
 
-/**
- * Segmen kedua di beranda: judul besar (H2) memuat kata kunci utama, paragraf di bawahnya
- * menjelaskan siapa, untuk siapa, dan jaminannya. Teks biasa = string; { ikon } = kotak ikon
- * kecil di sela kata. Klaimnya sama dengan yang ada di kartu Layanan dan segmen Tentang.
- */
-export const pernyataan = {
-  label: "Kenapa bekerja dengan saya",
-  potongan: [
-    "Jasa pembuatan",
-    { ikon: "ide" },
-    "website dan sistem digital yang rapi dan gampang dipakai, dengan",
-    { ikon: "jaminan" },
-    "perbaikan gratis 30 hari setelah jadi.",
-  ],
-  paragraf:
-    "Saya Tito Hanafi, desainer dan pengembang sistem dengan 9+ tahun merancang aplikasi pemerintah. Untuk bisnis, organisasi, atau komunitas, saya yang pegang prosesnya dari rancangan sampai siap dipakai, jadi kamu bisa fokus mengembangkan usaha.",
-} as const;

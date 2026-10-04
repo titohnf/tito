@@ -269,23 +269,6 @@ export function tautanLaporan(l: LaporanKerja) {
   return l.detail ? `/rekam-jejak/${l.detail.slug}` : l.href;
 }
 
-/**
- * Kartu sorotan untuk satu bab di segmen Tentang: proyek dengan segmen yang
- * cocok dan sudah punya halaman detail, jadi kartunya selalu mengarah ke
- * /rekam-jejak/[slug] yang benar-benar ada.
- */
-export function sorotanSegmen(segmen: string) {
-  return laporanKerja
-    .filter((l) => l.detail && l.segmen?.includes(segmen as Segmen))
-    .map((l) => ({
-      label: l.tim,
-      judul: l.judul,
-      teks: l.pencapaian,
-      href: `/rekam-jejak/${l.detail!.slug}`,
-      gambar: l.gambar || undefined,
-    }));
-}
-
 /** Proyek yang punya halaman detail. */
 export function laporanBerdetail() {
   return laporanKerja.filter((l): l is LaporanKerja & { detail: DetailProyek } => Boolean(l.detail));

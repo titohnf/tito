@@ -2,10 +2,3 @@
 .atas {
   background: var(--putih);
 }
-
-/* Banner ajakan diskusi di bawah Rekam Jejak: jarak bawah disamakan dengan
-   padding atas pita Tentang, supaya jarak ke pita sama seperti antar pita lain. */
-.banner {
-  padding-top: var(--jarak-segmen);
-  padding-bottom: var(--jarak-pita);
-}

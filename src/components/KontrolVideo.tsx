@@ -17,7 +17,7 @@ export function KontrolVideo({ judul }: { judul: string }) {
   const [main, setMain] = useState(false);
 
   useEffect(() => {
-    const video = tombolRef.current?.closest("li")?.querySelector<HTMLVideoElement>("button video");
+    const video = tombolRef.current?.closest("li")?.querySelector<HTMLVideoElement>("video");
     if (!video) return;
     videoRef.current = video;
     const sinkron = () => setMain(!video.paused);

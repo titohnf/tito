@@ -17,6 +17,7 @@ export function FunFakta({
   fakta,
   baris = BAWAAN,
   bungkus = false,
+  unduh,
 }: {
   fakta: string[];
   baris?: number;
@@ -27,6 +28,8 @@ export function FunFakta({
    * dengan mode satu-baris.
    */
   bungkus?: boolean;
+  /** Tombol unduh (mis. resume) sejajar dengan tombol "Berikutnya". */
+  unduh?: { href: string; label: string };
 }) {
   const TAMPIL = baris;
   const wadahRef = useRef<HTMLDivElement>(null);
@@ -149,14 +152,23 @@ export function FunFakta({
         </div>
       </div>
 
-      {adaSisa && (
-        <button
-          type="button"
-          className={styles.lagi}
-          onClick={() => setMulai((m) => (m + 1) % fakta.length)}
-        >
-          Berikutnya <span aria-hidden="true">↓</span>
-        </button>
+      {(adaSisa || unduh) && (
+        <div className={styles.aksi}>
+          {adaSisa && (
+            <button
+              type="button"
+              className={styles.lagi}
+              onClick={() => setMulai((m) => (m + 1) % fakta.length)}
+            >
+              Berikutnya <span aria-hidden="true">↓</span>
+            </button>
+          )}
+          {unduh && (
+            <a href={unduh.href} className={styles.lagi} target="_blank" rel="noopener noreferrer">
+              {unduh.label}
+            </a>
+          )}
+        </div>
       )}
     </div>
   );

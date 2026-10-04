@@ -1,3 +1,4 @@
+import { site } from "@/config/site";
 import { tentangSingkat } from "@/content/profil";
 import { FunFakta } from "./FunFakta";
 import { GaleriPolaroid } from "./GaleriPolaroid";
@@ -28,7 +29,12 @@ export function Tentang() {
               {tentangSingkat.paragraf}
             </h2>
             <div className={styles.fakta}>
-              <FunFakta fakta={tentangSingkat.funFakta} bungkus baris={2} />
+              <FunFakta
+                fakta={tentangSingkat.funFakta}
+                bungkus
+                baris={2}
+                unduh={{ href: site.resume, label: "Unduh resume" }}
+              />
             </div>
           </div>
 
