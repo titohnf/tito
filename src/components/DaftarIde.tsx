@@ -77,8 +77,9 @@ export function DaftarIde({ diperbarui }: { diperbarui: string }) {
     // Sentuhan hanya dari pegangan, supaya halaman tetap bisa di-scroll lewat catatan.
     const dariPegangan = (e.target as HTMLElement).closest("[data-pegangan]");
     if (e.pointerType !== "mouse" && !dariPegangan) return;
+    // Pointer capture baru dipasang saat benar-benar menyeret (lihat `geser`): kalau dipasang
+    // sejak tombol ditekan, klik dialihkan ke kartu dan tautan di dalamnya tidak terbuka.
     awal.current = { x: e.clientX, y: e.clientY, bergerak: false };
-    e.currentTarget.setPointerCapture(e.pointerId);
   }
 
   function geser(e: React.PointerEvent<HTMLLIElement>, teks: string) {
@@ -92,6 +93,7 @@ export function DaftarIde({ diperbarui }: { diperbarui: string }) {
     if (!a.bergerak) {
       const { top, left, width, height } = e.currentTarget.getBoundingClientRect();
       a.r = { top, left, width, height };
+      e.currentTarget.setPointerCapture(e.pointerId);
     }
     a.bergerak = true;
     setSeret({ teks, dx, dy, di: kolomDi(e.clientX, e.clientY), r: a.r! });
@@ -200,10 +202,23 @@ export function DaftarIde({ diperbarui }: { diperbarui: string }) {
                           <span className={styles.jenis}>{labelJenis[item.jenis]}</span>
                         )}
                         {item.tautan ? (
+                          item.tautan.startsWith("http") ? (
+                          <a
+                            href={item.tautan}
+                            className={styles.tautan}
+                            draggable={false}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {item.teks}
+                            <ArrowUpRight className={styles.panah} size={14} strokeWidth={2.2} aria-hidden="true" />
+                          </a>
+                        ) : (
                           <Link href={item.tautan} className={styles.tautan} draggable={false}>
                             {item.teks}
                             <ArrowUpRight className={styles.panah} size={14} strokeWidth={2.2} aria-hidden="true" />
                           </Link>
+                        )
                         ) : (
                           <span className={styles.teks}>{item.teks}</span>
                         )}
