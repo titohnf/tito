@@ -1,8 +1,9 @@
 .studi {
   scroll-margin-top: 4rem;
   padding-block: var(--jarak-pita);
-  /* Pita abu netral tipis, beda dari hero (putih) di atasnya. */
-  background: color-mix(in srgb, var(--panel) 50%, var(--putih));
+  /* Pita abu kebiruan tipis (#f5f5f7), beda dari hero (putih) di atasnya dan kartu putih di dalamnya. */
+  --latar-segmen: #f5f5f7;
+  background: var(--latar-segmen);
   text-align: left;
 }
 
@@ -12,4 +13,12 @@
   font-size: clamp(1.75rem, 5.6vw, 2.5rem);
   line-height: 1.12;
   letter-spacing: -0.038em;
+}
+
+/* Subtitle di bawah judul segmen, sebelum bento kartu. */
+.subjudul {
+  margin-top: 0.6rem;
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--tinta-2);
 }

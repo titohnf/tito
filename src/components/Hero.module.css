@@ -1,4 +1,4 @@
-/* Hero rata tengah: foto, sapaan, dan judul. Papan Daftar ide ada tepat di bawahnya. */
+/* Hero rata tengah: sapaan, judul, dan subtitle. Papan Daftar ide ada tepat di bawahnya. */
 .hero {
   text-align: center;
   padding-top: clamp(2.75rem, 6vw, 4.25rem);
@@ -12,16 +12,6 @@
   padding-top: clamp(2rem, 5vw, 3rem);
   padding-bottom: var(--jarak-pita);
   background: var(--putih);
-}
-
-.foto {
-  display: block;
-  width: clamp(4.5rem, 14vw, 6rem);
-  height: auto;
-  aspect-ratio: 1;
-  margin: 0 auto 1rem;
-  border-radius: 50%;
-  object-fit: cover;
 }
 
 .sapaan {
@@ -43,9 +33,34 @@
   text-wrap: balance;
 }
 
+/* Subtitle: cukup besar dan lega supaya enak dibaca, warnanya satu tingkat di bawah judul. */
+.deskripsi {
+  max-width: 36rem;
+  margin: 1.25rem auto 0;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  font-weight: 450;
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+  color: var(--tinta-2);
+  text-wrap: balance;
+}
+
+.aksi {
+  margin-top: 1.75rem;
+}
+
 /* HP: huruf dibesarkan sedikit; judul boleh jadi tiga baris (diseimbangkan). */
 @media (max-width: 639px) {
   .judul {
     font-size: clamp(1.35rem, 6vw, 2rem);
+  }
+
+  /* Subtitle selebar kolom dan sedikit lebih kecil, supaya cukup tiga baris di HP. */
+  .deskripsi {
+    max-width: none;
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
   }
 }

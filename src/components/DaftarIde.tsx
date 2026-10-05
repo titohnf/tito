@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight, GripVertical } from "lucide-react";
 import { Fragment, useRef, useState } from "react";
-import { daftarIde, type Ide, type StatusIde } from "@/content/profil";
+import { daftarIde, type Ide, type JenisIde, type StatusIde } from "@/content/profil";
 import styles from "./DaftarIde.module.css";
 
 // Urutan kolom seperti papan Kanban: dari yang belum dimulai sampai yang selesai.
@@ -12,6 +12,12 @@ const kolom: { status: StatusIde; judul: string }[] = [
   { status: "proses", judul: "Proses" },
   { status: "selesai", judul: "Selesai" },
 ];
+
+const labelJenis: Record<JenisIde, string> = {
+  klien: "Klien",
+  usaha: "Usaha",
+  pribadi: "Pribadi",
+};
 
 type Posisi = { top: number; left: number; width: number; height: number };
 type Seret = { teks: string; dx: number; dy: number; di: StatusIde | null; r: Posisi };
@@ -121,9 +127,12 @@ export function DaftarIde() {
   return (
     <section className={styles.ide} aria-labelledby="daftar-ide-judul">
       <div className={styles.papan}>
-        <h2 id="daftar-ide-judul" className={styles.sr}>
-          Daftar ide
-        </h2>
+        <div className={styles.kepala}>
+          <h2 id="daftar-ide-judul" className={styles.judul}>
+            {daftarIde.judul}
+          </h2>
+          <p className={styles.diperbarui}>Update terakhir: {daftarIde.diperbarui}</p>
+        </div>
         <p id="petunjuk-ide" className={styles.sr}>
           Geser catatan antar kolom dengan mouse. Dengan keyboard, fokus ke catatan lalu
           tekan panah kiri atau kanan.
@@ -184,14 +193,19 @@ export function DaftarIde() {
                         }
                       }}
                     >
-                      {item.tautan ? (
-                        <Link href={item.tautan} className={styles.tautan} draggable={false}>
-                          {item.teks}
-                          <ArrowUpRight className={styles.panah} size={14} strokeWidth={2.2} aria-hidden="true" />
-                        </Link>
-                      ) : (
-                        <span className={styles.teks}>{item.teks}</span>
-                      )}
+                      <div className={styles.isi}>
+                        {item.jenis && (
+                          <span className={styles.jenis}>{labelJenis[item.jenis]}</span>
+                        )}
+                        {item.tautan ? (
+                          <Link href={item.tautan} className={styles.tautan} draggable={false}>
+                            {item.teks}
+                            <ArrowUpRight className={styles.panah} size={14} strokeWidth={2.2} aria-hidden="true" />
+                          </Link>
+                        ) : (
+                          <span className={styles.teks}>{item.teks}</span>
+                        )}
+                      </div>
                       <span className={styles.pegangan} data-pegangan aria-hidden="true">
                         <GripVertical size={16} strokeWidth={2} />
                       </span>
@@ -199,7 +213,7 @@ export function DaftarIde() {
                   );
                   return diseret ? (
                     <Fragment key={item.teks}>
-                      <li aria-hidden="true" className={styles.lubang} />
+                      <li aria-hidden="true" className={styles.lubang} style={{ height: seret.r.height }} />
                       {kartu}
                     </Fragment>
                   ) : (
@@ -210,8 +224,6 @@ export function DaftarIde() {
             </div>
           );
         })}
-
-        <p className={styles.diperbarui}>Update terakhir: {daftarIde.diperbarui}</p>
       </div>
     </section>
   );

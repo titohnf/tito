@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { kartuStudiKasus, type KartuPortofolio } from "@/content/portofolio";
 import { BentoPortofolio } from "./BentoPortofolio";
-import { KontrolVideo } from "./KontrolVideo";
 import { PratinjauBimbel } from "./PratinjauBimbel";
 import kartuStyles from "./KartuGrid.module.css";
 import styles from "./Portofolio.module.css";
@@ -13,14 +12,7 @@ function KartuItem({ k }: { k: KartuPortofolio }) {
       <div
         className={`${kartuStyles.kartu} ${styles.kartuTinggiTetap}`}
       >
-        <div className={`${styles.bingkai} ${k.mobile ? styles.bingkaiMobile : ""}`}>
-          {!k.mobile && (
-            <span className={styles.bilah} aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-          )}
+        <div className={`${styles.bingkai} ${k.mobile ? styles.bingkaiMobile : styles.bingkaiLaptop}`}>
           <div className={`${styles.layar} ${k.mobile ? styles.layarMobile : ""}`}>
             {k.pratinjau ? (
               <PratinjauBimbel />
@@ -59,11 +51,12 @@ function KartuItem({ k }: { k: KartuPortofolio }) {
           </div>
         </div>
         <h3
-          className={`${kartuStyles.namaKartu} ${styles.judulKartu} ${styles.judulKartuOverlay} ${k.video ? styles.judulBerkontrol : ""} ${k.logo ? styles.judulLogo : ""}`}
+          className={`${kartuStyles.namaKartu} ${styles.judulKartu} ${styles.judulKartuOverlay} ${k.mobile ? styles.judulHp : styles.judulWeb} ${k.logo ? styles.judulLogo : ""}`}
         >
           {k.logo && (
             <Image src={k.logo} alt="" width={88} height={88} className={styles.logoKartu} />
           )}
+          {k.judul}
           {(k.label || k.tag) && (
             <span className={styles.barisLabel}>
               {k.label && <span className={styles.labelKartu}>{k.label}</span>}
@@ -74,10 +67,7 @@ function KartuItem({ k }: { k: KartuPortofolio }) {
               ))}
             </span>
           )}
-          {k.judul}
-          {k.deskripsi && <span className={styles.deskripsiKartu}>{k.deskripsi}</span>}
         </h3>
-        {k.video && <KontrolVideo judul={k.judul} />}
         <Link
           href={`/studi-kasus/${k.slug}`}
           className={styles.linkKartu}

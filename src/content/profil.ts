@@ -6,8 +6,12 @@ export const hero = {
   sapaan: "Hi, saya Tito Hanafi 👋",
   judul: "Desainer Produk, 9+ Tahun di Pemerintahan",
   // Kalimat utama (H1). Jabatan (`judul`) dipakai untuk SEO / gambar preview link.
-  judulUtama:
-    "Desainer yang menggunakan AI untuk mewujudkan ide dan mimpinya",
+  judulUtama: "Saya mendesain produk digital dan membangunnya dengan AI",
+  // Satu kalimat di bawah H1: pengalaman dan ajakan kolaborasi.
+  deskripsi: "9+ tahun di pemerintahan, kini terbuka untuk kolaborasi bersama Anda",
+  // Tombol di bawah subtitle; membuka WhatsApp dengan pesan pembuka ini.
+  tombol: "Mulai projek bersama",
+  pesanWA: "Halo Tito, saya tertarik untuk memulai projek bersama.",
   // Dipakai di gambar preview link (OG)
   catatanTombol: "Kini membangun sistem sendiri pakai AI.",
 };
@@ -15,13 +19,19 @@ export const hero = {
 /** Segmen pengantar tepat di bawah hero. */
 export const pernyataan = {
   judul: "Studi kasus",
+  subjudul: "Produk yang saya desain dan bangun dengan AI",
 } as const;
 
 export type StatusIde = "menunggu" | "proses" | "selesai";
 
+/** Asal projek: untuk klien berbayar, untuk usaha sendiri, atau milik pribadi di luar usaha. */
+export type JenisIde = "klien" | "usaha" | "pribadi";
+
 export type Ide = {
   teks: string;
   status: StatusIde;
+  /** Konteks projek; tampil sebagai label kecil di kartu. Kosong = tanpa label. */
+  jenis?: JenisIde;
   /** Tautan ke hasilnya; hanya dipakai untuk ide yang sudah selesai. */
   tautan?: string;
 };
@@ -29,18 +39,18 @@ export type Ide = {
 /** Daftar ide di kolom kanan hero. Dikelompokkan per status; urutan di sini = urutan
  * tampil di dalam kelompoknya. Data masih dummy. */
 export const daftarIde: { judul: string; diperbarui: string; butir: Ide[] } = {
-  judul: "Daftar ide",
-  /** Tanggal update terakhir papan, tampil di pojok kanan bawah. */
+  judul: "Daftar Projek",
+  /** Tanggal update terakhir papan, tampil sejajar judul di sisi kanan. */
   diperbarui: "4 Oktober 2026",
   butir: [
-    { teks: "Membuat website pribadi", status: "selesai", tautan: "/" },
-    { teks: "Membuat website usaha", status: "selesai", tautan: "/rekam-jejak" },
-    { teks: "Membuat website komunitas", status: "proses" },
-    { teks: "Membuat aplikasi fondasi matematika", status: "proses" },
-    { teks: "Membuat dashboard bimbel", status: "proses" },
-    { teks: "Membuat aplikasi penguasaan materi matematika", status: "menunggu" },
-    { teks: "Membuat tools pembuatan soal", status: "menunggu" },
-    { teks: "Membuat sistem pencatatan keuangan", status: "menunggu" },
+    { teks: "Membuat website pribadi", status: "selesai", jenis: "pribadi", tautan: "/" },
+    { teks: "Membuat website usaha", status: "selesai", jenis: "usaha", tautan: "/rekam-jejak" },
+    { teks: "Membuat website komunitas", status: "proses", jenis: "pribadi" },
+    { teks: "Membuat aplikasi fondasi matematika", status: "proses", jenis: "usaha" },
+    { teks: "Membuat dashboard bimbel", status: "proses", jenis: "usaha" },
+    { teks: "Membuat aplikasi penguasaan materi matematika", status: "menunggu", jenis: "usaha" },
+    { teks: "Membuat tools pembuatan soal", status: "menunggu", jenis: "usaha" },
+    { teks: "Membuat sistem pencatatan keuangan", status: "menunggu", jenis: "pribadi" },
   ],
 };
 

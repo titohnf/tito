@@ -67,6 +67,7 @@ const kelompokBimbel: KelompokPortofolio[] = [
       {
         judul: "Dasbor tutor dan orang tua",
         slug: "dasbor-tutor-orang-tua",
+        tag: ["Usaha"],
         deskripsi: "Dari progres siswa hingga status pembayaran, semua tercatat dengan jelas.",
         teks: "Dari pencatatan manual jadi serba digital, dibangun dari nol untuk bimbel keluarga sendiri. Bukan klien berbayar, tapi cara kerjanya sama.",
         // Rekaman layar sistem beneran (data dummy, bukan siswa asli).
@@ -76,6 +77,7 @@ const kelompokBimbel: KelompokPortofolio[] = [
       {
         judul: "Website Bimbel Tera",
         slug: "website-bimbel-tera",
+        tag: ["Usaha"],
         deskripsi: "Menampilkan informasi seputar bimbel",
         teks: "Website bimbel yang dibangun sendiri, dari beranda sampai bagian bawah.",
         situs: "https://bimbeltera.com",
@@ -94,6 +96,7 @@ const kelompokAplikasiBelajar: KelompokPortofolio[] = [
       {
         judul: "Aplikasi belajar siswa",
         slug: "aplikasi-belajar-siswa",
+        tag: ["Usaha"],
         deskripsi: "Siswa dapat belajar mandiri di rumah",
         teks: "Dari portal keluarga, anak bisa memilih mapel dan topik lalu membaca materinya sendiri, kapan saja tanpa perlu nunggu tutor.",
         // Rekaman layar portal keluarga beneran (akun & siswa dummy, bukan siswa asli), ukuran mobile.
@@ -104,6 +107,7 @@ const kelompokAplikasiBelajar: KelompokPortofolio[] = [
       {
         judul: "Aplikasi latihan soal",
         slug: "aplikasi-latihan-soal",
+        tag: ["Usaha"],
         deskripsi: "Desain soal interaktif sesuai kebutuhan",
         teks: "Tes berhitung, dari nilai tempat. Tiap soal dijawab langsung di HP.",
         // Rekaman layar soal 1–5 Tes Fondasi Digital (halaman soal dijalankan lokal, bukan data siswa asli).

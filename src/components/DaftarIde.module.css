@@ -95,7 +95,7 @@
 /* Tinggi daftar mengikuti isinya, maksimal setara 5 kartu; kalau lebih, daftar bisa di-scroll. Padding
    kecil memberi ruang untuk bayangan kartu yang kalau tidak terpotong area scroll. */
 .daftar {
-  --tinggi-kartu: 4.4rem;
+  --tinggi-kartu: 4.6rem;
   --jarak-kartu: 0.6rem;
   display: flex;
   flex-direction: column;
@@ -112,7 +112,7 @@
 /* Pengganti kartu yang sedang diseret, supaya kartu lain tidak bergeser. */
 .lubang {
   flex: none;
-  height: var(--tinggi-kartu);
+  min-height: var(--tinggi-kartu);
   border: 1px dashed color-mix(in srgb, var(--warna) 45%, transparent);
   border-radius: 12px;
 }
@@ -124,8 +124,8 @@
   flex: none;
   align-items: center;
   gap: 0.5rem;
-  height: var(--tinggi-kartu);
-  padding: 0 0.6rem 0 1rem;
+  min-height: 3.75rem;
+  padding: 0.75rem 0.6rem 0.75rem 1rem;
   overflow: hidden;
   border: 1px solid var(--garis);
   border-radius: 12px;
@@ -172,9 +172,30 @@
   transition: none;
 }
 
+/* Isi kartu: label asal projek (opsional) di atas, teks projek di bawahnya. */
+.isi {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+/* Chip asal projek: pil kecil berwarna samar mengikuti warna kolomnya. */
+.jenis {
+  align-self: flex-start;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--warna) 14%, var(--putih));
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--tinta-2);
+}
+
 .teks,
 .tautan {
-  flex: 1;
   min-width: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -228,11 +249,27 @@
   text-align: center;
 }
 
-/* Tanggal update terakhir di pojok kanan bawah container. */
-.diperbarui {
+/* Kepala papan: judul di kiri, tanggal update terakhir sejajar di kanan. */
+.kepala {
   grid-column: 1 / -1;
-  margin: 0.5rem 0.75rem 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  padding: 0.25rem 0.75rem 0.15rem;
+}
+
+.judul {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--tinta);
+}
+
+.diperbarui {
+  margin: 0;
   font-size: 0.8125rem;
-  text-align: right;
+  white-space: nowrap;
   color: var(--tinta-3);
 }

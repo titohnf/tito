@@ -10,6 +10,7 @@ export function Pernyataan() {
         <h2 id="pernyataan-judul" className={styles.judul}>
           {pernyataan.judul}
         </h2>
+        <p className={styles.subjudul}>{pernyataan.subjudul}</p>
         <Portofolio />
       </div>
     </section>
