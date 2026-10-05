@@ -23,6 +23,7 @@ export const site = {
   // Nomor WhatsApp, format internasional tanpa + dan spasi (0812-1219-4626).
   whatsapp: "6281212194626",
   email: "titohnf@gmail.com",
+  linkedin: "https://www.linkedin.com/in/titohanafi/",
 
   // Ganti nama file setiap kali foto diganti, supaya cache gambar ikut diperbarui
   // Versi 80×80 px, ditampilkan pixelated. Buat ulang dari foto asli:

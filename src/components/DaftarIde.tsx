@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight, GripVertical } from "lucide-react";
 import { Fragment, useRef, useState } from "react";
-import { daftarIde, type Ide, type JenisIde, type StatusIde } from "@/content/profil";
+import { daftarIde, type Ide, type JenisIde, type StatusIde } from "@/content/kanban";
 import styles from "./DaftarIde.module.css";
 
 // Urutan kolom seperti papan Kanban: dari yang belum dimulai sampai yang selesai.
@@ -25,9 +25,10 @@ type Seret = { teks: string; dx: number; dy: number; di: StatusIde | null; r: Po
 /**
  * Papan Kanban Daftar ide: tiap ide berupa kartu yang bisa digeser antar kolom
  * (mouse atau sentuhan lewat pegangan di kanan; keyboard dengan panah kiri/kanan).
- * Posisi hanya tersimpan selama halaman terbuka.
+ * Posisi hanya tersimpan selama halaman terbuka. `diperbarui` = teks tanggal update terakhir,
+ * dihitung di server (lihat Hero).
  */
-export function DaftarIde() {
+export function DaftarIde({ diperbarui }: { diperbarui: string }) {
   const [ide, setIde] = useState<Ide[]>(daftarIde.butir);
   const [seret, setSeret] = useState<Seret | null>(null);
 
@@ -131,13 +132,14 @@ export function DaftarIde() {
           <h2 id="daftar-ide-judul" className={styles.judul}>
             {daftarIde.judul}
           </h2>
-          <p className={styles.diperbarui}>Update terakhir: {daftarIde.diperbarui}</p>
+          <p className={styles.diperbarui}>Update terakhir: {diperbarui}</p>
         </div>
         <p id="petunjuk-ide" className={styles.sr}>
           Geser catatan antar kolom dengan mouse. Dengan keyboard, fokus ke catatan lalu
           tekan panah kiri atau kanan.
         </p>
 
+        <div className={styles.kolomWadah}>
         {kolom.map(({ status, judul }) => {
           const isi = ide.filter((i) => i.status === status);
           return (
@@ -224,6 +226,7 @@ export function DaftarIde() {
             </div>
           );
         })}
+        </div>
       </div>
     </section>
   );

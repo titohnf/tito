@@ -9,8 +9,8 @@ export type Kebutuhan = { id: string; label: string; kalimat: string; untuk: str
 
 export const peran: Peran[] = [
   { id: "perusahaan", label: "mewakili perusahaan/organisasi", kalimat: "mewakili sebuah perusahaan/organisasi" },
+  { id: "umkm", label: "pemilik UMKM", kalimat: "pemilik UMKM" },
   { id: "desainer", label: "sesama desainer atau builder", kalimat: "sesama desainer/builder" },
-  { id: "media", label: "media atau penyelenggara acara", kalimat: "dari media/penyelenggara acara" },
   { id: "lainnya", label: "lainnya", kalimat: "" },
 ];
 
@@ -37,7 +37,13 @@ export const kebutuhan: Kebutuhan[] = [
     id: "undangan",
     label: "mengundang untuk sharing atau ngajar",
     kalimat: "ingin mengundang kamu untuk sharing atau ngajar",
-    untuk: peran.map((p) => p.id),
+    untuk: peran.filter((p) => p.id !== "umkm").map((p) => p.id),
+  },
+  {
+    id: "website",
+    label: "butuh website untuk usaha saya",
+    kalimat: "butuh website untuk usaha saya",
+    untuk: ["umkm"],
   },
 ];
 

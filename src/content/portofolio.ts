@@ -31,6 +31,10 @@ export type KartuPortofolio = {
   pratinjau?: boolean;
   /** Rekamannya berbentuk potret HP (bukan lebar 16:9), tampil sebagai mockup ponsel. */
   mobile?: boolean;
+  /** Tujuan klik kartu; kalau kosong, ke halaman studi kasus /studi-kasus/<slug>. */
+  tautan?: { href: string; eksternal?: boolean };
+  /** Kartu tanpa mockup: kalimat sorotan besar (mis. penghargaan) yang menggantikan gambar. */
+  sorotan?: string;
 };
 
 export type KelompokPortofolio = {
@@ -131,6 +135,32 @@ export const segmenPortofolio: SegmenPortofolio[] = [
     judul: "Membangun aplikasi belajar 📱",
     pil: ["PT. Sinergi Cendikia Indonesia"],
     kelompok: kelompokAplikasiBelajar,
+  },
+];
+
+/**
+ * Produk pemerintahan yang saya desain, ditampilkan di bawah bento studi kasus AI.
+ * Dikerjakan sebelum era AI, jadi dipisah dari `segmenPortofolio`. Bukan bagian dari
+ * halaman /studi-kasus/<slug>; kartunya langsung menaut ke situs masing-masing.
+ * Data mengikuti `laporan-kerja.ts`.
+ */
+export const kartuPemerintahan: KartuPortofolio[] = [
+  {
+    judul: "Membangun Rumah Pendidikan",
+    slug: "rumah-pendidikan",
+    tag: ["Kemendikdasmen - INA Digital Edu"],
+    teks: "Menyatukan 8 ruang layanan pendidikan dalam satu pintu masuk. Winner WSIS Prizes 2026, pertama kalinya untuk Indonesia.",
+    // Tangkapan layar beranda rumah.pendidikan.go.id (16:9, sama dengan rasio layar laptop).
+    gambar: "/images/rumah-pendidikan-kartu-3.webp",
+    tautan: { href: "https://rumah.pendidikan.go.id", eksternal: true },
+  },
+  {
+    judul: "Redesain JAKI",
+    slug: "redesain-jaki",
+    tag: ["Pemprov DKI Jakarta - Jakarta Smart City"],
+    gambar: "/images/jaki-kartu.webp",
+    mobile: true,
+    tautan: { href: "http://jaki.jakarta.go.id/", eksternal: true },
   },
 ];
 

@@ -1,4 +1,4 @@
-/* Hero rata tengah: sapaan, judul, dan subtitle. Papan Daftar ide ada tepat di bawahnya. */
+/* Hero rata tengah: foto, sapaan, judul, dan subtitle. Papan Daftar ide ada tepat di bawahnya. */
 .hero {
   text-align: center;
   padding-top: clamp(2.75rem, 6vw, 4.25rem);
@@ -12,6 +12,16 @@
   padding-top: clamp(2rem, 5vw, 3rem);
   padding-bottom: var(--jarak-pita);
   background: var(--putih);
+}
+
+.foto {
+  display: block;
+  width: clamp(4.5rem, 14vw, 6rem);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .sapaan {

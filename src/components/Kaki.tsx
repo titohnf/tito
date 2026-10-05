@@ -24,6 +24,11 @@ export function Kaki({ sambung = false }: { sambung?: boolean }) {
               </a>
             </li>
             <li>
+              <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+            </li>
+            <li>
               <a href={`mailto:${site.email}`}>{site.email}</a>
             </li>
           </ul>

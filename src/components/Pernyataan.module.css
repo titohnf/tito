@@ -7,18 +7,33 @@
   text-align: left;
 }
 
-/* Judul segmen: sama dengan judul segmen beranda lain (mis. "Membangun sistem bimbel"). */
-.judul {
-  font-weight: var(--bobot-judul);
-  font-size: clamp(1.75rem, 5.6vw, 2.5rem);
-  line-height: 1.12;
-  letter-spacing: -0.038em;
+/* Label kecil di atas judul segmen, gayanya sama dengan label segmen Tentang saya. */
+.label {
+  margin-bottom: 1rem;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
 }
 
-/* Subtitle di bawah judul segmen, sebelum bento kartu. */
-.subjudul {
-  margin-top: 0.6rem;
-  font-size: clamp(1rem, 2.4vw, 1.2rem);
-  line-height: 1.5;
-  color: var(--tinta-2);
+/* Judul segmen: ukurannya sama dengan judul sub-bagian pemerintahan di bawahnya (.judulSub). */
+.judul {
+  font-weight: var(--bobot-judul);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+/* Sub-bagian produk pemerintahan di bawah bento AI. */
+.pemerintahan {
+  margin-top: clamp(4.5rem, 11vw, 7rem);
+}
+
+.judulSub {
+  font-weight: var(--bobot-judul);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
 }

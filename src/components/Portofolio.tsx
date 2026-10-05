@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { kartuStudiKasus, type KartuPortofolio } from "@/content/portofolio";
 import { BentoPortofolio } from "./BentoPortofolio";
+import { PerbesarKartu } from "./PerbesarKartu";
 import { PratinjauBimbel } from "./PratinjauBimbel";
 import kartuStyles from "./KartuGrid.module.css";
 import styles from "./Portofolio.module.css";
@@ -12,6 +13,7 @@ function KartuItem({ k }: { k: KartuPortofolio }) {
       <div
         className={`${kartuStyles.kartu} ${styles.kartuTinggiTetap}`}
       >
+        {(k.pratinjau || k.video || k.gambar) ? (
         <div className={`${styles.bingkai} ${k.mobile ? styles.bingkaiMobile : styles.bingkaiLaptop}`}>
           <div className={`${styles.layar} ${k.mobile ? styles.layarMobile : ""}`}>
             {k.pratinjau ? (
@@ -50,6 +52,15 @@ function KartuItem({ k }: { k: KartuPortofolio }) {
             )}
           </div>
         </div>
+        ) : (
+          <div className={styles.sorotan}>
+            <p className={styles.sorotanJudul}>{k.sorotan}</p>
+            {k.teks && <p className={styles.sorotanTeks}>{k.teks}</p>}
+          </div>
+        )}
+        {!k.mobile && (k.pratinjau || k.video || k.gambar) && (
+          <span className={styles.alas} aria-hidden="true" />
+        )}
         <h3
           className={`${kartuStyles.namaKartu} ${styles.judulKartu} ${styles.judulKartuOverlay} ${k.mobile ? styles.judulHp : styles.judulWeb} ${k.logo ? styles.judulLogo : ""}`}
         >
@@ -68,11 +79,32 @@ function KartuItem({ k }: { k: KartuPortofolio }) {
             </span>
           )}
         </h3>
-        <Link
-          href={`/studi-kasus/${k.slug}`}
-          className={styles.linkKartu}
-          aria-label={`Baca studi kasus: ${k.judul}`}
-        />
+        {k.tautan?.eksternal ? (
+          <a
+            href={k.tautan.href}
+            className={styles.linkKartu}
+            aria-label={`Buka ${k.judul}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        ) : !k.tautan && (k.video || k.gambar) ? (
+          // Produk internal tanpa situs: klik memperbesar rekamannya di pop up. Halaman studi
+          // kasus (/studi-kasus/<slug>) belum ditautkan sampai tulisannya selesai.
+          <PerbesarKartu
+            judul={k.judul}
+            video={k.video}
+            poster={k.poster}
+            gambar={k.gambar}
+            tag={k.tag}
+            mobile={k.mobile}
+          />
+        ) : (
+          <Link
+            href={k.tautan?.href ?? `/studi-kasus/${k.slug}`}
+            className={styles.linkKartu}
+            aria-label={k.tautan ? `Baca selengkapnya: ${k.judul}` : `Baca studi kasus: ${k.judul}`}
+          />
+        )}
       </div>
     </div>
   );
@@ -82,8 +114,8 @@ function KartuItem({ k }: { k: KartuPortofolio }) {
  * Semua kartu studi kasus dalam satu bento: kartu web (lebar) dan kartu HP (sempit)
  * berselang-seling per baris, tanpa dipisah per segmen.
  */
-export function Portofolio() {
-  const semua = kartuStudiKasus();
+export function Portofolio({ kartu }: { kartu?: KartuPortofolio[] }) {
+  const semua = kartu ?? kartuStudiKasus();
   const web = semua.filter((k) => !k.mobile);
   const hp = semua.filter((k) => k.mobile);
   const urut: KartuPortofolio[] = [];

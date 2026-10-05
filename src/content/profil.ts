@@ -20,39 +20,12 @@ export const hero = {
 export const pernyataan = {
   judul: "Studi kasus",
   subjudul: "Produk yang saya desain dan bangun dengan AI",
+  /** Sub-bagian di bawah bento AI: produk pemerintahan, dikerjakan sebelum era AI. */
+  pemerintahan: {
+    judul: "Produk yang saya desain di Pemerintahan",
+  },
+
 } as const;
-
-export type StatusIde = "menunggu" | "proses" | "selesai";
-
-/** Asal projek: untuk klien berbayar, untuk usaha sendiri, atau milik pribadi di luar usaha. */
-export type JenisIde = "klien" | "usaha" | "pribadi";
-
-export type Ide = {
-  teks: string;
-  status: StatusIde;
-  /** Konteks projek; tampil sebagai label kecil di kartu. Kosong = tanpa label. */
-  jenis?: JenisIde;
-  /** Tautan ke hasilnya; hanya dipakai untuk ide yang sudah selesai. */
-  tautan?: string;
-};
-
-/** Daftar ide di kolom kanan hero. Dikelompokkan per status; urutan di sini = urutan
- * tampil di dalam kelompoknya. Data masih dummy. */
-export const daftarIde: { judul: string; diperbarui: string; butir: Ide[] } = {
-  judul: "Daftar Projek",
-  /** Tanggal update terakhir papan, tampil sejajar judul di sisi kanan. */
-  diperbarui: "4 Oktober 2026",
-  butir: [
-    { teks: "Membuat website pribadi", status: "selesai", jenis: "pribadi", tautan: "/" },
-    { teks: "Membuat website usaha", status: "selesai", jenis: "usaha", tautan: "/rekam-jejak" },
-    { teks: "Membuat website komunitas", status: "proses", jenis: "pribadi" },
-    { teks: "Membuat aplikasi fondasi matematika", status: "proses", jenis: "usaha" },
-    { teks: "Membuat dashboard bimbel", status: "proses", jenis: "usaha" },
-    { teks: "Membuat aplikasi penguasaan materi matematika", status: "menunggu", jenis: "usaha" },
-    { teks: "Membuat tools pembuatan soal", status: "menunggu", jenis: "usaha" },
-    { teks: "Membuat sistem pencatatan keuangan", status: "menunggu", jenis: "pribadi" },
-  ],
-};
 
 export const tentangSingkat = {
   judul: "Tentang saya",

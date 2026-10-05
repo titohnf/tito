@@ -12,11 +12,11 @@
 }
 
 /* Satu container untuk seluruh papan; kolom berwarna di dalamnya dipisah celah tipis.
-   Tiga kolom di web, ditumpuk di layar sempit. */
+   Tiga kolom berdampingan di web; di HP kolomnya digeser ke samping (swipe), tidak
+   ditumpuk ke bawah. */
 .papan {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
   padding: 0.5rem;
   border: 1px solid var(--garis);
@@ -24,10 +24,38 @@
   background: var(--putih);
 }
 
+.kolomWadah {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.kolomWadah::-webkit-scrollbar {
+  display: none;
+}
+
+/* Kolom selebar ~85% layar supaya kolom berikutnya mengintip dan jelas bisa digeser. */
+.kolomWadah > .kolom {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+}
+
 @media (min-width: 760px) {
   .papan {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     padding: 0.75rem;
+  }
+
+  .kolomWadah {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  .kolomWadah > .kolom {
+    flex: none;
   }
 }
 

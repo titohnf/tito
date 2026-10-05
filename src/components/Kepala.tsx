@@ -10,7 +10,8 @@ const menu = [
   { label: "Beranda", href: "/" },
   // Tautan ke segmen di beranda: <a> biasa supaya langsung melompat, juga dari halaman lain.
   { label: "Studi Kasus", href: "/#studi-kasus", segmen: true },
-  { label: "Kontak", href: `/${site.tautan.ngobrol}`, segmen: true },
+  { label: "Tentang", href: "/#tentang", segmen: true },
+  { label: "Kolaborasi", href: `/${site.tautan.ngobrol}`, segmen: true },
 ];
 
 export function Kepala() {

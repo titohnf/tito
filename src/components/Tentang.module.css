@@ -1,4 +1,5 @@
 .tentang {
+  scroll-margin-top: 4rem;
   padding-block: var(--jarak-pita);
   background: var(--putih);
 }
